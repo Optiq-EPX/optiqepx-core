@@ -101,7 +101,7 @@ export default function AdminDashboardClient({
                 <Key className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="text-2xl font-space-grotesk font-black text-foreground/90 leading-tight">Gemini Runtime</h3>
+                <h3 className="text-2xl font-space-grotesk font-black text-foreground/90 leading-tight">AI Runtime</h3>
                 <p className="text-xs font-black font-outfit text-muted-foreground uppercase tracking-widest opacity-60">AI Intelligence Core</p>
               </div>
             </div>

@@ -44,7 +44,7 @@ export function ActiveBattle({ classLevel, topic }: { classLevel: string, topic:
       <Card className="w-full max-w-2xl mx-auto shadow-lg bg-card/50 backdrop-blur-sm border-white/10 mt-10">
         <CardContent className="flex flex-col items-center justify-center p-12 text-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
-          <h3 className="text-xl font-space-grotesk font-semibold text-primary">Gemini AI is crafting your Battle...</h3>
+          <h3 className="text-xl font-space-grotesk font-semibold text-primary">The AI is crafting your Battle...</h3>
           <p className="text-muted-foreground font-outfit text-sm max-w-sm">Generating perfectly balanced questions for Class {classLevel} regarding {topic}. Get ready!</p>
         </CardContent>
       </Card>

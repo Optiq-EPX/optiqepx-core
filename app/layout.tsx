@@ -6,17 +6,17 @@ import { MotionProvider } from "@/components/shared/MotionProvider";
 import "./globals.css";
 
 const outfit = Outfit({
-  variable: "--font-outfit",
+  variable: "--font-outfit-var",
   subsets: ["latin"],
 });
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+  variable: "--font-space-grotesk-var",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "OptiqEPX — AI-Powered Student Learning & Growth Platform",
+  title: "OptiqEPX | AI-Powered Student Learning & Growth Platform",
   description: "Compete in study battles, collaborate in live rooms, and grow with a personal AI tutor. The next-generation platform for students.",
 };
 

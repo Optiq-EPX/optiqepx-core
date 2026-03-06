@@ -57,12 +57,9 @@ export function Logo({ className, iconOnly = false }: LogoProps) {
       {}
       {!iconOnly && (
         <span className="flex flex-col">
-          <span className="text-2xl font-space-grotesk font-black tracking-tighter leading-none mb-0.5">
+          <span className="text-2xl font-space-grotesk font-black tracking-tighter leading-none">
             <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">Optiq</span>
             <span className="text-foreground dark:text-white">EPX</span>
-          </span>
-          <span className="text-[8px] font-black font-outfit uppercase tracking-[0.4em] text-muted-foreground/60 leading-none">
-            Pro Alpha Series
           </span>
         </span>
       )}

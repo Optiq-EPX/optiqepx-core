@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     question: 'How does the AI Study Assistant help?',
-    answer: 'The AI Tutor is powered by Google Gemini and adapts its language and complexity to match the student\'s exact class level. It uses the Socratic method — guiding students to discover answers rather than simply providing them.',
+    answer: 'The AI Tutor is powered by our advanced intelligence engine and adapts its language and complexity to match the student\'s exact class level. It uses the Socratic method — guiding students to discover answers rather than simply providing them.',
   },
   {
     question: 'Can teachers or instructors manage content?',
