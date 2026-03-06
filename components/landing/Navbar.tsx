@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { Logo } from '@/components/shared/Logo';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 const navLinks = [
   { label: 'Features', href: '#features' },
@@ -66,6 +67,7 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <Button variant="ghost" size="sm" asChild className="font-outfit font-semibold hover:bg-white/10 rounded-xl transition-all">
             <Link href="/login">Log In</Link>
           </Button>
@@ -81,13 +83,16 @@ export function Navbar() {
           style={{ scaleX: scrollYProgress }}
         />
 
-        <button
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="md:hidden p-2.5 rounded-xl hover:bg-accent/50 transition-colors bg-white/5 border border-white/10 relative z-10"
-          aria-label="Toggle menu"
-        >
-          {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden relative z-10">
+          <ThemeToggle />
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="p-2.5 rounded-xl hover:bg-accent/50 transition-colors bg-white/5 border border-white/10"
+            aria-label="Toggle menu"
+          >
+            {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>

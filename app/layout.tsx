@@ -3,6 +3,7 @@ import { Outfit, Space_Grotesk } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { StoreProvider } from "@/store/StoreProvider";
 import { MotionProvider } from "@/components/shared/MotionProvider";
+import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -29,13 +30,21 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${outfit.variable} ${spaceGrotesk.variable} antialiased`}
+        suppressHydrationWarning
       >
-        <StoreProvider>
-          <MotionProvider> {}
-            {children}
-          </MotionProvider>
-          <Toaster />
-        </StoreProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StoreProvider>
+            <MotionProvider> {}
+              {children}
+            </MotionProvider>
+            <Toaster />
+          </StoreProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
