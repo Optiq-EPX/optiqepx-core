@@ -21,16 +21,11 @@ export async function POST(req: Request) {
 
     const systemInstruction = `You are a friendly, encouraging, and highly intelligent educational tutor. You are currently speaking with a student in Class/Grade ${classLevel}. You must tailor your explanations, vocabulary, and examples perfectly to a student of this level. Never give direct answers to homework; instead, guide them to figure it out using the Socratic method. Format your mathematical and scientific text clearly.`;
 
-    
     const geminiContents = messages.map(m => ({
         role: m.role === 'user' ? 'user' : 'model',
         parts: [{ text: m.content }]
     }));
 
-    
-    
-    
-    
     let promptText = `${systemInstruction}\n\n`;
     messages.forEach((m: any) => {
         promptText += `${m.role === 'user' ? 'Student' : 'Tutor'}: ${m.content}\n`;

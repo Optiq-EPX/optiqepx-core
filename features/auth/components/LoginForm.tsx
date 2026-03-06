@@ -8,7 +8,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
-import { Loader2, AtSign, Lock, Eye, EyeOff, LogIn, ShieldCheck } from 'lucide-react';
+import { Loader2, AtSign, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {

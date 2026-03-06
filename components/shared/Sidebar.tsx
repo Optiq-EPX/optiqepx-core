@@ -32,9 +32,7 @@ const getNavItems = (role: string) => {
   ];
 
   if (role === 'admin' || role === 'moderator') {
-    
-    
-    
+
   }
 
   return baseItems;

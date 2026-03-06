@@ -59,8 +59,7 @@ export function ActiveBattle({ classLevel, topic }: { classLevel: string, topic:
     
     setSelectedAnswer(index);
     setIsAnswerRevealed(true);
-    
-    
+
     if (index === currentQuestion.correctAnswerIndex) {
       dispatch(addScore(100));
       toast.success('Correct! +100 Points');
@@ -68,7 +67,6 @@ export function ActiveBattle({ classLevel, topic }: { classLevel: string, topic:
       toast.error('Incorrect!');
     }
 
-    
     setTimeout(() => {
       setSelectedAnswer(null);
       setIsAnswerRevealed(false);

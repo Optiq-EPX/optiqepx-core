@@ -2,8 +2,6 @@ import { GoogleGenAI } from '@google/genai';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-
-
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export async function POST(req: Request) {
@@ -16,7 +14,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    
     const body = await req.json();
     const { topic, classLevel, questionCount = 5 } = body;
 
@@ -24,7 +21,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Topic and classLevel are required' }, { status: 400 });
     }
 
-    
     const prompt = `
       You are an expert educational tutor. Generate a ${questionCount}-question multiple choice quiz on the topic of "${topic}" tailored for a student in Class/Grade ${classLevel}.
       
@@ -47,7 +43,6 @@ export async function POST(req: Request) {
       ]
     `;
 
-    
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: prompt,
@@ -58,11 +53,9 @@ export async function POST(req: Request) {
     });
 
     const outputText = response.text;
-    
-    
+
     const cleanedText = outputText?.replace(/```json\n/g, '').replace(/```\n?/g, '').trim();
 
-    
     const quizData = JSON.parse(cleanedText || '[]');
     
     return NextResponse.json({ questions: quizData });

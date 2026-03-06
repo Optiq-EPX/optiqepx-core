@@ -52,13 +52,10 @@ export function StudyRoomActive({
         }
       });
 
-    
     const timer = setInterval(() => {
       setElapsedTime(prev => prev + 1);
     }, 1000);
 
-    
-    
     const quizTimer = setInterval(() => {
        toast('Surprise Pop Quiz!', { icon: '🧠', description: 'Generating a question...' });
        fetch('/api/ai/quiz', {

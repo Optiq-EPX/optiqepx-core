@@ -16,7 +16,6 @@ export default function LoginPage() {
   return (
     <div className="h-screen flex bg-[#09090b] overflow-hidden">
 
-      {/* LEFT HERO */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -45,7 +44,6 @@ export default function LoginPage() {
           ))}
         </div>
 
-        {/* Top */}
         <div className="relative z-10 flex items-center justify-between">
           <Link
             href="/"
@@ -57,7 +55,6 @@ export default function LoginPage() {
           <Logo className="[&_span]:text-white [&_p]:text-white/50" />
         </div>
 
-        {/* Center */}
         <div className="relative z-10 space-y-6">
           <div className="space-y-4">
             <motion.h2
@@ -108,7 +105,6 @@ export default function LoginPage() {
           </motion.div>
         </div>
 
-        {/* Bottom */}
         <div className="relative z-10 border-t border-white/8 pt-5">
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
@@ -126,7 +122,6 @@ export default function LoginPage() {
         </div>
       </motion.div>
 
-      {/* RIGHT FORM */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
