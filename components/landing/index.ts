@@ -1,5 +1,5 @@
 export { Navbar } from './Navbar';
-export { Hero } from './Hero';
+export { Hero, HeroMockup } from './Hero';
 export { Features } from './Features';
 export { Goals } from './Goals';
 export { FAQ } from './FAQ';

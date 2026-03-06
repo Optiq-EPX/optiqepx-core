@@ -31,8 +31,8 @@ export function CTA() {
           className="relative p-12 sm:p-20 rounded-[3rem] bg-gradient-to-br from-violet-700 via-indigo-700 to-violet-800 text-white text-center shadow-[0_30px_60px_-15px_rgba(124,58,237,0.4)] overflow-hidden"
         >
           {}
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-center" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-50" />
           
           <div className="relative z-10">
             <motion.div 

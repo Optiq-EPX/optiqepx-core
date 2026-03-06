@@ -11,14 +11,12 @@ export default async function StudyRoomPage({ params }: { params: Promise<{ id: 
     redirect('/login');
   }
 
-  
   const { data: profile } = await supabase
     .from('users_profile')
     .select('*')
     .eq('id', user.id)
     .single();
 
-  
   const { data: room } = await supabase
     .from('study_rooms')
     .select('*, users_profile(username)')
@@ -29,12 +27,10 @@ export default async function StudyRoomPage({ params }: { params: Promise<{ id: 
     redirect('/study-rooms');
   }
 
-  
   if (profile?.role === 'student' && room.class !== profile.class) {
     redirect('/study-rooms'); 
   }
 
-  
   return (
     <div className="animate-in fade-in duration-500 h-[calc(100vh-8rem)]">
       <StudyRoomActive 

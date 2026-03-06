@@ -1,7 +1,5 @@
 import { Variants } from "motion/react";
 
-
-
 export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { 

@@ -16,7 +16,6 @@ export default function RegisterPage() {
   return (
     <div className="h-[100dvh] flex bg-white overflow-hidden">
 
-      {/* LEFT FORM */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -74,7 +73,6 @@ export default function RegisterPage() {
         </div>
       </motion.div>
 
-      {/* RIGHT HERO */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -103,7 +101,6 @@ export default function RegisterPage() {
           ))}
         </div>
 
-        {/* Top */}
         <div className="relative z-10 flex items-center justify-between">
           <Link
             href="/"
@@ -115,7 +112,6 @@ export default function RegisterPage() {
           <Logo className="[&_span]:text-white [&_p]:text-white/50" />
         </div>
 
-        {/* Center */}
         <div className="relative z-10 space-y-6">
           <div className="space-y-4">
             <motion.h2
@@ -140,7 +136,6 @@ export default function RegisterPage() {
             </motion.p>
           </div>
 
-          {/* Perks */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -160,16 +155,15 @@ export default function RegisterPage() {
           </motion.div>
         </div>
 
-        {/* Bottom Metrics Section */}
         <div className="relative z-10 flex flex-col gap-4">
-          {/* Security card */}
+          
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.85 }}
             className="rounded-2xl border border-emerald-500/20 bg-black/20 backdrop-blur-md p-4 flex items-center gap-4 relative overflow-hidden group shadow-2xl"
           >
-            {/* Background grid */}
+            
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98110_1px,transparent_1px),linear-gradient(to_bottom,#10b98110_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none" />
             
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
@@ -194,14 +188,13 @@ export default function RegisterPage() {
             </div>
           </motion.div>
 
-          {/* Live Network Metrics */}
           <motion.div 
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.95 }}
             className="rounded-2xl border border-indigo-500/20 bg-black/20 backdrop-blur-md p-5 relative overflow-hidden group shadow-2xl"
           >
-            {/* Background grid */}
+            
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#6366f115_1px,transparent_1px),linear-gradient(to_bottom,#6366f115_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none" />
             
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/10 to-indigo-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />

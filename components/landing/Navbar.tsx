@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { fadeInUp, fadeInDown, staggerContainer } from '@/lib/animations';
 import { Logo } from '@/components/shared/Logo';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 const navLinks = [
   { label: 'Features', href: '#features' },
@@ -18,95 +18,103 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 10);
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <motion.header
-      initial="hidden"
-      animate="visible"
-      variants={fadeInDown}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'glass-morphism py-3 shadow-lg shadow-black/5'
-          : 'bg-transparent py-5'
-      }`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4"
     >
+      
+      <div 
+        className={`absolute inset-0 transition-all duration-300 pointer-events-none -z-10 ${
+          isScrolled 
+            ? 'bg-white/70 dark:bg-slate-900/80 backdrop-blur-lg border-b border-black/5 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]' 
+            : 'bg-transparent backdrop-blur-none border-transparent shadow-none'
+        }`}
+      />
+
       <nav className="container mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        {}
+        
         <Link href="/" className="flex items-center group">
-          <Logo className="scale-90 sm:scale-100" />
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Logo className="scale-90 sm:scale-100" />
+          </motion.div>
         </Link>
 
-        {}
-        <motion.div 
-          variants={staggerContainer}
-          className="hidden md:flex items-center gap-1 bg-white/5 dark:bg-white/10 p-1.5 rounded-2xl backdrop-blur-sm border border-white/10"
-        >
+        <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
-            <motion.a
-              key={link.href}
-              href={link.href}
-              variants={fadeInDown}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 text-sm font-semibold font-outfit text-muted-foreground hover:text-foreground transition-all rounded-xl hover:bg-white/10"
-            >
-              {link.label}
-            </motion.a>
+            <Link key={link.href} href={link.href} className="group relative px-5 py-2.5 text-sm font-semibold font-outfit text-muted-foreground hover:text-foreground transition-colors rounded-xl">
+              <span className="relative z-10">{link.label}</span>
+              <div className="absolute inset-0 bg-white/60 dark:bg-white/10 rounded-xl opacity-0 scale-95 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 -z-0" />
+            </Link>
           ))}
-        </motion.div>
+        </div>
 
-        {}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <Button variant="ghost" size="sm" asChild className="font-outfit font-semibold hover:bg-white/10 rounded-xl transition-all">
             <Link href="/login">Log In</Link>
           </Button>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button size="sm" asChild className="font-outfit font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-lg shadow-violet-500/25 border-0 rounded-xl px-6">
+          <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
+            <Button size="sm" asChild className="font-outfit font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-lg shadow-violet-500/25 border-0 rounded-xl px-6 py-5">
               <Link href="/register">Get Started</Link>
             </Button>
           </motion.div>
         </div>
 
-        {}
-        <button
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="md:hidden p-2.5 rounded-xl hover:bg-accent/50 transition-colors bg-white/5 border border-white/10"
-          aria-label="Toggle menu"
-        >
-          {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-violet-500 to-indigo-600 origin-left"
+          style={{ scaleX: scrollYProgress }}
+        />
+
+        <div className="flex items-center gap-2 md:hidden relative z-10">
+          <ThemeToggle />
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="p-2.5 rounded-xl hover:bg-accent/50 transition-colors bg-white/5 border border-white/10"
+            aria-label="Toggle menu"
+          >
+            {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </nav>
 
-      {}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden overflow-hidden"
+            className="md:hidden overflow-hidden bg-background/95 backdrop-blur-2xl border-b border-border/50"
           >
-            <div className="px-4 pb-8 pt-4 bg-background/95 backdrop-blur-2xl border-b border-border/50 space-y-2">
+            <div className="px-4 pb-8 pt-4 space-y-2">
               {navLinks.map((link) => (
-                <motion.a
-                  key={link.href}
+                <Link 
+                  key={link.href} 
                   href={link.href}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
                   onClick={() => setIsMobileOpen(false)}
                   className="block px-4 py-3.5 text-base font-bold font-outfit text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all"
                 >
                   {link.label}
-                </motion.a>
+                </Link>
               ))}
-              <div className="pt-4 flex flex-col gap-3">
+              <div className="pt-4 flex flex-col gap-3 px-4">
                 <Button variant="outline" asChild className="w-full font-outfit font-semibold py-6 rounded-xl border-white/10">
                   <Link href="/login">Log In</Link>
                 </Button>
