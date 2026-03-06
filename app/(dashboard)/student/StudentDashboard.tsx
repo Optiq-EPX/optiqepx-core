@@ -41,13 +41,13 @@ export default function StudentDashboardPage({
             <span className="px-3 py-1 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-600 text-xs font-black uppercase tracking-widest">
               Class {profile?.class?.toUpperCase() || 'GENERAL'}
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20" />
+            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
             Your learning progression
           </p>
         </div>
         <div className="flex gap-4">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild variant="outline" className="border-black/5 bg-black/[0.03] hover:bg-black/[0.06] rounded-[1.25rem] px-8 h-14 font-black font-outfit transition-all shadow-sm">
+            <Button asChild variant="outline" className="border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 rounded-[1.25rem] px-8 h-14 font-black font-outfit transition-all shadow-sm">
               <Link href="/arena" className="flex items-center gap-3">
                 <Sword className="w-5 h-5 text-rose-500" />
                 Arena
@@ -167,13 +167,13 @@ function StatCard({ title, value, subValue, icon }: StatCardProps) {
     >
       <motion.div 
         variants={cardHover}
-        className="glass-card p-10 rounded-[2.5rem] border-white/60 dark:border-white/10 hover:border-violet-500/20 transition-[border-color,box-shadow] duration-500 group h-full flex flex-col bg-white/50 transform-gpu"
+        className="glass-card p-10 rounded-[2.5rem] border-white/60 dark:border-white/10 hover:border-violet-500/20 transition-[border-color,box-shadow] duration-500 group h-full flex flex-col bg-white/50 dark:bg-white/5 transform-gpu"
       >
         <div className="flex justify-between items-start mb-8">
-          <div className="w-16 h-16 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-inner bg-white/40 transform-gpu">
+          <div className="w-16 h-16 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-inner bg-white/40 dark:bg-white/5 transform-gpu">
             {icon}
           </div>
-          <div className="px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-500/20 shadow-sm">
+          <div className="px-4 py-1.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-500/20 shadow-sm">
             Live
           </div>
         </div>
@@ -187,8 +187,8 @@ function StatCard({ title, value, subValue, icon }: StatCardProps) {
         </div>
         <div className="mt-8 pt-8 border-t border-black/5 dark:border-white/5">
           <div className="text-xs font-black font-outfit text-muted-foreground flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-              <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="w-6 h-6 rounded-lg bg-emerald-500/10 dark:bg-emerald-500/5 flex items-center justify-center">
+              <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             </div>
             {subValue}
           </div>

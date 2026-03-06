@@ -87,31 +87,31 @@ export function StudyRoomActive({
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full">
       {}
       <div className="col-span-1 lg:col-span-3 flex flex-col gap-6">
-        <Card className="bg-gradient-to-br from-blue-900/20 to-blue-800/10 border-blue-500/20 backdrop-blur-md">
-          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-white/5">
+        <Card className="bg-gradient-to-br from-blue-900/10 to-blue-800/5 dark:from-blue-900/20 dark:to-blue-800/10 border-blue-500/20 backdrop-blur-md">
+          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-black/5 dark:border-white/5">
             <div>
-              <CardTitle className="text-2xl font-space-grotesk text-blue-500">{topic} Study Session</CardTitle>
+              <CardTitle className="text-2xl font-space-grotesk text-blue-600 dark:text-blue-500">{topic} Study Session</CardTitle>
               <CardDescription>Hosted by {hostName}</CardDescription>
             </div>
-            <div className="flex items-center gap-2 bg-black/40 px-4 py-2 rounded-full border border-white/10">
-              <Clock className="w-4 h-4 text-blue-400" />
+            <div className="flex items-center gap-2 bg-black/10 dark:bg-black/40 px-4 py-2 rounded-full border border-black/5 dark:border-white/10">
+              <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span className="font-mono text-lg">{formatTime(elapsedTime)}</span>
             </div>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col items-center justify-center min-h-[400px]">
             {activeQuiz ? (
-              <div className="w-full max-w-xl mx-auto space-y-6 bg-card/80 p-8 rounded-2xl border border-blue-500/30 shadow-2xl animate-in slide-in-from-bottom-8">
-                <div className="flex items-center gap-2 text-blue-500 mb-2">
+              <div className="w-full max-w-xl mx-auto space-y-6 bg-white/95 dark:bg-card/80 p-8 rounded-2xl border border-blue-500/20 dark:border-blue-500/30 shadow-2xl animate-in slide-in-from-bottom-8">
+                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-500 mb-2">
                   <Lightbulb className="w-5 h-5" />
                   <span className="font-space-grotesk font-semibold uppercase tracking-wider text-sm">Pop Quiz</span>
                 </div>
-                <h3 className="text-xl font-space-grotesk">{activeQuiz.text}</h3>
+                <h3 className="text-xl font-space-grotesk text-foreground">{activeQuiz.text}</h3>
                 <div className="space-y-3">
                   {activeQuiz.options.map((opt: string, idx: number) => (
                     <Button 
                       key={idx} 
                       variant="outline" 
-                      className="w-full justify-start py-6 text-left hover:bg-blue-500/10 hover:border-blue-500/50"
+                      className="w-full justify-start py-6 text-left hover:bg-blue-500/10 hover:border-blue-500/50 dark:hover:bg-blue-500/10 dark:hover:border-blue-500/50"
                       onClick={() => {
                         if (idx === activeQuiz.correctAnswerIndex) {
                           toast.success('Correct! Brilliant work.');
@@ -121,7 +121,7 @@ export function StudyRoomActive({
                         setActiveQuiz(null); 
                       }}
                     >
-                       <span className="text-blue-500 font-mono mr-4">{String.fromCharCode(65 + idx)}</span>
+                       <span className="text-blue-600 dark:text-blue-500 font-mono mr-4">{String.fromCharCode(65 + idx)}</span>
                        {opt}
                     </Button>
                   ))}
@@ -129,10 +129,12 @@ export function StudyRoomActive({
                 <Button variant="ghost" className="w-full mt-4 text-muted-foreground" onClick={() => setActiveQuiz(null)}>Dismiss Quiz</Button>
               </div>
             ) : (
-              <div className="text-center space-y-4 opacity-60">
-                <Brain className="w-16 h-16 mx-auto text-blue-400 opacity-50" />
-                <h3 className="text-2xl font-space-grotesk font-medium">Focus Time</h3>
-                <p className="font-outfit text-muted-foreground max-w-md">The room is currently studying. An AI pop quiz will evaluate your knowledge soon.</p>
+              <div className="text-center space-y-4 opacity-70">
+                <div className="w-24 h-24 rounded-full bg-blue-500/10 dark:bg-blue-500/5 flex items-center justify-center mx-auto mb-4 border border-blue-500/10">
+                   <Brain className="w-12 h-12 text-blue-600 dark:text-blue-400 opacity-60" />
+                </div>
+                <h3 className="text-2xl font-space-grotesk font-extrabold text-foreground tracking-tight">Focus Time</h3>
+                <p className="font-outfit text-muted-foreground max-w-sm mx-auto leading-relaxed">The room is currently studying. An AI pop quiz will evaluate your knowledge soon.</p>
               </div>
             )}
           </CardContent>
@@ -140,7 +142,7 @@ export function StudyRoomActive({
       </div>
 
       {}
-      <Card className="flex flex-col h-[500px] lg:h-full bg-card/40 border-white/5 backdrop-blur-md">
+      <Card className="flex flex-col h-[500px] lg:h-full bg-white/40 dark:bg-card/40 border-black/5 dark:border-white/5 backdrop-blur-md">
         <CardHeader className="pb-3 border-b border-white/5">
            <CardTitle className="flex items-center gap-2 text-lg font-space-grotesk">
              <Users className="w-5 h-5 text-blue-500" />

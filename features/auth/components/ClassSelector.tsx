@@ -75,15 +75,17 @@ export function ClassSelector({ value, onChange, error }: ClassSelectorProps) {
         className={cn(
           "w-full h-12 px-4 rounded-2xl border transition-all duration-200 flex items-center justify-between group",
           isOpen 
-            ? "bg-white border-violet-500 ring-4 ring-violet-500/10 shadow-sm" 
-            : "bg-zinc-50 border-zinc-400 hover:border-zinc-500",
-          error && "border-red-500 bg-red-50/30"
+            ? "bg-background border-violet-500 ring-4 ring-violet-500/10 shadow-sm" 
+            : "bg-zinc-50 dark:bg-white/5 border-zinc-300 dark:border-white/10 hover:border-zinc-400 dark:hover:border-white/20",
+          error && "border-red-500 bg-red-50/30 dark:bg-red-950/20"
         )}
       >
         <div className="flex items-center gap-3">
           <div className={cn(
             "w-8 h-8 rounded-xl flex items-center justify-center transition-colors",
-            isOpen ? "bg-violet-100 text-violet-600" : "bg-zinc-200/50 text-zinc-500"
+            isOpen 
+              ? "bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-400" 
+              : "bg-zinc-100 dark:bg-white/5 text-zinc-500 dark:text-zinc-600"
           )}>
             {selectedClass ? (
               <selectedClass.icon className="w-4.5 h-4.5" />
@@ -94,13 +96,13 @@ export function ClassSelector({ value, onChange, error }: ClassSelectorProps) {
           <div className="flex flex-col items-start translate-y-[1px]">
             <span className={cn(
               "text-[10px] font-black font-space-grotesk uppercase tracking-widest leading-none",
-              isOpen ? "text-violet-500" : "text-zinc-400"
+              isOpen ? "text-violet-500" : "text-zinc-400 dark:text-zinc-500"
             )}>
               {selectedClass ? selectedClass.type : 'Education Level'}
             </span>
             <span className={cn(
               "text-sm font-outfit font-semibold",
-              selectedClass ? "text-zinc-900" : "text-zinc-400"
+              selectedClass ? "text-zinc-900 dark:text-white" : "text-zinc-400 dark:text-zinc-600"
             )}>
               {selectedClass ? selectedClass.label : 'Select your class'}
             </span>
@@ -120,7 +122,7 @@ export function ClassSelector({ value, onChange, error }: ClassSelectorProps) {
             exit={{ opacity: 0, y: direction === 'down' ? 10 : -10, scale: 0.95 }}
             transition={{ type: "spring", duration: 0.35, bounce: 0.2 }}
             className={cn(
-              "absolute z-50 left-0 right-0 p-1.5 bg-white rounded-xl border border-zinc-200 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] overflow-hidden",
+              "absolute z-50 left-0 right-0 p-1.5 bg-background dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-white/10 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] overflow-hidden",
               direction === 'down' ? "top-full mt-2" : "bottom-full mb-2"
             )}
           >
@@ -128,10 +130,10 @@ export function ClassSelector({ value, onChange, error }: ClassSelectorProps) {
               {CATEGORIES.map((category) => (
                 <div key={category} className="mb-2 last:mb-0">
                   <div className="flex items-center gap-2 px-2 mb-1">
-                    <span className="text-[9px] font-black font-space-grotesk uppercase tracking-[0.2em] text-zinc-400 whitespace-nowrap">
+                    <span className="text-[9px] font-black font-space-grotesk uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
                       {category}
                     </span>
-                    <div className="h-px w-full bg-zinc-100" />
+                    <div className="h-px w-full bg-zinc-100 dark:bg-white/5" />
                   </div>
                   
                   <div className={cn("grid gap-1 px-1", category === 'Higher Education' ? 'grid-cols-2' : 'grid-cols-3')}>
@@ -150,20 +152,22 @@ export function ClassSelector({ value, onChange, error }: ClassSelectorProps) {
                           className={cn(
                             "group flex items-center justify-between p-1.5 rounded-lg transition-colors border",
                             isSelected 
-                              ? "bg-violet-600 border-violet-600 shadow-sm shadow-violet-200" 
-                              : "bg-white border-transparent hover:bg-zinc-50 hover:border-zinc-200"
+                              ? "bg-violet-600 border-violet-600 shadow-sm shadow-violet-200/20" 
+                              : "bg-background dark:bg-zinc-900 border-transparent hover:bg-zinc-50 dark:hover:bg-white/5 hover:border-zinc-200 dark:hover:border-white/10"
                           )}
                         >
                           <div className="flex items-center gap-2">
                             <div className={cn(
                               "w-6 h-6 rounded-md flex items-center justify-center transition-colors",
-                              isSelected ? "bg-white/20 text-white" : "bg-zinc-100 text-zinc-500 group-hover:bg-white group-hover:text-violet-600"
+                              isSelected 
+                                ? "bg-white/20 text-white" 
+                                : "bg-zinc-100 dark:bg-white/5 text-zinc-500 dark:text-zinc-600 group-hover:bg-white dark:group-hover:bg-violet-500 group-hover:text-violet-600 dark:group-hover:text-white"
                             )}>
                               <Icon className="w-3 h-3" />
                             </div>
                             <span className={cn(
                               "text-xs font-outfit font-bold transition-colors",
-                              isSelected ? "text-white" : "text-zinc-700 group-hover:text-violet-700"
+                              isSelected ? "text-white" : "text-zinc-700 dark:text-zinc-400 group-hover:text-violet-700 dark:group-hover:text-violet-300"
                             )}>
                               {cls.label}
                             </span>

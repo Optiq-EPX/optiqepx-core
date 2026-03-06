@@ -107,7 +107,7 @@ export function Pricing() {
                   className={`relative flex flex-col p-10 rounded-[2.5rem] border h-full transition-all duration-500 backdrop-blur-md overflow-hidden ${
                     plan.highlighted
                       ? 'bg-gradient-to-br from-violet-600 to-indigo-700 text-white border-violet-500 shadow-2xl shadow-violet-500/40'
-                      : 'glass-card border-white/5 hover:border-violet-500/20 shadow-xl'
+                      : 'glass-card border-white/5 dark:border-white/10 hover:border-violet-500/20 shadow-xl'
                   }`}
                 >
                   {plan.highlighted && (

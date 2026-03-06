@@ -107,7 +107,7 @@ export function AiChat({ classLevel, username }: { classLevel: string, username:
                     p-6 rounded-[2rem] font-outfit text-base leading-relaxed shadow-[0_8px_32px_rgba(0,0,0,0.04)]
                     ${msg.role === 'user' 
                       ? 'bg-gradient-to-br from-violet-600 to-indigo-600 text-white rounded-tr-sm shadow-violet-600/20' 
-                      : 'glass-card border-white/80 dark:border-white/5 rounded-tl-sm text-foreground/90 bg-white/70'}
+                      : 'glass-card border-white/80 dark:border-white/5 rounded-tl-sm text-foreground/90 bg-white/70 dark:bg-white/5'}
                   `}>
                     <div className="whitespace-pre-wrap font-medium">{msg.content}</div>
                   </div>
@@ -128,7 +128,7 @@ export function AiChat({ classLevel, username }: { classLevel: string, username:
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-xl shadow-violet-500/25">
                 <Loader2 className="w-6 h-6 text-white animate-spin" />
               </div>
-              <div className="glass-card border-white/80 dark:border-white/5 rounded-[2rem] rounded-tl-sm px-8 py-5 flex gap-2 items-center shadow-xl">
+              <div className="glass-card border-white/80 dark:border-white/5 rounded-[2rem] rounded-tl-sm px-8 py-5 flex gap-2 items-center shadow-xl bg-white/70 dark:bg-white/5">
                 <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.2 }} className="w-2.5 h-2.5 bg-violet-600 rounded-full" />
                 <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }} className="w-2.5 h-2.5 bg-violet-600 rounded-full" />
                 <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.4 }} className="w-2.5 h-2.5 bg-violet-600 rounded-full" />
@@ -144,7 +144,7 @@ export function AiChat({ classLevel, username }: { classLevel: string, username:
           {}
           <div className="absolute -inset-[2px] bg-gradient-to-r from-violet-500/20 via-indigo-500/20 to-violet-500/20 rounded-[2.5rem] blur-md opacity-0 group-focus-within:opacity-100 transition-all duration-700" />
           
-          <div className="relative glass-card border-white/80 dark:border-white/10 rounded-[2.5rem] shadow-2xl p-3 pl-8 flex items-end gap-4 transition-all group-focus-within:border-violet-500/40 group-focus-within:shadow-violet-500/5">
+          <div className="relative glass-card border-white/80 dark:border-white/10 rounded-[2.5rem] shadow-2xl p-3 pl-8 flex items-end gap-4 transition-all group-focus-within:border-violet-500/40 group-focus-within:shadow-violet-500/5 bg-white/70 dark:bg-white/5">
             <Textarea 
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -159,7 +159,7 @@ export function AiChat({ classLevel, username }: { classLevel: string, username:
             />
             
             <div className="flex items-center gap-3 pr-3 pb-3">
-              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground hover:bg-black/5 hover:text-foreground transition-all">
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5 hover:text-foreground transition-all">
                 <Paperclip className="w-6 h-6" />
               </Button>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

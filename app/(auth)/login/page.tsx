@@ -14,7 +14,7 @@ const features = [
 
 export default function LoginPage() {
   return (
-    <div className="h-screen flex bg-[#09090b] overflow-hidden">
+    <div className="h-screen flex bg-background dark:bg-[#09090b] overflow-hidden">
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -126,10 +126,10 @@ export default function LoginPage() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 relative bg-white overflow-hidden"
+        className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 relative bg-background overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-[280px] h-[280px] bg-violet-100/60 rounded-full blur-[90px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[220px] h-[220px] bg-indigo-100/50 rounded-full blur-[70px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[280px] h-[280px] bg-violet-500/5 dark:bg-violet-500/10 rounded-full blur-[90px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[220px] h-[220px] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[70px] pointer-events-none" />
 
         <div className="w-full max-w-[340px] relative z-10">
           <div className="lg:hidden mb-8 flex justify-center">
@@ -141,7 +141,7 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-violet-600 text-[10px] font-black uppercase tracking-[0.15em] font-outfit mb-4"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/5 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/30 text-violet-600 dark:text-violet-400 text-[10px] font-black uppercase tracking-[0.15em] font-outfit mb-4"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               Secure Sign In
@@ -150,7 +150,7 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.28 }}
-              className="text-3xl font-space-grotesk font-black text-zinc-900 tracking-tight mb-1.5"
+              className="text-3xl font-space-grotesk font-black text-foreground tracking-tight mb-1.5"
             >
               Welcome back
             </motion.h1>
@@ -169,10 +169,10 @@ export default function LoginPage() {
           </motion.div>
 
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65 }}
-            className="mt-6 text-sm text-center text-zinc-400 font-outfit font-medium"
+            className="mt-6 text-sm text-center text-zinc-400 dark:text-zinc-500 font-outfit font-medium"
           >
             No account?{' '}
-            <Link href="/register" className="inline-flex items-center gap-1 font-space-grotesk font-black text-violet-600 hover:text-violet-700 group transition-colors">
+            <Link href="/register" className="inline-flex items-center gap-1 font-space-grotesk font-black text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 group transition-colors">
               Sign up free
             </Link>
           </motion.p>

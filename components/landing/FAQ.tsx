@@ -74,7 +74,7 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
-                  className="glass-card border-white/5 data-[state=open]:border-violet-500/30 rounded-[2rem] px-8 bg-white/40 dark:bg-white/[0.02] shadow-xl shadow-black/[0.02] transition-all duration-300"
+                  className={`glass-card border-white/10 dark:border-white/10 data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 rounded-[2rem] px-8 bg-white/40 dark:bg-white/5 shadow-xl shadow-black/[0.02] transition-all duration-300`}
                 >
                   <AccordionTrigger className="text-left font-space-grotesk font-bold text-lg py-6 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400">
                     {faq.question}

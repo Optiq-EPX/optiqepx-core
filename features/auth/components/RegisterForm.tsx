@@ -22,8 +22,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-const inputClass = "h-12 rounded-2xl border-zinc-400 bg-zinc-50 focus-visible:ring-2 focus-visible:ring-violet-500/20 focus-visible:border-violet-500 font-outfit transition-all placeholder:text-zinc-500 text-zinc-900 text-sm shadow-none";
-const labelClass = 'text-[11px] font-black font-space-grotesk uppercase tracking-widest text-zinc-400';
+const inputClass = "h-12 rounded-2xl border-zinc-300 dark:border-white/10 bg-zinc-50 dark:bg-white/5 focus-visible:ring-2 focus-visible:ring-violet-500/20 focus-visible:border-violet-500 font-outfit transition-all placeholder:text-zinc-400 dark:placeholder:text-zinc-600 text-zinc-900 dark:text-white text-sm shadow-none";
+const labelClass = 'text-[11px] font-black font-space-grotesk uppercase tracking-widest text-zinc-400 dark:text-zinc-500';
 
 export function RegisterForm() {
   const router = useRouter();
@@ -107,8 +107,8 @@ export function RegisterForm() {
               <FormLabel className={labelClass}>BD / Phone Number</FormLabel>
               <FormControl>
                 <div className="relative group flex items-center">
-                  <div className="absolute left-0 top-0 bottom-0 w-16 flex justify-center items-center bg-zinc-100/50 border-r border-zinc-200 rounded-l-2xl z-10">
-                    <span className="text-zinc-500 font-outfit text-sm font-semibold">+880</span>
+                  <div className="absolute left-0 top-0 bottom-0 w-16 flex justify-center items-center bg-zinc-100/50 dark:bg-white/5 border-r border-zinc-200 dark:border-white/10 rounded-l-2xl z-10">
+                    <span className="text-zinc-500 dark:text-zinc-400 font-outfit text-sm font-semibold">+880</span>
                   </div>
                   <Input type="tel" placeholder="1712-345678" className={`pl-20 ${inputClass}`} {...field} />
                 </div>
