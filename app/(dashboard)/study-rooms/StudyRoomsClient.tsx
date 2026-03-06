@@ -13,10 +13,10 @@ interface RoomStatsProps {
 
 function RoomStats({ activeCount }: RoomStatsProps) {
   return (
-    <motion.div variants={fadeInUp} className="glass-card p-1 rounded-[2.5rem] bg-gradient-to-r from-blue-600/10 via-indigo-600/5 to-transparent border-white/80 dark:border-white/5 overflow-hidden shadow-2xl shadow-black/[0.02] bg-white/40">
+    <motion.div variants={fadeInUp} className="glass-card p-1 rounded-[2.5rem] bg-gradient-to-r from-blue-600/10 via-indigo-600/5 to-transparent border-white/80 dark:border-white/5 overflow-hidden shadow-2xl shadow-black/[0.02] bg-white/40 dark:bg-white/[0.02]">
       <div className="flex flex-col sm:flex-row items-center justify-between p-8 px-12 gap-8">
          <div className="flex items-center gap-8">
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 animate-pulse shadow-inner bg-white/50">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/10 dark:bg-blue-500/5 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 animate-pulse shadow-inner bg-white/50 dark:bg-white/5">
               <Activity className="w-7 h-7" />
             </div>
             <div>
@@ -58,7 +58,7 @@ function RoomCard({ room }: RoomCardProps) {
     >
       <motion.div
         variants={cardHover}
-        className="glass-card p-0 rounded-[3rem] border-white/80 dark:border-white/5 hover:border-blue-500/30 transition-all duration-500 group overflow-hidden h-full flex flex-col shadow-2xl shadow-black/[0.02] bg-white/50"
+        className="glass-card p-0 rounded-[3rem] border-white/80 dark:border-white/10 hover:border-blue-500/30 transition-all duration-500 group overflow-hidden h-full flex flex-col shadow-2xl shadow-black/[0.02] bg-white/50 dark:bg-white/5"
       >
         <div className="p-10 pb-6 relative">
           <div className="absolute top-0 right-0 p-10 opacity-[0.03] transform translate-x-4 -translate-y-4">
@@ -69,13 +69,13 @@ function RoomCard({ room }: RoomCardProps) {
             <Badge className="rounded-xl bg-blue-600/10 text-blue-600 dark:text-blue-400 border-0 font-black px-4 py-1.5 uppercase tracking-wider text-[10px]">
               {room.topic}
             </Badge>
-            <div className="flex items-center gap-2 bg-black/[0.03] dark:bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-xl border border-black/5 dark:border-white/5 bg-white/40">
-              <Users className="w-3.5 h-3.5 text-blue-500" />
+            <div className="flex items-center gap-2 bg-black/[0.03] dark:bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-xl border border-black/5 dark:border-white/5 bg-white/40 dark:bg-white/5">
+              <Users className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
               <span className="text-[10px] font-black font-outfit text-foreground/80">4 / 12</span>
             </div>
           </div>
 
-          <h3 className="text-2xl font-space-grotesk font-black mb-4 group-hover:text-blue-600 transition-colors tracking-tight">
+          <h3 className="text-2xl font-space-grotesk font-black mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors tracking-tight">
             {room.topic} Mastery
           </h3>
           <p className="text-sm font-outfit text-muted-foreground line-clamp-2 max-w-[95%] font-medium leading-relaxed">
@@ -84,7 +84,7 @@ function RoomCard({ room }: RoomCardProps) {
         </div>
 
         <div className="mt-auto p-10 pt-0">
-          <div className="flex items-center justify-between mb-8 text-[10px] font-black font-outfit text-muted-foreground uppercase tracking-[0.2em] bg-black/[0.02] dark:bg-white/[0.03] p-4 rounded-2xl border border-black/5 dark:border-white/5 bg-white/30">
+          <div className="flex items-center justify-between mb-8 text-[10px] font-black font-outfit text-muted-foreground uppercase tracking-[0.2em] bg-black/[0.02] dark:bg-white/[0.03] p-4 rounded-2xl border border-black/5 dark:border-white/5 bg-white/30 dark:bg-white/[0.02]">
             <div className="flex items-center gap-3">
               <Clock className="w-3.5 h-3.5" />
               Live Now
@@ -131,14 +131,14 @@ export default function StudyRoomsClient({
             <span className="px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 text-xs font-black uppercase tracking-widest">
               Class {userClass?.toUpperCase() || 'GENERAL'}
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20" />
+            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
             Learn together, grow faster
           </p>
         </div>
         <div className="flex gap-4">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="outline" className="h-14 border-black/5 bg-white/50 dark:bg-black/[0.03] hover:bg-white/80 dark:hover:bg-black/[0.06] rounded-2xl px-8 font-black font-outfit uppercase tracking-widest text-xs transition-all flex items-center gap-3 shadow-sm">
-              <RadioReceiver className="w-5 h-5 text-blue-500" />
+            <Button variant="outline" className="h-14 border-black/5 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 rounded-2xl px-8 font-black font-outfit uppercase tracking-widest text-xs transition-all flex items-center gap-3 shadow-sm">
+              <RadioReceiver className="w-5 h-5 text-blue-500 dark:text-blue-400" />
               My Sessions
             </Button>
           </motion.div>
@@ -158,12 +158,12 @@ export default function StudyRoomsClient({
       <motion.section variants={fadeInUp} className="space-y-8">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-space-grotesk font-black tracking-tight flex items-center gap-4 text-foreground/90">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/5 flex items-center justify-center">
               <RadioReceiver className="w-6 h-6 text-blue-500" />
             </div>
             Active Rooms
           </h2>
-          <div className="px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-3 shadow-sm bg-white/50">
+          <div className="px-5 py-2.5 rounded-full bg-blue-500/10 dark:bg-blue-500/5 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-3 shadow-sm bg-white/50 dark:bg-white/5">
             <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
             Live Feed
           </div>
@@ -180,9 +180,9 @@ export default function StudyRoomsClient({
           ) : (
             <motion.div 
               variants={fadeInUp}
-              className="col-span-full py-32 text-center rounded-[3rem] bg-white/50 border border-black/5 backdrop-blur-3xl flex flex-col items-center shadow-2xl shadow-black/[0.02]"
+              className="col-span-full py-32 text-center rounded-[3rem] bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-3xl flex flex-col items-center shadow-2xl shadow-black/[0.02]"
             >
-              <div className="w-24 h-24 rounded-[2rem] bg-blue-500/5 border border-blue-500/10 flex items-center justify-center mb-8 text-blue-500/30">
+              <div className="w-24 h-24 rounded-[2rem] bg-blue-500/5 dark:bg-blue-500/[0.02] border border-blue-500/10 dark:border-blue-500/20 flex items-center justify-center mb-8 text-blue-500/30">
                 <RadioReceiver className="w-12 h-12" />
               </div>
               <h3 className="text-3xl font-space-grotesk font-black text-foreground/90 mb-4 tracking-tight">The Hall is Quiet</h3>

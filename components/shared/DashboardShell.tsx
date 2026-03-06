@@ -6,6 +6,7 @@ import { Menu, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import { Logo } from '@/components/shared/Logo';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 export function DashboardShell({ 
   children, 
@@ -29,9 +30,9 @@ export function DashboardShell({
 
       <div className="flex-1 flex flex-col min-w-0 h-[calc(100vh-2rem)]">
         {}
-        <header className="h-24 flex items-center justify-between px-8 lg:px-12 mb-4 glass-card rounded-[2.5rem] border-white/80 dark:border-white/10 shrink-0 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.04)] bg-white/60 transform-gpu">
+        <header className="h-24 flex items-center justify-between px-8 lg:px-12 mb-4 glass-card rounded-[2.5rem] border-white/80 dark:border-white/10 shrink-0 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.04)] bg-white/70 dark:bg-slate-900/80 transform-gpu">
           <div className="flex items-center gap-6 lg:hidden">
-            <Button variant="ghost" size="icon" className="rounded-2xl bg-black/5 border border-black/5 hover:bg-black/10 transition-colors">
+            <Button variant="ghost" size="icon" className="rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 hover:bg-black/10 transition-colors">
               <Menu className="w-6 h-6 text-foreground/80" />
             </Button>
             <Logo iconOnly className="scale-90" />
@@ -45,8 +46,9 @@ export function DashboardShell({
           </div>
 
           <div className="flex items-center gap-5">
+             <ThemeToggle />
              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground hover:bg-black/5 hover:text-foreground transition-all">
+                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5 hover:text-foreground transition-all">
                    <Bell className="w-6 h-6" />
                 </Button>
              </motion.div>

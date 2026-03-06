@@ -35,7 +35,7 @@ export default function ArenaClient({
             <span className="px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-xs font-black uppercase tracking-widest">
               Class {userClass?.toUpperCase() || 'GENERAL'}
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20" />
+            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
             Compete and dominate
           </p>
         </div>
@@ -136,7 +136,7 @@ export default function ArenaClient({
                         "Dare to challenge?"
                       </span>
                     </div>
-                    <Button className="w-full h-14 rounded-2xl bg-white dark:bg-slate-900 text-rose-600 hover:bg-rose-50 dark:hover:bg-slate-800 font-black font-outfit uppercase tracking-widest text-xs group/btn border border-rose-200 dark:border-rose-900/30 shadow-xl shadow-rose-500/[0.05] transition-all">
+                    <Button className="w-full h-14 rounded-2xl bg-white dark:bg-slate-900 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 font-black font-outfit uppercase tracking-widest text-xs group/btn border border-rose-200 dark:border-rose-900/30 shadow-xl shadow-rose-500/[0.05] transition-all">
                       Accept Challenge
                       <ArrowRight className="w-4 h-4 ml-3 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
@@ -156,7 +156,7 @@ export default function ArenaClient({
               <p className="text-base font-outfit text-muted-foreground max-w-sm mx-auto mb-10 font-medium leading-relaxed opacity-70">
                 No active battles found for your class. Be the champion and ignite the competition yourself!
               </p>
-              <Button size="lg" className="rounded-2xl h-16 px-12 bg-rose-600 hover:bg-rose-700 text-white font-black font-outfit uppercase tracking-widest text-xs border-0 shadow-2xl shadow-rose-500/30 group">
+              <Button variant="outline" className="border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 rounded-[1.25rem] px-8 h-14 font-black font-outfit transition-all shadow-sm">
                 Create First Battle
                 <PlusCircle className="ml-3 w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
               </Button>
@@ -186,12 +186,12 @@ function ArenaStatCard({ title, value, label, icon, color }: ArenaStatCardProps)
     >
       <motion.div 
         variants={cardHover}
-        className="glass-card p-10 rounded-[2.5rem] border-white/60 dark:border-white/10 hover:border-rose-500/20 transition-all group overflow-hidden relative shadow-2xl shadow-black/[0.02] bg-white/50"
+        className="glass-card p-10 rounded-[2.5rem] border-white/60 dark:border-white/10 hover:border-violet-500/20 transition-[border-color,box-shadow] duration-500 group h-full flex flex-col bg-white/50 dark:bg-white/5 transform-gpu"
       >
         <div className={`absolute -right-8 -bottom-8 w-32 h-32 rounded-full bg-gradient-to-br ${color} opacity-30 blur-3xl group-hover:scale-150 transition-all duration-1000`} />
         
         <div className="relative z-10 flex flex-col h-full">
-          <div className="w-16 h-16 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center mb-8 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 bg-white/40">
+          <div className="w-16 h-16 rounded-[1.25rem] bg-black/[0.03] dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-inner bg-white/40 dark:bg-white/5 transform-gpu">
             {icon}
           </div>
           <div className="space-y-2 mt-auto">

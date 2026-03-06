@@ -98,7 +98,7 @@ export function Sidebar({ role, username, className }: SidebarProps) {
                   {isActive ? (
                     <motion.div
                       layoutId="active-indicator-dot"
-                      className="w-1.5 h-1.5 rounded-full bg-violet-600 shadow-[0_0_8px_rgba(139,92,246,0.6)]"
+                      className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20 shadow-[0_0_8px_rgba(139,92,246,0.6)]"
                     />
                   ) : (
                     <ChevronRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-40 group-hover:translate-x-0 transition-all duration-300" />
@@ -111,7 +111,7 @@ export function Sidebar({ role, username, className }: SidebarProps) {
       </nav>
 
       {}
-      <div className="mt-auto pt-6 border-t border-black/5 dark:border-white/5">
+      <div className="mt-auto pt-6 border-t border-black/5 dark:border-white/10">
         <div className="flex items-center gap-4 px-2 mb-6 group cursor-pointer">
           <div className="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-600 font-black text-sm uppercase transition-colors group-hover:bg-violet-500/20 transform-gpu">
             {username?.charAt(0) || 'U'}
