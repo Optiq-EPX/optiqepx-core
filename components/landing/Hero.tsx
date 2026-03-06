@@ -48,7 +48,7 @@ export function Hero() {
               ))}
             </div>
             <span className="ml-1">Trusted by 5,000+ Students</span>
-            <Sparkles className="w-3.5 h-3.5" />
+            <Zap className="w-3.5 h-3.5" />
           </motion.div>
 
           {}

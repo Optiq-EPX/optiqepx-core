@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Loader2, Send, Sparkles, User, Brain, Paperclip } from 'lucide-react';
+import { Loader2, Send, User, Brain, Paperclip, Zap } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 
 interface Message {
@@ -179,7 +179,7 @@ export function AiChat({ classLevel, username }: { classLevel: string, username:
               Personalized Learning Engine • v2.0
             </p>
             <div className="flex items-center gap-2 opacity-40">
-              <Sparkles className="w-3.5 h-3.5 text-violet-600" />
+              <Zap className="w-3.5 h-3.5 text-violet-600" />
               <span className="text-[10px] font-black font-outfit text-muted-foreground uppercase tracking-[0.2em]">
                 Ready to tutor
               </span>

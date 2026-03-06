@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 export function CTA() {
@@ -40,7 +40,7 @@ export function CTA() {
               whileHover={{ rotate: 12, scale: 1.1 }}
               className="flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 mx-auto mb-8 shadow-inner"
             >
-              <Sparkles className="w-8 h-8 text-white" />
+              <Zap className="w-8 h-8 text-white" />
             </motion.div>
             
             <motion.h2 

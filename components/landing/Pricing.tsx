@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { Check, Sparkles } from 'lucide-react';
+import { Check, Zap } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 
 const plans = [
@@ -113,7 +113,7 @@ export function Pricing() {
                   {plan.highlighted && (
                     <>
                       <div className="absolute top-0 right-0 p-8 opacity-20 transform translate-x-4 -translate-y-4">
-                        <Sparkles className="w-24 h-24" />
+                        <Zap className="w-24 h-24" />
                       </div>
                       <div className="absolute top-6 right-8 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider border border-white/10">
                         Most Popular

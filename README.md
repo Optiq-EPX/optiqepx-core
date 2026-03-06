@@ -9,7 +9,7 @@
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 ### 🏆 Battle Arena
 

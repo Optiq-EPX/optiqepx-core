@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import {
   Shield, Swords, Radio, Brain, LayoutDashboard, Trophy,
-  Settings, HelpCircle, Users, GraduationCap, Sparkles, Lock
+  Settings, HelpCircle, Users, GraduationCap, Lock, Zap
 } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 
@@ -79,7 +79,7 @@ const features = [
     iconColor: 'text-indigo-600 dark:text-indigo-400',
   },
   {
-    icon: Sparkles,
+    icon: Zap,
     title: 'AI-Generated Questions',
     description: 'Powered by Google Gemini to instantly create age-appropriate, engaging quiz content.',
     color: 'from-fuchsia-500/10 to-fuchsia-600/10 dark:from-fuchsia-500/20 dark:to-fuchsia-600/20',

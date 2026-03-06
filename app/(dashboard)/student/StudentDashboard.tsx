@@ -11,8 +11,8 @@ import {
   ArrowRight, 
   TrendingUp, 
   History,
-  Sparkles,
-  Sword
+  Sword,
+  Zap
 } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 
@@ -92,7 +92,7 @@ export default function StudentDashboardPage({
             className="rounded-[2.5rem] p-10 h-full bg-gradient-to-br from-violet-600 to-indigo-700 text-white shadow-2xl shadow-violet-500/30 flex flex-col relative overflow-hidden group border border-white/20"
           >
             <div className="absolute top-0 right-0 p-10 opacity-20 transform translate-x-4 -translate-y-4">
-              <Sparkles className="w-24 h-24" />
+              <Zap className="w-24 h-24" />
             </div>
             <div className="relative z-10 h-full flex flex-col">
               <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-8 shadow-inner">
