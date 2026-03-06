@@ -61,6 +61,7 @@ export function RegisterForm() {
     router.refresh();
   }
 
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
@@ -194,7 +195,8 @@ export function RegisterForm() {
           </motion.div>
         </div>
 
-        <p className="text-[10px] text-center font-outfit text-muted-foreground/40 font-medium">
+
+        <p className="text-[10px] text-center font-outfit text-muted-foreground/40 font-medium pt-2">
           By signing up, you agree to our Terms of Service and Privacy Policy.
         </p>
       </form>
