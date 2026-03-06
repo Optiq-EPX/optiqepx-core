@@ -100,7 +100,7 @@ export default function StudentDashboardPage({
               </div>
               <h3 className="text-2xl font-space-grotesk font-black mb-3">AI Study Buddy</h3>
               <p className="text-base font-outfit text-violet-100/90 mb-10 font-medium leading-relaxed">
-                Stuck on a tricky concept? Your Gemini-powered tutor is ready to help 24/7.
+                Stuck on a tricky concept? Your AI-powered tutor is ready to help 24/7.
               </p>
               <div className="mt-auto">
                 <Button asChild variant="secondary" className="w-full h-14 rounded-2xl font-black font-outfit bg-white text-violet-700 hover:bg-violet-50 border-0 group/btn shadow-xl shadow-black/10">

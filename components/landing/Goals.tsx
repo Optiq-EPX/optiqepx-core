@@ -26,7 +26,7 @@ const goals = [
   {
     icon: TrendingUp,
     title: 'AI-Guided Growth',
-    description: 'A Gemini-powered tutor that meets every student at their level — explaining, questioning, and adapting in real-time.',
+    description: 'An AI-powered tutor that meets every student at their level — explaining, questioning, and adapting in real-time.',
     color: 'from-violet-500/10 to-violet-600/10'
   },
   {

@@ -11,7 +11,7 @@ const features = [
   {
     icon: Shield,
     title: 'Secure Authentication',
-    description: 'Email, Google & Facebook login with Supabase. Your data stays protected.',
+    description: 'Email, Google & Facebook login with our secure auth system. Your data stays protected.',
     color: 'from-emerald-500/10 to-emerald-600/10 dark:from-emerald-500/20 dark:to-emerald-600/20',
     iconColor: 'text-emerald-600 dark:text-emerald-400',
   },
@@ -32,7 +32,7 @@ const features = [
   {
     icon: Brain,
     title: 'AI Study Assistant',
-    description: 'A personal Gemini-powered tutor that adapts explanations to your exact grade level.',
+    description: 'A personal AI-powered tutor that adapts explanations to your exact grade level.',
     color: 'from-purple-500/10 to-purple-600/10 dark:from-purple-500/20 dark:to-purple-600/20',
     iconColor: 'text-purple-600 dark:text-purple-400',
   },
@@ -81,14 +81,14 @@ const features = [
   {
     icon: Zap,
     title: 'AI-Generated Questions',
-    description: 'Powered by Google Gemini to instantly create age-appropriate, engaging quiz content.',
+    description: 'Powered by advanced AI to instantly create age-appropriate, engaging quiz content.',
     color: 'from-fuchsia-500/10 to-fuchsia-600/10 dark:from-fuchsia-500/20 dark:to-fuchsia-600/20',
     iconColor: 'text-fuchsia-600 dark:text-fuchsia-400',
   },
   {
     icon: Lock,
     title: 'Secure & Scalable',
-    description: 'Built on Supabase with row-level security, role isolation, and production-grade infra.',
+    description: 'Built with row-level security, role isolation, and production-grade infra.',
     color: 'from-teal-500/10 to-teal-600/10 dark:from-teal-500/20 dark:to-teal-600/20',
     iconColor: 'text-teal-600 dark:text-teal-400',
   },

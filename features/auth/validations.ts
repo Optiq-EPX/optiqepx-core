@@ -11,6 +11,7 @@ export const registerSchema = z.object({
     .max(20, "Username must be under 20 characters")
     .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
   email: z.string().email("Please enter a valid email address").min(1, "Email is required"),
+  phone: z.string().regex(/^(?:\+88|88)?01[3-9]\d{8}$/, "Please enter a valid BD phone number (e.g. 01712-345678)"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: z.string(),
   class: z.enum(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'intermediate', 'university'], {
