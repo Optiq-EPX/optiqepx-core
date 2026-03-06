@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💎 OptiqEPX — Pro Alpha Series
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-DB%20%26%20Auth-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
 
-First, run the development server:
+**OptiqEPX** is a next-generation student learning and growth platform designed to transform education through competition, collaboration, and high-performance AI integration. Built with a "Pro Max" aesthetic, it delivers a state-of-the-art interface for the modern scholar.
+
+---
+
+## ✨ Key Features
+
+### 🏆 Battle Arena
+
+Gamified learning at its peak. Students compete in real-time study duels across various subjects, earning points and climbing the leaderboard through AI-validated knowledge challenges.
+
+### 📡 Live Study Rooms
+
+High-performance collaboration spaces with real-time status monitoring, peer-to-peer engagement, and seamless resource sharing.
+
+### 🧠 Personalized AI Tutor
+
+An integrated intelligence layer that provides real-time feedback, generates personalized study paths, and assists in complex problem solving.
+
+### 🛡️ Multi-Role Dashboard System
+
+- **Students**: Personalized activity feeds, stat tracking, and mission progress.
+- **Moderators**: Supervision tools for study rooms and arena integrity.
+- **Administrators**: Full system console for infrastructure and user management.
+
+---
+
+## 🛠️ Technical Implementation
+
+### **Core Stack**
+
+- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
+- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/)
+- **Database & Auth**: [Supabase](https://supabase.com/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+### **Design System: Pro Max Alpha**
+
+- **Glassmorphism**: Advanced backdrop-blur utilities with hardware-accelerated rendering.
+- **Dynamic Glows**: Non-blocking radial gradients for depth and premium aesthetic.
+- **Motion Engine**: Staggered entrance animations and layoutId-based state transitions.
+- **Typography**: Space Grotesk (Headings) & Outfit (Body) pairing.
+
+---
+
+## 📂 Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+├── app/                  # Next.js App Router (Routes & Layouts)
+├── components/
+│   ├── landing/          # "Hero", "Features", "Pricing" sections
+│   ├── shared/           # Core UI: "Logo", "Sidebar", "DashboardShell"
+│   └── ui/               # shadcn/ui primitive components
+├── features/             # Domain-specific logic (Auth, Arena, Quiz)
+├── lib/                  # Utilities, Animations, Constants
+├── store/                # Redux store & shared slices
+├── utils/                # Supabase helpers & server actions
+└── public/               # Static assets & dynamic icons
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+- [Bun](https://bun.sh/) or [Node.js](https://nodejs.org/)
+- Supabase Project Credentials
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/your-username/opticepx-core.git
+   cd opticepx-core
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   bun install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Configure Environment**
+   Create a `.env.local` file:
+
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_publishable_key
+   ```
+
+4. **Run Development Server**
+   ```bash
+   bun dev
+   ```
+
+---
+
+## 🗺️ Roadmap & Planning
+
+- [x] **Phase 1**: Core MVP & Auth Integration
+- [x] **Phase 2**: Pro Max UI/UX Overhaul & Branding
+- [ ] **Phase 3**: Enhanced AI Quiz Generation & Adaptive Tuning
+- [ ] **Phase 4**: Advanced Analytics for Students & Educators
+- [ ] **Phase 5**: Native Mobile Application (React Native Bridge)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+  <p>Built with ❤️ by the OptiqEPX Engineering Team</p>
+</div>
