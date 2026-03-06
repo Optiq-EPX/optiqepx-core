@@ -32,12 +32,49 @@ export async function updateSession(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser()
 
-    if (
-        !user &&
-        !request.nextUrl.pathname.startsWith('/login') &&
-        !request.nextUrl.pathname.startsWith('/auth')
-    ) {
+    const pathname = request.nextUrl.pathname;
+    const isAuthRoute = pathname.startsWith('/login') || pathname.startsWith('/register');
+    const isProtectedRoute = 
+      pathname.startsWith('/student') || 
+      pathname.startsWith('/admin') || 
+      pathname.startsWith('/moderator') || 
+      pathname.startsWith('/arena') || 
+      pathname.startsWith('/study-rooms') || 
+      pathname.startsWith('/assistant');
 
+    if (!user && isProtectedRoute) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/login';
+        return NextResponse.redirect(url);
+    }
+
+    if (user) {
+        
+        let role = 'student';
+        if (isAuthRoute || pathname === '/' || pathname.startsWith('/admin') || pathname.startsWith('/moderator')) {
+            const { data: profile } = await supabase.from('users_profile').select('role').eq('id', user.id).single();
+            if (profile?.role) {
+                role = profile.role;
+            }
+        }
+
+        if (isAuthRoute || pathname === '/') {
+            const url = request.nextUrl.clone();
+            url.pathname = `/${role}`;
+            return NextResponse.redirect(url);
+        }
+
+        if (pathname.startsWith('/admin') && role !== 'admin') {
+            const url = request.nextUrl.clone();
+            url.pathname = `/${role}`;
+            return NextResponse.redirect(url);
+        }
+
+        if (pathname.startsWith('/moderator') && role !== 'moderator' && role !== 'admin') {
+            const url = request.nextUrl.clone();
+            url.pathname = `/${role}`;
+            return NextResponse.redirect(url);
+        }
     }
 
     return supabaseResponse
