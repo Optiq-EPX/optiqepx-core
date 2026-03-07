@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
-import Link from 'next/link';
 import { motion } from 'motion/react';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Zap, Swords, Users, Brain, Trophy, Star, TrendingUp } from 'lucide-react';
+import { Zap, Swords, Users, Brain, Trophy, Star, TrendingUp, Rocket, PlayCircle } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { Logo } from '@/components/shared/Logo';
+import { LandingButton } from '@/components/shared/LandingButton';
 
 export function Hero() {
   return (
@@ -116,11 +115,12 @@ export function Hero() {
 
           <motion.h1
             variants={fadeInUp}
-            className="text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-space-grotesk font-black tracking-[-0.03em] leading-[1.25] sm:leading-[1.15] lg:leading-[1.08] text-slate-900 dark:text-foreground mb-6 max-w-4xl"
+            className="text-3xl sm:text-6xl lg:text-7xl xl:text-[80px] font-space-grotesk font-black tracking-[-0.03em] leading-[1.2] sm:leading-[1.15] lg:leading-[1.08] text-slate-900 dark:text-foreground mb-6 max-w-4xl"
           >
-            Learn Smarter.{' '}
-            <span className="relative inline-block pb-2 sm:pb-0">
-              <span className="text-gradient">Compete.</span>
+            Embrace <br className="lg:hidden" /> 
+            <span className="whitespace-nowrap lg:whitespace-normal">Intelligence with</span> <br className="lg:hidden" />
+            <span className="relative inline-block pb-3 sm:pb-0 mt-2 sm:mt-0">
+              <span className="text-gradient">Optimized Potential</span>
               <motion.svg
                 className="absolute -bottom-1 sm:-bottom-4 left-0 w-full h-[18px] sm:h-[28px]"
                 viewBox="0 0 200 36"
@@ -145,34 +145,6 @@ export function Hero() {
                 />
               </motion.svg>
             </span>
-            <br className="hidden sm:block" />
-            <span className="relative inline-block pb-2 sm:pb-0">
-              Collaborate.
-              <motion.svg
-                className="absolute -bottom-1 sm:-bottom-4 left-0 w-full h-[18px] sm:h-[28px]"
-                viewBox="0 0 200 36"
-                fill="none"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient id="underlineGrad2" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#7c3aed" />
-                    <stop offset="50%" stopColor="#8b5cf6" />
-                    <stop offset="100%" stopColor="#6366f1" />
-                  </linearGradient>
-                </defs>
-                <motion.path
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.2, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
-                  d="M0,18 Q25,4 50,18 T100,18 T150,18 T200,18"
-                  stroke="url(#underlineGrad2)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-              </motion.svg>
-            </span>{' '}
-            Grow.
           </motion.h1>
 
           <motion.p
@@ -186,28 +158,24 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-4 mb-8">
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <Button
-                size="lg"
-                asChild
-                className="relative font-space-grotesk font-bold text-sm px-10 h-14 bg-violet-600 hover:bg-violet-700 text-white rounded-xl gap-2 border-0 shadow-[0_8px_30px_rgba(124,58,237,0.35)] overflow-hidden group"
-              >
-                <Link href="/register">
-                  <span className="relative z-10 flex items-center gap-2">
-                    Start for Free <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-violet-700 via-violet-500 to-violet-700 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
-              </Button>
-            </motion.div>
-            <Button
-              size="lg"
-              variant="ghost"
-              asChild
-              className="font-outfit font-semibold text-slate-600 hover:text-slate-900 dark:text-muted-foreground h-14 px-8 rounded-xl"
+            <LandingButton 
+              href="/register" 
+              size="lg" 
+              icon={Rocket}
+              iconPosition="left"
             >
-              <a href="#features">See How It Works →</a>
-            </Button>
+              Start for Free
+            </LandingButton>
+            <LandingButton 
+              href="#features" 
+              variant="ghost" 
+              size="lg" 
+              icon={PlayCircle}
+              iconPosition="left"
+              className="font-outfit font-semibold"
+            >
+              See How It Works
+            </LandingButton>
           </motion.div>
 
           <motion.div

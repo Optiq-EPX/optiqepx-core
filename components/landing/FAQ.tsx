@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import {
   Accordion,
@@ -9,6 +10,8 @@ import {
 } from '@/components/ui/accordion';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { SectionHeader } from '@/components/shared/SectionHeader';
+import { cn } from '@/lib/utils';
+import { MessageCircleQuestion } from 'lucide-react';
 
 const faqs = [
   {
@@ -46,35 +49,76 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const midPoint = Math.ceil(faqs.length / 2);
+  const leftColumnFaqs = faqs.slice(0, midPoint);
+  const rightColumnFaqs = faqs.slice(midPoint);
+
   return (
-    <section id="faq" className="py-24 sm:py-32 bg-white/30 dark:bg-transparent">
-      <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#020617]">
+      {/* Background Decorators */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/10 dark:via-violet-500/20 to-transparent" />
+      <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 dark:opacity-50" />
+
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
            initial="hidden"
            whileInView="visible"
-           viewport={{ once: true, margin: "-100px" }}
+           viewport={{ once: true, margin: "-50px" }}
            variants={staggerContainer}
         >
-          {}
           <SectionHeader 
             badge="Common Questions"
-            title={<>Everything you need <br /> <span className="text-gradient">to know</span></>}
+            title={<>Everything you need <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">to know</span></>}
             description="Find answers to common questions about OptiqEPX and how to get started."
           />
 
-          {}
-          <motion.div variants={fadeInUp}>
+          <motion.div variants={fadeInUp} className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-12 items-start">
             <Accordion type="single" collapsible className="w-full space-y-4">
-              {faqs.map((faq, index) => (
+              {leftColumnFaqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
-                  value={`item-${index}`}
-                  className={`glass-card border-white/10 dark:border-white/10 data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 rounded-[2rem] px-8 bg-white/40 dark:bg-white/5 shadow-xl shadow-black/[0.02] transition-all duration-300`}
+                  value={`item-left-${index}`}
+                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] backdrop-blur-3xl px-6 py-2 shadow-sm transition-all duration-500 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#090a0d] data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 hover:border-violet-500/20 dark:hover:border-violet-500/20"
                 >
-                  <AccordionTrigger className="text-left font-space-grotesk font-bold text-lg py-6 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400">
-                    {faq.question}
+                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700" />
+                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700 opacity-50" />
+
+                  <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2">
+                    <span className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-white/5 group-data-[state=open]:bg-violet-500/10 group-data-[state=open]:border-violet-500/20 transition-colors duration-300">
+                        <MessageCircleQuestion className="w-4 h-4 text-slate-500 dark:text-slate-400 group-data-[state=open]:text-violet-600 dark:group-data-[state=open]:text-violet-400" />
+                      </div>
+                      {faq.question}
+                    </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground font-outfit leading-relaxed text-sm pb-8 pr-4">
+                  <AccordionContent className="text-slate-600 dark:text-slate-400 font-outfit leading-relaxed text-[0.95rem] pb-6 pl-11 pr-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {rightColumnFaqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-right-${index}`}
+                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] backdrop-blur-3xl px-6 py-2 shadow-sm transition-all duration-500 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#090a0d] data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 hover:border-violet-500/20 dark:hover:border-violet-500/20"
+                >
+                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700" />
+                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700 opacity-50" />
+
+                  <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2">
+                    <span className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-white/5 group-data-[state=open]:bg-violet-500/10 group-data-[state=open]:border-violet-500/20 transition-colors duration-300">
+                        <MessageCircleQuestion className="w-4 h-4 text-slate-500 dark:text-slate-400 group-data-[state=open]:text-violet-600 dark:group-data-[state=open]:text-violet-400" />
+                      </div>
+                      {faq.question}
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-slate-600 dark:text-slate-400 font-outfit leading-relaxed text-[0.95rem] pb-6 pl-11 pr-4">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
