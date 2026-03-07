@@ -7,18 +7,47 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { Logo } from '@/components/shared/Logo';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Goals', href: '#goals' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Goals', href: '/#goals' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 
 export function Navbar() {
+  const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      threshold: 0.5,
+      rootMargin: '-80px 0px -40% 0px'
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(`#${entry.target.id}`);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Observe sections
+    navLinks.forEach((link) => {
+      const id = link.href.split('#')[1];
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +59,26 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#') && window.location.pathname === '/') {
+      e.preventDefault();
+      const id = href.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 80; // Matches scroll-pt-24
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
 
   return (
     <motion.header
@@ -48,7 +97,16 @@ export function Navbar() {
 
       <nav className="container mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        <Link href="/" className="flex items-center group">
+        <Link 
+          href="/" 
+          className="flex items-center group"
+          onClick={(e) => {
+            if (window.location.pathname === '/') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+        >
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -58,12 +116,33 @@ export function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="group relative px-5 py-2.5 text-sm font-semibold font-outfit text-muted-foreground hover:text-foreground transition-colors rounded-xl">
-              <span className="relative z-10">{link.label}</span>
-              <div className="absolute inset-0 bg-white/60 dark:bg-white/10 rounded-xl opacity-0 scale-95 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 -z-0" />
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={cn(
+                  "group relative px-5 py-2.5 text-sm font-bold font-outfit transition-all rounded-xl",
+                  isActive ? "text-violet-600 dark:text-violet-400" : "text-zinc-500 hover:text-foreground"
+                )}
+              >
+                <span className="relative z-10">{link.label}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNav"
+                    className="absolute inset-0 bg-violet-500/5 dark:bg-violet-500/10 rounded-xl -z-0"
+                    transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                  />
+                )}
+                <div className={cn(
+                  "absolute inset-0 bg-zinc-100 dark:bg-white/5 rounded-xl opacity-0 scale-95 transition-all duration-200 -z-0",
+                  !isActive && "group-hover:opacity-100 group-hover:scale-100"
+                )} />
+              </Link>
+            );
+          })}
         </div>
 
         <div className="hidden md:flex items-center gap-3">
@@ -108,8 +187,16 @@ export function Navbar() {
                 <Link 
                   key={link.href} 
                   href={link.href}
-                  onClick={() => setIsMobileOpen(false)}
-                  className="block px-4 py-3.5 text-base font-bold font-outfit text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-xl transition-all"
+                  onClick={(e) => {
+                    setIsMobileOpen(false);
+                    handleNavClick(e, link.href);
+                  }}
+                  className={cn(
+                    "block px-5 py-4 text-base font-bold font-outfit rounded-xl transition-all",
+                    activeSection === link.href 
+                      ? "bg-violet-500/10 text-violet-600 dark:text-violet-400" 
+                      : "text-zinc-500 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-white/5"
+                  )}
                 >
                   {link.label}
                 </Link>
