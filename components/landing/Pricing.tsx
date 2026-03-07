@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Check, Zap } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 const plans = [
   {
@@ -76,17 +77,11 @@ export function Pricing() {
           variants={staggerContainer}
         >
           {}
-          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <p className="text-sm font-bold font-outfit uppercase tracking-widest text-gradient mb-3">
-              Simple Pricing
-            </p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-space-grotesk font-extrabold tracking-tight mb-5">
-              Plans that <span className="text-gradient">grow</span> with you
-            </h2>
-            <p className="text-lg text-muted-foreground font-outfit leading-relaxed max-w-2xl mx-auto">
-              Start for free. Upgrade when you&apos;re ready. No surprises.
-            </p>
-          </motion.div>
+          <SectionHeader 
+            badge="Simple Pricing"
+            title={<>Plans that <span className="text-gradient">grow</span> with you</>}
+            description="Start for free. Upgrade when you're ready. No surprises."
+          />
 
           {}
           <motion.div 

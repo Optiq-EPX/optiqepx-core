@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { cn } from '@/lib/utils';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 const features = [
   {
@@ -239,17 +240,11 @@ export function Features() {
           variants={staggerContainer}
           className="relative"
         >
-          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <p className="text-sm font-bold font-outfit uppercase tracking-widest text-violet-600 dark:text-violet-400 mb-3">
-              Premium Ecosystem
-            </p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-space-grotesk font-extrabold tracking-tight mb-5 text-slate-900 dark:text-white">
-              Smarter tools for the <span className="text-gradient">modern scholar.</span>
-            </h2>
-            <p className="text-lg text-slate-500 dark:text-zinc-400 font-outfit leading-relaxed max-w-2xl mx-auto">
-              A high-precision ecosystem designed to make your study sessions more effective, engaging, and personal.
-            </p>
-          </motion.div>
+          <SectionHeader 
+            badge="Premium Ecosystem"
+            title={<>Smarter tools for the <span className="text-gradient">modern scholar.</span></>}
+            description="A high-precision ecosystem designed to make your study sessions more effective, engaging, and personal."
+          />
 
           <motion.div 
             variants={staggerContainer}

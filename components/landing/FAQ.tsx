@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 const faqs = [
   {
@@ -55,17 +56,11 @@ export function FAQ() {
            variants={staggerContainer}
         >
           {}
-          <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-            <p className="text-sm font-bold font-outfit uppercase tracking-widest text-violet-600 dark:text-violet-400 mb-3">
-              Common Questions
-            </p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-space-grotesk font-extrabold tracking-tight mb-5">
-              Everything you need <br /> <span className="text-gradient">to know</span>
-            </h2>
-            <p className="text-lg text-muted-foreground font-outfit leading-relaxed">
-              Find answers to common questions about OptiqEPX and how to get started.
-            </p>
-          </motion.div>
+          <SectionHeader 
+            badge="Common Questions"
+            title={<>Everything you need <br /> <span className="text-gradient">to know</span></>}
+            description="Find answers to common questions about OptiqEPX and how to get started."
+          />
 
           {}
           <motion.div variants={fadeInUp}>

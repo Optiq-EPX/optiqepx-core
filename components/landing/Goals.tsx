@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { Target, Handshake, Lightbulb, TrendingUp, ShieldCheck, Rocket } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 const goals = [
   {
@@ -60,17 +61,11 @@ export function Goals() {
           variants={staggerContainer}
         >
           {}
-          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <p className="text-sm font-bold font-outfit uppercase tracking-widest text-violet-600 dark:text-violet-400 mb-3">
-              Our Mission
-            </p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-space-grotesk font-extrabold tracking-tight mb-5">
-              Education should feel <span className="text-gradient">alive</span>
-            </h2>
-            <p className="text-lg text-muted-foreground font-outfit leading-relaxed max-w-2xl mx-auto">
-              We believe every student deserves tools that make learning inspiring, social, and deeply personal.
-            </p>
-          </motion.div>
+          <SectionHeader 
+            badge="Our Mission"
+            title={<>Education should feel <span className="text-gradient">alive</span></>}
+            description="We believe every student deserves tools that make learning inspiring, social, and deeply personal."
+          />
 
           {}
           <motion.div 
