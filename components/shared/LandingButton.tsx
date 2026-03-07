@@ -90,17 +90,17 @@ export function LandingButton({
         className
       )}
     >
-      {/* Shimmer sweep on primary */}
+      
       {variant === 'primary' && (
         <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/[0.12] to-transparent pointer-events-none" />
       )}
 
-      {/* Top edge highlight for primary */}
+      
       {variant === 'primary' && (
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
       )}
 
-      {/* Content */}
+      
       <span className="relative z-10 flex items-center gap-2">
         {Icon && iconPosition === 'left' && (
           <Icon className="w-[15px] h-[15px] transition-transform duration-300 group-hover:-translate-x-0.5" />

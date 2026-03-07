@@ -101,17 +101,26 @@ const features = [
 function FeatureCard({ feature }: { feature: typeof features[0] }) {
   const mouseX = useMotionValue(400);
   const mouseY = useMotionValue(0);
+  const rafRef = React.useRef<number | null>(null);
   
   const springX = useSpring(mouseX, { damping: 35, stiffness: 500 });
   const springY = useSpring(mouseY, { damping: 35, stiffness: 500 });
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      const { left, top } = currentTarget.getBoundingClientRect();
+      mouseX.set(clientX - left);
+      mouseY.set(clientY - top);
+      rafRef.current = null;
+    });
   }
 
   function handleMouseLeave() {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     mouseX.set(400);
     mouseY.set(0);
   }

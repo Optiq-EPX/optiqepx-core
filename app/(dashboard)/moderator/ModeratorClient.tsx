@@ -30,7 +30,7 @@ export default function ModeratorDashboardClient({
       variants={staggerContainer}
       className="space-y-10"
     >
-      {}
+      
       <motion.div 
         variants={fadeInUp}
         className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
@@ -55,7 +55,7 @@ export default function ModeratorDashboardClient({
         </motion.div>
       </motion.div>
 
-      {}
+      
       <div className="grid gap-8 md:grid-cols-2">
         <motion.div variants={fadeInUp} whileHover="hover" initial="rest" animate="rest">
           <motion.div 
@@ -122,7 +122,7 @@ export default function ModeratorDashboardClient({
         </motion.div>
       </div>
 
-      {}
+      
       <motion.div variants={fadeInUp}>
         <div className="glass-card p-10 rounded-[3rem] border-amber-500/20 dark:border-amber-500/10 bg-amber-500/[0.03] dark:bg-amber-500/[0.05] flex flex-col md:flex-row items-center gap-10 shadow-xl bg-white/40 dark:bg-white/5">
           <div className="w-20 h-20 rounded-[2rem] bg-amber-500/10 dark:bg-amber-500/5 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0 bg-white/50 dark:bg-white/5">

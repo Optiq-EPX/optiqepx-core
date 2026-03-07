@@ -19,17 +19,17 @@ export function DashboardShell({
 }) {
   return (
     <div className="min-h-screen bg-background flex p-4 gap-4 overflow-hidden selection:bg-violet-100 selection:text-violet-900">
-      {}
+      
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.02),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.02),transparent_40%)]">
         <div className="absolute top-[-10%] left-[10%] w-[50vw] h-[50vw] bg-violet-400/5 dark:bg-violet-600/5 blur-[80px] rounded-full transform-gpu will-change-transform" />
         <div className="absolute bottom-[-10%] right-[10%] w-[45vw] h-[45vw] bg-indigo-400/5 dark:bg-indigo-600/5 blur-[80px] rounded-full transform-gpu will-change-transform" />
       </div>
 
-      {}
+      
       <Sidebar role={role} username={profile?.username || 'User'} />
 
       <div className="flex-1 flex flex-col min-w-0 h-[calc(100vh-2rem)]">
-        {}
+        
         <header className="h-24 flex items-center justify-between px-8 lg:px-12 mb-4 glass-card rounded-[2.5rem] border-white/80 dark:border-white/10 shrink-0 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.04)] bg-white/70 dark:bg-slate-900/80 transform-gpu">
           <div className="flex items-center gap-6 lg:hidden">
             <Button variant="ghost" size="icon" className="rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 hover:bg-black/10 transition-colors">
@@ -65,7 +65,7 @@ export function DashboardShell({
           </div>
         </header>
 
-        {}
+        
         <main className="flex-1 overflow-y-auto custom-scrollbar rounded-[2.5rem] bg-white/40 dark:bg-white/[0.02] border border-white/80 dark:border-white/5 backdrop-blur-xl p-8 lg:p-12 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.04)] dark:shadow-2xl transform-gpu">
 
            <AnimatePresence mode="wait">

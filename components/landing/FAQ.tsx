@@ -55,7 +55,7 @@ export function FAQ() {
 
   return (
     <section id="faq" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#020617]">
-      {/* Background Decorators */}
+      
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/10 dark:via-violet-500/20 to-transparent" />
       <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none" />

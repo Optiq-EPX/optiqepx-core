@@ -64,7 +64,7 @@ const plans = [
 export function Pricing() {
   return (
     <section id="pricing" className="py-24 sm:py-32 relative overflow-hidden">
-      {}
+      
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-violet-500/[0.02] to-transparent" />
       <div className="absolute top-[10%] left-[5%] w-[300px] h-[300px] bg-violet-500/5 blur-[100px] rounded-full" />
       <div className="absolute bottom-[10%] right-[5%] w-[300px] h-[300px] bg-indigo-500/5 blur-[100px] rounded-full" />
@@ -76,14 +76,14 @@ export function Pricing() {
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          {}
+          
           <SectionHeader 
             badge="Simple Pricing"
             title={<>Plans that <span className="text-gradient">grow</span> with you</>}
             description="Start for free. Upgrade when you're ready. No surprises."
           />
 
-          {}
+          
           <motion.div 
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center"

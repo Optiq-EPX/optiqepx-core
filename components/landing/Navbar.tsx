@@ -38,8 +38,6 @@ export function Navbar() {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    
-    // Observe sections
     navLinks.forEach((link) => {
       const id = link.href.split('#')[1];
       const element = document.getElementById(id);
@@ -66,7 +64,7 @@ export function Navbar() {
       const id = href.replace('/#', '');
       const element = document.getElementById(id);
       if (element) {
-        const offset = 80; // Matches scroll-pt-24
+        const offset = 80;
         const bodyRect = document.body.getBoundingClientRect().top;
         const elementRect = element.getBoundingClientRect().top;
         const elementPosition = elementRect - bodyRect;
