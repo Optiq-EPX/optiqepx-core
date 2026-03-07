@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { StoreProvider } from "@/store/StoreProvider";
 import { MotionProvider } from "@/components/shared/MotionProvider";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -42,6 +43,7 @@ export default function RootLayout({
               {children}
             </MotionProvider>
             <Toaster />
+            <ScrollToTop />
           </StoreProvider>
         </ThemeProvider>
       </body>

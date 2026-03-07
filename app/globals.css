@@ -126,6 +126,9 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply scroll-smooth scroll-pt-24;
+  }
   body {
     @apply bg-background text-foreground;
   }

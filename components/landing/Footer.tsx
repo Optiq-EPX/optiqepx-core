@@ -9,19 +9,19 @@ import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const footerLinks = {
   Product: [
-    { label: 'Battle Arena', href: '#features' },
-    { label: 'Study Rooms', href: '#features' },
-    { label: 'AI Tutor', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'Battle Arena', href: '/#features' },
+    { label: 'Study Rooms', href: '/#features' },
+    { label: 'AI Tutor', href: '/#features' },
+    { label: 'Pricing', href: '/#pricing' },
   ],
   Company: [
-    { label: 'About Us', href: '#goals' },
-    { label: 'Our Mission', href: '#goals' },
+    { label: 'About Us', href: '/#goals' },
+    { label: 'Our Mission', href: '/#goals' },
     { label: 'Blog', href: '#' },
     { label: 'Careers', href: '#' },
   ],
   Support: [
-    { label: 'FAQ', href: '#faq' },
+    { label: 'FAQ', href: '/#faq' },
     { label: 'Contact', href: '#' },
     { label: 'Help Center', href: '#' },
     { label: 'Status', href: '#' },
@@ -55,7 +55,16 @@ export function Footer() {
         >
           {}
           <motion.div variants={fadeInUp} className="col-span-2">
-            <Link href="/" className="mb-8 block">
+            <Link 
+              href="/" 
+              className="mb-8 block"
+              onClick={(e) => {
+                if (window.location.pathname === '/') {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+            >
               <Logo />
             </Link>
             <p className="text-muted-foreground font-outfit font-medium text-base mb-10 leading-relaxed max-w-xs">
@@ -86,13 +95,12 @@ export function Footer() {
               <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <motion.a
+                    <Link
                       href={link.href}
-                      whileHover={{ x: 4 }}
                       className="text-sm font-outfit font-medium text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400 transition-colors inline-block"
                     >
-                      {link.label}
-                    </motion.a>
+                      <motion.span whileHover={{ x: 4 }} className="inline-block">{link.label}</motion.span>
+                    </Link>
                   </li>
                 ))}
               </ul>
