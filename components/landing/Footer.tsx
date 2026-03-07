@@ -53,7 +53,7 @@ export function Footer() {
           variants={staggerContainer}
           className="grid grid-cols-2 md:grid-cols-6 gap-12 mb-20"
         >
-          {}
+          
           <motion.div variants={fadeInUp} className="col-span-2">
             <Link 
               href="/" 
@@ -86,7 +86,7 @@ export function Footer() {
             </div>
           </motion.div>
 
-          {}
+          
           {Object.entries(footerLinks).map(([category, links]) => (
             <motion.div variants={fadeInUp} key={category} className="col-span-1">
               <h4 className="font-space-grotesk font-bold text-sm uppercase tracking-widest mb-6 text-foreground">
@@ -110,7 +110,7 @@ export function Footer() {
 
         <Separator className="opacity-20" />
 
-        {}
+        
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10">
           <p className="text-sm text-muted-foreground font-outfit font-medium">
             &copy; {new Date().getFullYear()} OptiqEPX — AI Core for Students.

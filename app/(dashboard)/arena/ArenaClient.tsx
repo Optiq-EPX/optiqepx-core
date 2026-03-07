@@ -22,7 +22,7 @@ export default function ArenaClient({
       variants={staggerContainer}
       className="space-y-10"
     >
-      {}
+      
       <motion.div 
         variants={fadeInUp}
         className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
@@ -47,7 +47,7 @@ export default function ArenaClient({
         </motion.div>
       </motion.div>
 
-      {}
+      
       <motion.div 
         variants={staggerContainer}
         className="grid gap-8 md:grid-cols-3"
@@ -75,7 +75,7 @@ export default function ArenaClient({
         />
       </motion.div>
 
-      {}
+      
       <motion.section variants={fadeInUp} className="space-y-8">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-space-grotesk font-black tracking-tight flex items-center gap-4">

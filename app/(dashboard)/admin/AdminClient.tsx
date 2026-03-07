@@ -33,7 +33,7 @@ export default function AdminDashboardClient({
       variants={staggerContainer}
       className="space-y-10"
     >
-      {}
+      
       <motion.div 
         variants={fadeInUp}
         className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
@@ -58,7 +58,7 @@ export default function AdminDashboardClient({
         </motion.div>
       </motion.div>
 
-      {}
+      
       <motion.div 
         variants={staggerContainer}
         className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
@@ -89,7 +89,7 @@ export default function AdminDashboardClient({
         />
       </motion.div>
 
-      {}
+      
       <div className="grid gap-10 lg:grid-cols-2">
         <motion.div variants={fadeInUp} whileHover="hover" initial="rest" animate="rest">
           <motion.div 

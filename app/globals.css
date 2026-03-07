@@ -133,14 +133,6 @@ body {
     @apply bg-background text-foreground;
   }
 
-  /* Ensure all interactive elements have a pointer cursor globally */
-  button,
-  select,
-  [role="button"],
-  [role="combobox"] {
-    cursor: pointer;
-  }
-
   .glass-card {
     @apply bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-2xl;
   }
@@ -168,5 +160,29 @@ body {
   }
   100% {
     transform: translateX(100%);
+  }
+}
+
+.gpu-layer {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.glass-card,
+.glass-morphism,
+[class*="backdrop-blur"] {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-spin,
+  .animate-bounce,
+  .animate-scan,
+  [style*="animation"] {
+    animation-play-state: paused !important;
+    animation: none !important;
   }
 }

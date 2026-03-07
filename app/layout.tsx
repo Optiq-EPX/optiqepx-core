@@ -39,7 +39,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <StoreProvider>
-            <MotionProvider> {}
+            <MotionProvider> 
               {children}
             </MotionProvider>
             <Toaster />

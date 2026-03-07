@@ -62,6 +62,9 @@ export function Hero() {
             height: '70%',
             background: 'radial-gradient(ellipse at top left, rgba(167,139,250,0.35) 0%, rgba(139,92,246,0.12) 40%, transparent 65%)',
             filter: 'blur(80px)',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            contain: 'layout style paint',
           }}
         />
         <motion.div
@@ -79,6 +82,9 @@ export function Hero() {
             height: '65%',
             background: 'radial-gradient(ellipse at top right, rgba(124,58,237,0.28) 0%, rgba(99,102,241,0.1) 40%, transparent 60%)',
             filter: 'blur(80px)',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            contain: 'layout style paint',
           }}
         />
 

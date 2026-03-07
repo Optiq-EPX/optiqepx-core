@@ -31,10 +31,8 @@ const getNavItems = (role: string) => {
     { label: 'AI Assistant', href: '/assistant', icon: Brain },
   ];
 
-  if (role === 'admin' || role === 'moderator') {
-
-  }
-
+  if (role === 'admin' || role === 'moderator') {}
+  
   return baseItems;
 };
 
@@ -51,14 +49,14 @@ export function Sidebar({ role, username, className }: SidebarProps) {
       "hidden lg:flex flex-col w-72 h-[calc(100vh-2rem)] sticky top-4 left-4 rounded-[2.5rem] glass-card border-white/40 dark:border-white/5 shadow-2xl p-6 transition-all duration-500",
       className
     )}>
-      {}
+      
       <div className="px-2 mb-10">
         <Link href="/">
           <Logo />
         </Link>
       </div>
 
-      {}
+      
       <nav className="flex-1 space-y-2.5 relative">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
@@ -110,7 +108,7 @@ export function Sidebar({ role, username, className }: SidebarProps) {
         })}
       </nav>
 
-      {}
+      
       <div className="mt-auto pt-6 border-t border-black/5 dark:border-white/10">
         <div className="flex items-center gap-4 px-2 mb-6 group cursor-pointer">
           <div className="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-600 font-black text-sm uppercase transition-colors group-hover:bg-violet-500/20 transform-gpu">
