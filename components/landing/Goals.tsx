@@ -82,7 +82,7 @@ function GoalCard({ goal, isHovered, index, setHoveredIndex }: { goal: typeof go
     >
       {isHovered && (
         <motion.span
-          className="absolute -inset-3 block rounded-[2rem] -z-10 bg-slate-200/50 dark:bg-white/[0.04]"
+          className="absolute -inset-3 block rounded-[2rem] -z-10 bg-slate-300/60 dark:bg-white/[0.08]"
           layoutId="goalHoverBackground"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -98,7 +98,7 @@ function GoalCard({ goal, isHovered, index, setHoveredIndex }: { goal: typeof go
 
       <article
         className={cn(
-          "group relative flex h-full w-full overflow-hidden rounded-3xl border border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#090a0d] backdrop-blur-3xl transition-all duration-500 shadow-sm",
+          "group relative flex h-full w-full overflow-hidden rounded-3xl border border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] backdrop-blur-3xl transition-all duration-500 shadow-sm",
           isWide ? "flex-col sm:flex-row items-center sm:text-left text-center px-8 py-8" : "flex-col items-center text-center px-8 py-10",
           isLarge && "justify-center"
         )}

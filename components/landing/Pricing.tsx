@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { Button } from '@/components/ui/button';
 import { Check, Zap } from 'lucide-react';
+import { LandingButton } from '@/components/shared/LandingButton';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 
@@ -147,19 +147,16 @@ export function Pricing() {
                     ))}
                   </ul>
 
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="relative z-10 mt-auto">
-                    <Button
-                      asChild
+                  <div className="relative z-10 mt-auto w-full">
+                    <LandingButton
+                      href="/register"
                       size="lg"
-                      className={`w-full font-outfit font-black rounded-2xl h-14 py-4 transition-all uppercase tracking-wider text-xs ${
-                        plan.highlighted
-                          ? 'bg-white text-violet-700 hover:bg-violet-50 shadow-xl'
-                          : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-xl shadow-violet-500/10 border-0'
-                      }`}
+                      variant={plan.highlighted ? 'white' : 'primary'}
+                      className="w-full uppercase tracking-wider text-xs font-black"
                     >
-                      <Link href="/register">{plan.cta}</Link>
-                    </Button>
-                  </motion.div>
+                      {plan.cta}
+                    </LandingButton>
+                  </div>
                 </motion.div>
               </motion.div>
             ))}
