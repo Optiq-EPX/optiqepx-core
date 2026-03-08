@@ -54,11 +54,11 @@ export function FAQ() {
   const rightColumnFaqs = faqs.slice(midPoint);
 
   return (
-    <section id="faq" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#020617]">
+    <section id="faq" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#0e1016]">
       
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/10 dark:via-violet-500/20 to-transparent" />
-      <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
+      <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 dark:opacity-50" />
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
@@ -80,10 +80,10 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-left-${index}`}
-                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] backdrop-blur-3xl px-6 py-2 shadow-sm transition-all duration-500 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#090a0d] data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 hover:border-violet-500/20 dark:hover:border-violet-500/20"
+                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-violet-500/20 bg-white dark:bg-[#08090d] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a] data-[state=open]:border-violet-500/40 hover:border-violet-500/30 dark:hover:border-violet-500/40"
                 >
-                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700" />
-                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700 opacity-50" />
+                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
 
                   <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2">
                     <span className="flex items-center gap-3">
@@ -105,10 +105,10 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-right-${index}`}
-                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] backdrop-blur-3xl px-6 py-2 shadow-sm transition-all duration-500 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#090a0d] data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 hover:border-violet-500/20 dark:hover:border-violet-500/20"
+                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-violet-500/20 bg-white dark:bg-[#08090d] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a] data-[state=open]:border-violet-500/40 hover:border-violet-500/30 dark:hover:border-violet-500/40"
                 >
-                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700" />
-                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/0 to-transparent group-data-[state=open]:via-violet-500/50 transition-all duration-700 opacity-50" />
+                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
 
                   <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2">
                     <span className="flex items-center gap-3">
