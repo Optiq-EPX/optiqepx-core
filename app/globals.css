@@ -152,6 +152,23 @@ body {
   .glow-hover {
     @apply transition-[box-shadow,transform] duration-500 hover:shadow-[0_0_40px_rgba(139,92,246,0.12)] dark:hover:shadow-[0_0_40px_rgba(139,92,246,0.2)];
   }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-violet-600/80 to-indigo-600/80 dark:from-violet-400/80 dark:to-indigo-400/80 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gradient-to-b from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400;
+  }
 }
 
 @keyframes shimmer {

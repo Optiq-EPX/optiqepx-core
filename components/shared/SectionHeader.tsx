@@ -7,7 +7,9 @@ import { cn } from '@/lib/utils';
 
 interface SectionHeaderProps {
   badge: string;
-  title: string | React.ReactNode;
+  title: string;
+  highlight?: string;
+  titleBr?: boolean;
   description: string;
   className?: string;
 }
@@ -47,6 +49,8 @@ const descVariants = {
 export function SectionHeader({
   badge,
   title,
+  highlight,
+  titleBr,
   description,
   className
 }: SectionHeaderProps) {
@@ -69,14 +73,48 @@ export function SectionHeader({
 
       <motion.h2
         variants={titleVariants}
-        className="text-2xl sm:text-3xl lg:text-4xl font-space-grotesk font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-slate-900 via-slate-800 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 whitespace-nowrap leading-[1.05] transform-gpu"
+        className="text-2xl sm:text-3xl lg:text-4xl font-space-grotesk font-bold tracking-tight mb-6 text-balance leading-[1.05] transform-gpu"
       >
-        {title}
+        <span className="bg-clip-text text-transparent bg-gradient-to-b from-slate-900 via-slate-800 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 leading-[1.05]">
+          {title}
+        </span>
+        {titleBr && <br className="hidden sm:block" />}
+        {highlight && (
+          <span className="relative inline-block pb-3 sm:pb-0 mt-2 sm:mt-0 whitespace-nowrap">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 leading-[1.05]">
+              {highlight}
+            </span>
+            <motion.svg
+              className="absolute -bottom-1 sm:-bottom-4 left-0 w-full h-[18px] sm:h-[28px]"
+              viewBox="0 0 200 36"
+              fill="none"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id={`underlineGrad-${title.replace(/\s+/g, '')}`} x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#7c3aed" />
+                  <stop offset="50%" stopColor="#8b5cf6" />
+                  <stop offset="100%" stopColor="#6366f1" />
+                </linearGradient>
+              </defs>
+              <motion.path
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                d="M0,18 Q25,12 50,18 T100,18 T150,18 T200,18"
+                stroke={`url(#underlineGrad-${title.replace(/\s+/g, '')})`}
+                strokeWidth="5"
+                strokeLinecap="round"
+              />
+            </motion.svg>
+          </span>
+        )}
       </motion.h2>
 
       <motion.p
         variants={descVariants}
-        className="text-base sm:text-lg text-slate-500 dark:text-zinc-400 font-outfit font-light leading-relaxed max-w-2xl text-balance transform-gpu"
+        className="text-base sm:text-lg text-slate-500 dark:text-zinc-400 font-outfit font-light leading-relaxed max-w-2xl text-balance transform-gpu mt-2"
       >
         {description}
       </motion.p>
