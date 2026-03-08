@@ -80,7 +80,7 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-left-${index}`}
-                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-white/[0.05] bg-white dark:bg-[#0e1016] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#090a0d] data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 hover:border-violet-500/20 dark:hover:border-violet-500/20"
+                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-violet-500/20 bg-white dark:bg-[#08090d] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a] data-[state=open]:border-violet-500/40 hover:border-violet-500/30 dark:hover:border-violet-500/40"
                 >
                   <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
@@ -105,7 +105,7 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-right-${index}`}
-                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-white/[0.05] bg-white dark:bg-[#0e1016] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#090a0d] data-[state=open]:border-violet-500/30 dark:data-[state=open]:border-violet-500/30 hover:border-violet-500/20 dark:hover:border-violet-500/20"
+                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-violet-500/20 bg-white dark:bg-[#08090d] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a] data-[state=open]:border-violet-500/40 hover:border-violet-500/30 dark:hover:border-violet-500/40"
                 >
                   <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
