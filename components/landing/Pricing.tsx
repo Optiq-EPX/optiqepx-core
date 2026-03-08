@@ -112,7 +112,8 @@ export function Pricing() {
         <div className="flex flex-col items-center text-center mb-16">
           <SectionHeader 
             badge="Simple Plan, No Hidden Costs"
-            title={<>Find Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">Perfect Plan</span></>}
+            title="Find Your "
+            highlight="Perfect Plan"
             description="Select the perfect plan with transparent pricing and no unexpected fees."
             className="!mb-8 sm:!mb-10"
           />
@@ -258,7 +259,8 @@ export function Pricing() {
         >
           <SectionHeader 
             badge="Simple Pricing"
-            title={<>Compare <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">Plans</span></>}
+            title="Compare "
+            highlight="Plans"
             description="Choose the plan that fits you best with our easy-to-navigate comparison tool."
             className="!mb-12 sm:!mb-16"
           />

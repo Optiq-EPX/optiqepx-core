@@ -4,12 +4,15 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import { RegisterForm } from '@/features/auth/components/RegisterForm';
 import { Logo } from '@/components/shared/Logo';
-import { ArrowLeft, ShieldCheck, CheckCircle2, Star, UserPlus, ArrowRight, GraduationCap, Activity } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, CheckCircle2, UserPlus } from 'lucide-react';
 
 const perks = [
   'Free forever — no credit card needed',
   'AI quiz battles & live study rooms',
   'Personal AI tutor, 24/7',
+  'Adaptive learning paths tailored for you',
+  'Collaborative flashcards & notes',
+  'Global study streaks & achievements',
 ];
 
 export default function RegisterPage() {
@@ -188,44 +191,7 @@ export default function RegisterPage() {
             </div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.95 }}
-            className="rounded-2xl border border-indigo-500/20 bg-black/20 backdrop-blur-md p-5 relative overflow-hidden group shadow-2xl"
-          >
-            
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#6366f115_1px,transparent_1px),linear-gradient(to_bottom,#6366f115_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none" />
-            
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/10 to-indigo-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
-            
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-colors duration-500 pointer-events-none" />
-            
-            <div className="flex items-center justify-between mb-5 relative z-10">
-              <div className="flex items-center gap-2.5">
-                <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
-                <span className="text-white/60 font-outfit text-xs font-black tracking-[0.2em] uppercase">System Status</span>
-              </div>
-              <Activity className="w-4 h-4 text-white/30" />
-            </div>
 
-            <div className="grid grid-cols-2 gap-4 relative z-10">
-              <div className="flex flex-col border-r border-indigo-500/20">
-                <p className="text-white/40 text-[10px] font-outfit uppercase tracking-wider font-black mb-1">Active Students</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-space-grotesk font-black text-white">4,209</span>
-                  <span className="text-emerald-400 text-xs font-black font-space-grotesk tracking-wide">+12%</span>
-                </div>
-              </div>
-              <div className="flex flex-col pl-2">
-                <p className="text-white/40 text-[10px] font-outfit uppercase tracking-wider font-black mb-1">Live Battles</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-space-grotesk font-black text-white">184</span>
-                  <span className="text-emerald-400 text-xs font-black font-space-grotesk tracking-wide">+5%</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </motion.div>
     </div>

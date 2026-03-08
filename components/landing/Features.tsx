@@ -251,7 +251,9 @@ export function Features() {
         >
           <SectionHeader 
             badge="Premium Ecosystem"
-            title={<>Smarter tools for the <span className="text-gradient">modern scholar.</span></>}
+            title="Smarter tools for the "
+            titleBr={true}
+            highlight="modern scholar."
             description="A high-precision ecosystem designed to make your study sessions more effective, engaging, and personal."
           />
 

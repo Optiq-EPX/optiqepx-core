@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import { Loader2, User, Mail, Lock, UserPlus } from 'lucide-react';
-import { ClassSelector } from './ClassSelector';
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -35,10 +35,8 @@ export function RegisterForm() {
     defaultValues: {
       username: '',
       email: '',
-      phone: '',
       password: '',
       confirmPassword: '',
-      class: '1',
     },
   });
 
@@ -50,8 +48,6 @@ export function RegisterForm() {
       options: {
         data: {
           username: data.username,
-          phone: data.phone,
-          class: data.class,
         },
       },
     });
@@ -60,6 +56,16 @@ export function RegisterForm() {
     toast.success('Account created! Redirecting...');
     router.refresh();
   }
+
+  const handleSocialLogin = async (provider: 'google' | 'facebook') => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    if (error) toast.error(error.message);
+  };
 
   return (
     <Form {...form}>
@@ -99,24 +105,7 @@ export function RegisterForm() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className={labelClass}>BD / Phone Number</FormLabel>
-              <FormControl>
-                <div className="relative group flex items-center">
-                  <div className="absolute left-0 top-0 bottom-0 w-16 flex justify-center items-center bg-zinc-100/50 dark:bg-white/5 border-r border-zinc-200 dark:border-white/10 rounded-l-2xl z-10">
-                    <span className="text-zinc-500 dark:text-zinc-400 font-outfit text-sm font-semibold">+880</span>
-                  </div>
-                  <Input type="tel" placeholder="1712-345678" className={`pl-20 ${inputClass}`} {...field} />
-                </div>
-              </FormControl>
-              <FormMessage className="font-outfit text-xs" />
-            </FormItem>
-          )}
-        />
+
 
         <div className="grid grid-cols-2 gap-3 items-start">
           <FormField
@@ -154,23 +143,7 @@ export function RegisterForm() {
           />
         </div>
 
-        <FormField
-          control={form.control}
-          name="class"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel className={labelClass}>Class / Grade Level</FormLabel>
-              <FormControl>
-                <ClassSelector 
-                  value={field.value} 
-                  onChange={field.onChange} 
-                  error={fieldState.error?.message}
-                />
-              </FormControl>
-              <FormMessage className="font-outfit text-xs" />
-            </FormItem>
-          )}
-        />
+
 
         <div className="pt-2">
           <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
@@ -192,6 +165,33 @@ export function RegisterForm() {
               )}
             </Button>
           </motion.div>
+        </div>
+
+        <div className="relative flex items-center py-2">
+          <div className="flex-grow border-t border-zinc-200 dark:border-white/10"></div>
+          <span className="shrink-0 px-4 text-[10px] font-black font-space-grotesk tracking-widest text-zinc-400 dark:text-zinc-500 uppercase">Or Continue With</span>
+          <div className="flex-grow border-t border-zinc-200 dark:border-white/10"></div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleSocialLogin('google')}
+            className="h-12 rounded-2xl border-zinc-300 dark:border-white/10 bg-transparent hover:bg-zinc-50 dark:hover:bg-white/5 transition-all w-full flex items-center justify-center gap-2"
+          >
+            <FaGoogle className="w-4 h-4 text-zinc-900 dark:text-white" />
+            <span className="font-outfit font-bold text-sm text-zinc-900 dark:text-white">Google</span>
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleSocialLogin('facebook')}
+            className="h-12 rounded-2xl border-zinc-300 dark:border-white/10 bg-transparent hover:bg-zinc-50 dark:hover:bg-white/5 transition-all w-full flex items-center justify-center gap-2"
+          >
+            <FaFacebook className="w-4 h-4 text-[#1877F2]" />
+            <span className="font-outfit font-bold text-sm text-zinc-900 dark:text-white">Facebook</span>
+          </Button>
         </div>
 
         <p className="text-[10px] text-center font-outfit text-muted-foreground/40 font-medium pt-2">

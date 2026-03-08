@@ -174,7 +174,8 @@ export function Goals() {
         >
           <SectionHeader 
             badge="Our Mission"
-            title={<>Education should feel <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400">alive</span></>}
+            title="Education should feel "
+            highlight="alive"
             description="We believe every student deserves tools that make learning inspiring, social, and deeply personal."
           />
 
