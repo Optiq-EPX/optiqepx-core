@@ -11,14 +11,11 @@ import {
   ChevronRight,
   LogOut,
   ChevronUp,
-  Settings,
-  Shield,
   Lock
 } from 'lucide-react';
 import { signOut } from '@/app/auth-actions';
 import { Logo } from '@/components/shared/Logo';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 interface SidebarProps {
   role: string;
@@ -82,9 +79,9 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
       }}
       transition={{ 
         type: "spring", 
-        stiffness: 300, 
-        damping: 35, 
-        mass: 0.8 
+        stiffness: 400, 
+        damping: 30, 
+        mass: 0.5 
       }}
       className={cn(
         "hidden lg:flex flex-col h-[calc(100vh-2rem)] w-72 rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-4 left-4 z-30 overflow-hidden group/sidebar outline-none",
@@ -181,7 +178,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.03 }}
                         className={cn(
-                          "text-[14.5px] transition-all duration-300",
+                          "text-[14.5px] transition-all duration-300 whitespace-nowrap",
                           isActive 
                             ? "font-semibold tracking-wide text-[#b89aff]" 
                             : "font-medium tracking-tight",
@@ -290,6 +287,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
                 src={profile.avatar_url} 
                 alt={username} 
                 className="w-full h-full object-cover" 
+                referrerPolicy="no-referrer"
                 onError={() => setImgError(true)}
               />
             ) : (
@@ -300,10 +298,10 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
           {!isCollapsed && (
             <>
               <div className="flex flex-col min-w-0 flex-1 relative z-10">
-                <span className="text-[13.5px] font-semibold font-space-grotesk truncate text-[#c8c8d8] group-hover:text-white transition-colors tracking-tight">{username}</span>
+                <span className="text-[13.5px] font-semibold font-space-grotesk truncate text-[#c8c8d8] group-hover:text-white transition-colors tracking-tight whitespace-nowrap">{username}</span>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] animate-pulse" />
-                  <span className="text-[10px] font-medium tracking-widest text-[#555566] group-hover:text-[#8888a0] truncate uppercase transition-colors">
+                  <span className="text-[10px] font-medium tracking-widest text-[#555566] group-hover:text-[#8888a0] truncate uppercase transition-colors whitespace-nowrap">
                     {role} • LVL 1
                   </span>
                 </div>

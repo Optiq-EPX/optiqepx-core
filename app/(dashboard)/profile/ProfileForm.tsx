@@ -91,9 +91,6 @@ export function ProfileForm({
     
     router.refresh();
     
-    // Redirect logic:
-    // 1. If profile was incomplete, go to student dashboard.
-    // 2. If it was already complete but we are on the edit page (no onComplete), go back to profile.
     if (!initialData?.is_profile_completed) {
       router.push('/student');
     } else if (!onComplete) {

@@ -56,7 +56,7 @@ export function ClassSelector({ value, onChange, error }: ClassSelectorProps) {
     if (isOpen && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const dropdownHeight = 400; // Estimated max height including padding
+      const dropdownHeight = 400;
       const spaceBelow = windowHeight - rect.bottom;
       
       if (spaceBelow < dropdownHeight && rect.top > dropdownHeight) {

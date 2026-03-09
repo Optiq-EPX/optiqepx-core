@@ -9,19 +9,22 @@ interface LogoProps {
   className?: string;
   iconOnly?: boolean;
   animated?: boolean;
+  textOnly?: boolean;
 }
 
-export function Logo({ className, iconOnly = false, animated = true }: LogoProps) {
+export function Logo({ className, iconOnly = false, animated = true, textOnly = false }: LogoProps) {
   const gradId = useId();
   
   return (
     <div className={cn("flex items-center gap-2.5 group select-none relative", className)}>
-      <div className="relative flex items-center justify-center">
-        <div className="absolute -inset-2 bg-violet-500/20 dark:bg-violet-500/40 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/20 relative z-10">
-          <Brain className="w-5 h-5" />
+      {!textOnly && (
+        <div className="relative flex items-center justify-center">
+          <div className="absolute -inset-2 bg-violet-500/20 dark:bg-violet-500/40 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/20 relative z-10">
+            <Brain className="w-5 h-5" />
+          </div>
         </div>
-      </div>
+      )}
 
       {!iconOnly && (
         <div className="flex items-center gap-1 relative z-10">

@@ -97,7 +97,7 @@ export function Navbar() {
         
         <Link 
           href="/" 
-          className="flex items-center group"
+          className="flex items-center group flex-shrink-0"
           onClick={(e) => {
             if (window.location.pathname === '/') {
               e.preventDefault();
@@ -109,7 +109,7 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Logo className="scale-90 sm:scale-100" />
+            <Logo textOnly className="scale-90 sm:scale-100" />
           </motion.div>
         </Link>
 
@@ -143,8 +143,8 @@ export function Navbar() {
           })}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
-          <ThemeToggle />
+        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+          <ThemeToggle className="h-10 w-10 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer" />
           <Button variant="ghost" size="sm" asChild className="font-outfit font-semibold hover:bg-white/10 rounded-xl transition-all">
             <Link href="/login">Log In</Link>
           </Button>
@@ -161,10 +161,10 @@ export function Navbar() {
         />
 
         <div className="flex items-center gap-2 md:hidden relative z-10">
-          <ThemeToggle />
+          <ThemeToggle className="cursor-pointer" />
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="p-2.5 rounded-xl hover:bg-accent/50 transition-colors bg-white/5 border border-white/10"
+            className="p-2.5 rounded-xl hover:bg-accent/50 transition-colors bg-white/5 border border-white/10 cursor-pointer"
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

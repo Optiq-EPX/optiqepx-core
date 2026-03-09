@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import { Logo } from '@/components/shared/Logo';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
-import { cn } from '@/lib/utils';
 
 export function DashboardShell({ 
   children, 
@@ -140,6 +139,7 @@ export function DashboardShell({
                       src={profile.avatar_url} 
                       alt={profile.username} 
                       className="w-full h-full object-cover" 
+                      referrerPolicy="no-referrer"
                       onError={() => setImgError(true)}
                     />
                   ) : (

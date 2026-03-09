@@ -42,8 +42,6 @@ const socials = [
 export function Footer() {
   return (
     <footer className="relative pt-16 pb-6 overflow-hidden bg-white dark:bg-[#070b14]">
-      
-      {/* Glowing Top Divider */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 dark:via-violet-500/60 to-transparent" />
       <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-violet-500/20 dark:via-violet-500/40 to-transparent blur-sm" />
 
