@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-dashboard: var(--dashboard-bg);
+  --color-dashboard-border: var(--dashboard-border);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-outfit-var), ui-sans-serif, system-ui, sans-serif;
@@ -54,6 +56,8 @@ body {
 }
 
 :root {
+  --dashboard-bg: oklch(0.99 0.005 260);
+  --dashboard-border: oklch(0.2 0.04 260 / 8%);
   --radius: 0.75rem;
   --background: oklch(0.99 0.005 260);
   --foreground: oklch(0.2 0.04 260);
@@ -89,6 +93,8 @@ body {
 }
 
 .dark {
+  --dashboard-bg: #040715;
+  --dashboard-border: rgba(255, 255, 255, 0.15);
   --background: oklch(0.1 0.02 260);
   --foreground: oklch(0.95 0.01 260);
   --card: oklch(0.12 0.02 260);
@@ -104,7 +110,7 @@ body {
   --accent: oklch(0.18 0.03 260);
   --accent-foreground: oklch(0.95 0.01 260);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 15%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.65 0.2 260);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -118,7 +124,7 @@ body {
   --sidebar-primary-foreground: oklch(0.1 0.02 260);
   --sidebar-accent: oklch(0.18 0.03 260);
   --sidebar-accent-foreground: oklch(0.95 0.01 260);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-border: oklch(1 0 0 / 15%);
   --sidebar-ring: oklch(0.65 0.2 260);
 }
 
@@ -134,7 +140,7 @@ body {
   }
 
   .glass-card {
-    @apply bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-2xl;
+    @apply bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-white/15 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-2xl;
   }
 
   .glass-morphism {

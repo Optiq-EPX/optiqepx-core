@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import { Loader2, User, Mail, Lock, UserPlus } from 'lucide-react';
-import { FaGoogle, FaFacebook } from 'react-icons/fa';
+import { FaGoogle, FaDiscord } from 'react-icons/fa';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -57,7 +57,7 @@ export function RegisterForm() {
     router.refresh();
   }
 
-  const handleSocialLogin = async (provider: 'google' | 'facebook') => {
+  const handleSocialLogin = async (provider: 'google' | 'discord') => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
@@ -186,11 +186,11 @@ export function RegisterForm() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => handleSocialLogin('facebook')}
+            onClick={() => handleSocialLogin('discord')}
             className="h-12 rounded-2xl border-zinc-300 dark:border-white/10 bg-transparent hover:bg-zinc-50 dark:hover:bg-white/5 transition-all w-full flex items-center justify-center gap-2"
           >
-            <FaFacebook className="w-4 h-4 text-[#1877F2]" />
-            <span className="font-outfit font-bold text-sm text-zinc-900 dark:text-white">Facebook</span>
+            <FaDiscord className="w-5 h-5 text-[#5865F2]" />
+            <span className="font-outfit font-bold text-sm text-zinc-900 dark:text-white">Discord</span>
           </Button>
         </div>
 

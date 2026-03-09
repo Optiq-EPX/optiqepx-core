@@ -20,11 +20,13 @@ import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 export default function AdminDashboardClient({ 
   userCount, 
   roomCount, 
-  battleCount 
+  battleCount,
+  username
 }: { 
   userCount: number; 
   roomCount: number; 
   battleCount: number; 
+  username: string;
 }) {
   return (
     <motion.div 
@@ -40,7 +42,7 @@ export default function AdminDashboardClient({
       >
         <div>
           <h1 className="text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-rose-600 to-orange-500 bg-clip-text text-transparent pb-2">
-            Admin Console
+            Control: {username || 'Admin'}
           </h1>
           <p className="text-muted-foreground font-outfit mt-2 font-semibold flex items-center gap-3">
             <span className="px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-black uppercase tracking-widest">

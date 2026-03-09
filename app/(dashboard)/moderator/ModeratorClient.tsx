@@ -14,15 +14,15 @@ import {
 } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
 
-interface ModeratorDashboardClientProps {
-  roomCount: number;
-  battleCount: number;
-}
-
 export default function ModeratorDashboardClient({ 
   roomCount, 
-  battleCount 
-}: ModeratorDashboardClientProps) {
+  battleCount,
+  username
+}: {
+  roomCount: number;
+  battleCount: number;
+  username: string;
+}) {
   return (
     <motion.div 
       initial="hidden"
@@ -37,7 +37,7 @@ export default function ModeratorDashboardClient({
       >
         <div>
           <h1 className="text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-2">
-            Moderator Hub
+            Welcome, {username || 'Moderator'}
           </h1>
           <p className="text-muted-foreground font-outfit mt-2 font-semibold flex items-center gap-3">
             <span className="px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-black uppercase tracking-widest">
