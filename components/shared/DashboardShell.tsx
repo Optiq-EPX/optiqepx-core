@@ -34,7 +34,7 @@ export function DashboardShell({
 
   useEffect(() => {
     setMounted(true);
-    if (isProfileIncomplete && pathname !== '/profile') {
+    if (isProfileIncomplete && pathname !== '/profile' && pathname !== '/profile/edit') {
       router.push('/profile');
     }
   }, [isProfileIncomplete, pathname, router]);

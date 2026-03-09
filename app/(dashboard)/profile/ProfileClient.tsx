@@ -19,7 +19,8 @@ import {
   Settings,
   Trophy,
   Activity,
-  BookOpen
+  BookOpen,
+  Camera
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -66,7 +67,7 @@ export default function ProfileClient({ profile }: { profile: any }) {
 
         <div className="px-8 sm:px-12 flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8 -mt-20 md:-mt-24 relative z-10 w-full">
           <div className="relative group">
-            <div className="w-40 h-40 md:w-48 md:h-48 rounded-[2rem] bg-zinc-100 dark:bg-zinc-900 border-8 border-[#0d0e17] overflow-hidden relative shadow-md flex-shrink-0 group-hover:scale-105 transition-transform duration-500">
+            <div className="w-40 h-40 md:w-48 md:h-48 rounded-[2rem] bg-zinc-100 dark:bg-zinc-900 border-8 border-[#0d0e17] overflow-hidden relative shadow-md flex-shrink-0 group-hover:scale-105 transition-transform duration-500 cursor-pointer">
               {profile?.avatar_url && !imgError ? (
                 <img 
                   src={profile.avatar_url} 
@@ -80,6 +81,11 @@ export default function ProfileClient({ profile }: { profile: any }) {
                   {profile?.username?.charAt(0).toUpperCase() || 'U'}
                 </div>
               )}
+              
+              <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <Camera className="w-8 h-8 text-white mb-2" />
+                <span className="text-white text-xs font-bold font-outfit uppercase tracking-widest">Edit Image</span>
+              </div>
             </div>
             {!isIncomplete && (
               <div className="absolute bottom-2 right-2 w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 border-4 border-[#ffffff] shadow-md flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">

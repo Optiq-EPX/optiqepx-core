@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, LayoutDashboard, Layout } from 'lucide-react';
+import { ChevronRight, LayoutDashboard, Layout, Edit3, User, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -34,10 +34,10 @@ export function Breadcrumbs() {
             <Link
               href={href}
               className={cn(
-                "px-3 py-1.5 rounded-xl transition-all duration-300 font-space-grotesk text-[10px] uppercase tracking-[0.15em] relative group cursor-pointer shadow-sm border",
+                "px-3 py-1.5 rounded-xl transition-all duration-300 font-space-grotesk text-[10px] uppercase tracking-[0.15em] relative group cursor-pointer shadow-sm border bg-white/80 dark:bg-white/5 border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20",
                 isLast 
-                  ? "text-violet-600 dark:text-violet-300 font-black bg-white/80 dark:bg-white/5 border-black/5 dark:border-white/10" 
-                  : "text-muted-foreground/60 hover:text-violet-600 dark:hover:text-violet-400 bg-white/40 dark:bg-white/0 border-transparent hover:bg-violet-50 dark:hover:bg-violet-500/10 hover:border-black/5 dark:hover:border-white/5"
+                  ? "text-violet-600 dark:text-violet-300 font-black ring-1 ring-violet-500/20" 
+                  : "text-muted-foreground/60 hover:text-violet-600 dark:hover:text-violet-400 font-bold"
               )}
             >
               <motion.div
@@ -46,7 +46,9 @@ export function Breadcrumbs() {
                 transition={{ delay: index * 0.05, type: "spring", stiffness: 300, damping: 25 }}
                 className="flex items-center gap-2 relative z-10"
               >
-                {index === 0 && <Layout className="w-3 h-3 text-violet-500" />}
+                {label.toLowerCase() === 'edit' && <Edit3 className="w-3 h-3" />}
+                {label.toLowerCase() === 'profile' && <User className="w-3 h-3" />}
+                {index === 0 && label.toLowerCase() !== 'profile' && <Layout className="w-3 h-3" />}
                 <span>{label}</span>
               </motion.div>
               
