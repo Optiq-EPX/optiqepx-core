@@ -1,87 +1,170 @@
 'use client';
 
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar } from '@/components/shared/Sidebar';
-import { Menu, Bell } from 'lucide-react';
+import { Menu, Bell, PanelLeft, PanelRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { Logo } from '@/components/shared/Logo';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 
 export function DashboardShell({ 
   children, 
   profile, 
-  role 
+  role,
+  isProfileIncomplete = false
 }: { 
   children: React.ReactNode, 
   profile: any, 
-  role: string 
+  role: string,
+  isProfileIncomplete?: boolean
 }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    setImgError(false);
+  }, [profile?.avatar_url]);
+
+  useEffect(() => {
+    setMounted(true);
+    if (isProfileIncomplete && pathname !== '/profile' && pathname !== '/profile/edit') {
+      router.push('/profile');
+    }
+  }, [isProfileIncomplete, pathname, router]);
+
   return (
-    <div className="min-h-screen bg-background flex p-4 gap-4 overflow-hidden selection:bg-violet-100 selection:text-violet-900">
+    <div 
+      className="min-h-screen bg-zinc-50 dark:bg-black flex p-4 lg:p-4 gap-4 selection:bg-violet-100 selection:text-violet-900 font-outfit relative overflow-x-hidden"
+    >
       
-      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.02),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.02),transparent_40%)]">
-        <div className="absolute top-[-10%] left-[10%] w-[50vw] h-[50vw] bg-violet-400/5 dark:bg-violet-600/5 blur-[80px] rounded-full transform-gpu will-change-transform" />
-        <div className="absolute bottom-[-10%] right-[10%] w-[45vw] h-[45vw] bg-indigo-400/5 dark:bg-indigo-600/5 blur-[80px] rounded-full transform-gpu will-change-transform" />
-      </div>
+      <Sidebar 
+        role={role} 
+        profile={profile} 
+        isLocked={isProfileIncomplete} 
+        isCollapsed={isSidebarCollapsed}
+      />
 
-      
-      <Sidebar role={role} username={profile?.username || 'User'} />
-
-      <div className="flex-1 flex flex-col min-w-0 h-[calc(100vh-2rem)]">
+      <motion.div 
+        initial={false}
+        animate={{ 
+          paddingLeft: isSidebarCollapsed ? "112px" : "304px" 
+        }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 300, 
+          damping: 35, 
+          mass: 0.8 
+        }}
+        className="flex-1 flex flex-col min-w-0"
+      >
         
-        <header className="h-24 flex items-center justify-between px-8 lg:px-12 mb-4 glass-card rounded-[2.5rem] border-white/80 dark:border-white/10 shrink-0 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.04)] bg-white/70 dark:bg-slate-900/80 transform-gpu">
-          <div className="flex items-center gap-6 lg:hidden">
-            <Button variant="ghost" size="icon" className="rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 hover:bg-black/10 transition-colors">
-              <Menu className="w-6 h-6 text-foreground/80" />
-            </Button>
-            <Logo iconOnly className="scale-90" />
-          </div>
+        <div className="h-24 flex-shrink-0" />
 
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="px-5 py-2.5 rounded-2xl bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 text-[10px] font-black font-outfit text-muted-foreground uppercase tracking-[0.2em] flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.2)]" />
-              Infrastructure: Optimal
+        <motion.header 
+          initial={false}
+          animate={{ 
+            left: isSidebarCollapsed ? "128px" : "320px" 
+          }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 300, 
+            damping: 35, 
+            mass: 0.8 
+          }}
+          className="h-20 flex items-center justify-between px-8 lg:px-10 mb-6 bg-dashboard backdrop-blur-3xl rounded-3xl border border-dashboard-border shadow-sm group fixed top-4 right-4 z-40"
+        >
+          <div className="flex items-center gap-6">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden lg:block">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                className="h-12 w-12 rounded-2xl text-muted-foreground bg-white/80 dark:bg-white/5 shadow-sm hover:bg-violet-50 dark:hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-300 transition-all border border-black/5 dark:border-white/5 cursor-pointer"
+              >
+                {isSidebarCollapsed ? <PanelRight className="w-5 h-5" /> : <PanelLeft className="w-5 h-5" />}
+              </Button>
+            </motion.div>
+            
+            <div className="lg:hidden flex items-center gap-4">
+              <Button variant="ghost" size="icon" className="rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 hover:bg-black/10 transition-colors">
+                <Menu className="w-6 h-6 text-foreground/80" />
+              </Button>
+              <Logo iconOnly animated={false} className="scale-90" />
             </div>
+
+            <div className="hidden sm:block h-6 w-px bg-black/10 dark:bg-white/10 mx-2" />
+            <Breadcrumbs />
           </div>
 
-          <div className="flex items-center gap-5">
-             <ThemeToggle />
+          <div className="flex items-center gap-4">
+              <div className="hidden xl:flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/5 dark:border-white/5 shadow-sm group hover:border-amber-500/30 transition-all duration-300 cursor-pointer">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                  <Zap className="w-4 h-4 fill-amber-500/20 group-hover:scale-110 transition-transform" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black font-space-grotesk text-amber-500/60 uppercase tracking-widest leading-none mb-0.5">Global Rank</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-black font-space-grotesk text-foreground">LVL {profile?.level || 1}</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+                    <span className="text-xs font-bold font-outfit text-muted-foreground">{profile?.xp || 0} XP</span>
+                  </div>
+                </div>
+              </div>
+
+              <ThemeToggle className="h-12 w-12 rounded-2xl text-muted-foreground bg-white/80 dark:bg-white/5 shadow-sm hover:bg-violet-50 dark:hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-300 transition-all border border-black/5 dark:border-white/5 cursor-pointer" />
+             
              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5 hover:text-foreground transition-all">
-                   <Bell className="w-6 h-6" />
+                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl text-muted-foreground bg-white/80 dark:bg-white/5 shadow-sm hover:bg-violet-50 dark:hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-300 transition-all border border-black/5 dark:border-white/5 cursor-pointer">
+                   <Bell className="w-5 h-5" />
                 </Button>
              </motion.div>
-             <div className="h-10 w-px bg-black/5 dark:bg-white/10 mx-2 hidden sm:block" />
-             <div className="flex items-center gap-4 pl-2 group cursor-pointer">
+             
+             <div className="flex items-center gap-3 pl-4 border-l border-black/10 dark:border-white/10 group cursor-pointer">
                 <div className="flex flex-col text-right hidden lg:flex">
-                  <span className="text-sm font-black font-outfit text-foreground/90">{profile?.username}</span>
-                  <span className="text-[10px] font-black font-outfit text-primary uppercase mt-1 tracking-widest">{role}</span>
+                  <span className="text-sm font-black font-space-grotesk text-foreground leading-none">{profile?.username || 'User'}</span>
+                  <span className="text-[10px] font-bold font-outfit text-violet-600 dark:text-violet-400 opacity-80 uppercase mt-1">
+                    {role}
+                  </span>
                 </div>
-                <div className="w-12 h-12 rounded-[1.25rem] bg-gradient-to-br from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/10 flex items-center justify-center text-white font-black text-base transition-transform group-hover:scale-105 border border-white/20 transform-gpu">
-                  {profile?.username?.charAt(0).toUpperCase()}
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-500 shadow-md shadow-violet-500/20 flex items-center justify-center text-white font-black text-sm border-2 border-white/20 transform-gpu group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 overflow-hidden">
+                  {profile?.avatar_url && !imgError ? (
+                    <img 
+                      src={profile.avatar_url} 
+                      alt={profile.username} 
+                      className="w-full h-full object-cover" 
+                      referrerPolicy="no-referrer"
+                      onError={() => setImgError(true)}
+                    />
+                  ) : (
+                    profile?.username?.charAt(0).toUpperCase() || 'U'
+                  )}
                 </div>
              </div>
           </div>
-        </header>
+        </motion.header>
 
-        
-        <main className="flex-1 overflow-y-auto custom-scrollbar rounded-[2.5rem] bg-white/40 dark:bg-white/[0.02] border border-white/80 dark:border-white/5 backdrop-blur-xl p-8 lg:p-12 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.04)] dark:shadow-2xl transform-gpu">
-
+        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-4 lg:p-6 shadow-sm relative z-10 w-full mb-8">
            <AnimatePresence mode="wait">
              <motion.div
                key={role} 
-               initial={{ opacity: 0, y: 10 }}
-               animate={{ opacity: 1, y: 0 }}
-               exit={{ opacity: 0, y: -10 }}
-               transition={{ duration: 0.3, ease: 'easeOut' }}
-               className="will-change-transform"
+               initial={{ opacity: 0, scale: 0.98, y: 15 }}
+               animate={{ opacity: 1, scale: 1, y: 0 }}
+               exit={{ opacity: 0, scale: 0.98, y: -15 }}
+               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+               className="will-change-transform flex flex-col min-h-full"
              >
                {children}
              </motion.div>
            </AnimatePresence>
         </main>
-      </div>
+      </motion.div>
     </div>
   );
 }

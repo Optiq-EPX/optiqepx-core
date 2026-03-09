@@ -8,7 +8,7 @@ export default async function ModeratorDashboardPage() {
 
   const { data: profile } = await supabase
     .from('users_profile')
-    .select('role')
+    .select('username, role')
     .eq('id', user?.id)
     .single();
 
@@ -23,7 +23,7 @@ export default async function ModeratorDashboardPage() {
     <ModeratorDashboardClient 
       roomCount={roomCount || 0} 
       battleCount={battleCount || 0} 
+      username={profile?.username || ''}
     />
   );
 }
-

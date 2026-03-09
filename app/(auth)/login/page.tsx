@@ -52,7 +52,7 @@ export default function LoginPage() {
             <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
             Back to home
           </Link>
-          <Logo className="[&_span]:text-white [&_p]:text-white/50" />
+          <Logo textOnly className="[&_span]:text-white [&_p]:text-white/50" />
         </div>
 
         <div className="relative z-10 space-y-6">
@@ -133,7 +133,7 @@ export default function LoginPage() {
 
         <div className="w-full max-w-[340px] relative z-10">
           <div className="lg:hidden mb-8 flex justify-center">
-            <Link href="/"><Logo /></Link>
+            <Link href="/"><Logo textOnly /></Link>
           </div>
 
           <div className="mb-7">

@@ -8,7 +8,7 @@ export default async function AdminDashboardPage() {
 
   const { data: profile } = await supabase
     .from('users_profile')
-    .select('role')
+    .select('username, role')
     .eq('id', user?.id)
     .single();
 
@@ -25,6 +25,7 @@ export default async function AdminDashboardPage() {
       userCount={userCount || 0} 
       roomCount={roomCount || 0} 
       battleCount={battleCount || 0} 
+      username={profile?.username || ''}
     />
   );
 }
