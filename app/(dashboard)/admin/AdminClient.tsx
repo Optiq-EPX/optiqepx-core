@@ -38,23 +38,29 @@ export default function AdminDashboardClient({
       
       <motion.div 
         variants={fadeInUp}
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 pb-8 border-b border-black/[0.05] dark:border-white/[0.05]"
       >
-        <div>
-          <h1 className="text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-rose-600 to-orange-500 bg-clip-text text-transparent pb-2">
-            Control: {username || 'Admin'}
-          </h1>
-          <p className="text-muted-foreground font-outfit mt-2 font-semibold flex items-center gap-3">
-            <span className="px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-black uppercase tracking-widest">
-              Root Access
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
-            Full platform governance
-          </p>
+        <div className="flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-rose-500/10 dark:bg-rose-500/5 border border-rose-500/20 flex items-center justify-center text-rose-500 shadow-inner bg-white/50 dark:bg-white/5">
+            <ShieldCheck className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-rose-600 to-orange-500 bg-clip-text text-transparent">
+              Admin Control
+            </h1>
+            <p className="text-muted-foreground font-outfit mt-1 font-semibold flex items-center gap-3">
+              <span className="px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-xs font-black uppercase tracking-widest text-[10px]">
+                Root Access
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
+              <span className="text-sm opacity-70">Mainframe operational. You have full platform governance.</span>
+            </p>
+          </div>
         </div>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button className="h-16 px-10 rounded-[1.5rem] font-black font-outfit uppercase tracking-widest text-xs bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 text-white border-0 shadow-xl shadow-rose-500/30 gap-4">
-            <ShieldCheck className="w-6 h-6" />
+
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full md:w-auto">
+          <Button className="w-full md:w-auto h-12 px-8 rounded-xl font-black font-outfit uppercase tracking-widest text-[10px] bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 text-white border-0 shadow-lg shadow-rose-500/20 gap-2.5">
+            <ShieldCheck className="w-4 h-4" />
             System Audit
           </Button>
         </motion.div>

@@ -33,23 +33,29 @@ export default function ModeratorDashboardClient({
       
       <motion.div 
         variants={fadeInUp}
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 pb-8 border-b border-black/[0.05] dark:border-white/[0.05]"
       >
-        <div>
-          <h1 className="text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-2">
-            Welcome, {username || 'Moderator'}
-          </h1>
-          <p className="text-muted-foreground font-outfit mt-2 font-semibold flex items-center gap-3">
-            <span className="px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-black uppercase tracking-widest">
-              Officer Active
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
-            Ensuring a safe learning arena
-          </p>
+        <div className="flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 flex items-center justify-center text-amber-500 shadow-inner bg-white/50 dark:bg-white/5">
+            <ShieldAlert className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+              Moderator Control
+            </h1>
+            <p className="text-muted-foreground font-outfit mt-1 font-semibold flex items-center gap-3">
+              <span className="px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 text-xs font-black uppercase tracking-widest text-[10px]">
+                Officer Active
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
+              <span className="text-sm opacity-70">Ensuring a safe and productive learning arena for everyone</span>
+            </p>
+          </div>
         </div>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button variant="outline" className="h-16 px-10 rounded-[1.5rem] font-black font-outfit uppercase tracking-widest text-xs border-amber-500/20 bg-amber-500/5 dark:bg-amber-500/10 hover:bg-amber-500/10 dark:hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 shadow-xl shadow-amber-500/5 transition-all gap-4">
-            <Eye className="w-6 h-6" />
+
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full md:w-auto">
+          <Button variant="outline" className="w-full md:w-auto h-12 border-amber-500/20 bg-amber-500/5 dark:bg-amber-500/10 hover:bg-amber-500/10 dark:hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 rounded-xl px-6 font-black font-outfit uppercase tracking-widest text-[10px] transition-all flex items-center gap-2.5 shadow-sm">
+            <Eye className="w-4 h-4" />
             Watch Room Feed
           </Button>
         </motion.div>

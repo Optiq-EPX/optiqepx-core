@@ -68,7 +68,7 @@ export default function StudentDashboardPage({
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-space-grotesk font-black tracking-tighter text-foreground leading-[1.1]">
-            Hello, <span className="text-gradient drop-shadow-sm">{profile?.username || 'Student'}</span> 👋
+            Hello, <span className="text-gradient drop-shadow-md font-black">{profile?.username || 'Student'}</span> 👋
           </h1>
           <p className="text-base md:text-lg font-outfit text-muted-foreground font-medium max-w-xl leading-relaxed">
             You're on a <span className="font-bold text-orange-500 flex items-center inline-flex gap-1"><Flame className="w-4 h-4" /> 5-day streak</span>! Keep up the momentum. 

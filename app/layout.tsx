@@ -5,6 +5,7 @@ import { StoreProvider } from "@/store/StoreProvider";
 import { MotionProvider } from "@/components/shared/MotionProvider";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
+import { SuppressExtensionWarnings } from "@/components/shared/SuppressExtensionWarnings";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -33,6 +34,7 @@ export default function RootLayout({
         className={`${outfit.variable} ${spaceGrotesk.variable} antialiased`}
         suppressHydrationWarning
       >
+        <SuppressExtensionWarnings />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

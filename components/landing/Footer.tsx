@@ -86,6 +86,7 @@ export function Footer() {
                     type="email" 
                     placeholder="Join our newsletter" 
                     className="flex-1 bg-transparent border-none outline-none text-[13px] font-outfit text-slate-900 dark:text-white placeholder:text-slate-400"
+                    suppressHydrationWarning
                   />
                   <button className="flex items-center justify-center w-7 h-7 rounded-full bg-violet-600 text-white hover:bg-violet-500 transition-colors transform-gpu will-change-transform active:scale-95">
                     <ArrowRight className="w-3.5 h-3.5" />

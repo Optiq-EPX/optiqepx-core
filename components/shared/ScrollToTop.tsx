@@ -39,7 +39,7 @@ export function ScrollToTop() {
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
           className={cn(
-            "fixed bottom-8 right-8 z-[60] flex h-12 w-12 items-center justify-center rounded-2xl",
+            "fixed bottom-24 right-4 sm:bottom-8 sm:right-8 z-[60] flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl",
             "bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl",
             "border border-black/5 dark:border-white/10 shadow-2xl shadow-violet-500/10",
             "text-violet-600 dark:text-violet-400 transition-colors",
@@ -47,7 +47,7 @@ export function ScrollToTop() {
           )}
           aria-label="Scroll to top"
         >
-          <ArrowUp className="h-6 w-6 stroke-[2.5px]" />
+          <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5px]" />
         </motion.button>
       )}
     </AnimatePresence>

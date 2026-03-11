@@ -20,7 +20,6 @@ export default async function ProfilePage() {
     avatar_url: getHighResAvatar(profile?.avatar_url || user.user_metadata?.avatar_url),
     full_name: user.user_metadata?.full_name || profile?.username || 'Student',
     auth_username: user.user_metadata?.username || user.user_metadata?.full_name || user.email?.split('@')[0],
-    // Ensure these exist for the completion logic in ProfileClient
     username: profile?.username || user.user_metadata?.username || '',
     class: profile?.class || user.user_metadata?.class || '',
     phone: profile?.phone || '',
