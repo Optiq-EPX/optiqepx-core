@@ -43,7 +43,7 @@ const features = [
   {
     icon: Shield,
     title: 'Secure Authentication',
-    description: 'Enterprise-grade security with Google, Facebook, and deep data encryption.',
+    description: 'Enterprise-grade security with Google, Discord, and deep data encryption.',
     color: 'from-emerald-500/10 to-emerald-600/10',
     iconColor: 'text-emerald-600 dark:text-emerald-400',
     glowColor: 'rgba(5, 150, 105, 1)',
@@ -91,7 +91,7 @@ const features = [
   {
     icon: Zap,
     title: 'Instant Question Gen',
-    description: 'Powered by GPT-4o for accurate, varied, and challenging study material.',
+    description: 'Powered by Optiq AI for accurate, varied, and challenging study material.',
     color: 'from-purple-500/10 to-purple-600/10',
     iconColor: 'text-purple-600 dark:text-purple-400',
     glowColor: 'rgba(147, 51, 234, 1)',
@@ -251,9 +251,8 @@ export function Features() {
         >
           <SectionHeader 
             badge="Premium Ecosystem"
-            title="Smarter tools for the "
-            titleBr={true}
-            highlight="modern scholar."
+            title="Explore Smarter "
+            highlight="Tools"
             description="A high-precision ecosystem designed to make your study sessions more effective, engaging, and personal."
           />
 

@@ -70,9 +70,8 @@ export function FAQ() {
         >
           <SectionHeader 
             badge="Common Questions"
-            title="Everything you need "
-            titleBr={true}
-            highlight="to know"
+            title="Frequently Asked "
+            highlight="Questions"
             description="Find answers to common questions about OptiqEPX and how to get started."
           />
 

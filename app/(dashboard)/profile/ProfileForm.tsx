@@ -461,7 +461,7 @@ export function ProfileForm({
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-black font-space-grotesk uppercase tracking-widest text-sm shadow-xl shadow-violet-500/20 border-0 transition-all disabled:opacity-60 flex items-center justify-center gap-3 cursor-pointer"
+                    className="w-full h-14 rounded-2xl bg-white text-black font-black font-space-grotesk uppercase tracking-widest text-sm shadow-xl shadow-violet-500/20 border-0 transition-all disabled:opacity-60 flex items-center justify-center gap-3 cursor-pointer"
                   >
                     {isLoading ? (
                       <>
