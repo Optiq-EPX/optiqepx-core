@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import NextImage from 'next/image';
 import { Loader2, Send, User, Brain, Paperclip, Zap, Sparkles, MessageSquare, Info, Copy, Check, Pencil, Square, BookOpen, FlaskConical, GitCompare, Baby, ChevronUp, X, RefreshCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/shared/MarkdownRenderer';
@@ -12,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setMessages as setGlobalMessages, addMessage, updateLastMessage } from '@/features/ai/store/aiSlice';
 import type { Message } from '@/features/ai/store/aiSlice';
 
-export function AiChat({ classLevel, username }: { classLevel: string, username: string }) {
+export function AiChat({ classLevel, username, userAvatar }: { classLevel: string, username: string, userAvatar?: string | null }) {
   const messages = useAppSelector((state) => state.ai.messages);
   const dispatch = useAppDispatch();
 
@@ -211,6 +212,15 @@ export function AiChat({ classLevel, username }: { classLevel: string, username:
                 )}>
                   {msg.role === 'assistant' ? (
                     <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  ) : userAvatar ? (
+                    <div className="relative w-full h-full overflow-hidden rounded-2xl">
+                      <NextImage
+                        src={userAvatar}
+                        alt={username}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   ) : (
                     <User className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-500" />
                   )}

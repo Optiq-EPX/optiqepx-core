@@ -8,7 +8,7 @@ export default async function AiAssistantPage() {
 
   const { data: profile } = await supabase
     .from('users')
-    .select('class, username')
+    .select('class, username, avatar_url')
     .eq('id', user?.id)
     .single();
 
@@ -35,7 +35,11 @@ export default async function AiAssistantPage() {
       </div>
  
       <div className="relative flex-1 flex flex-col w-full">
-         <AiChat classLevel={profile?.class || '1'} username={profile?.username || 'Student'} />
+         <AiChat 
+           classLevel={profile?.class || '1'} 
+           username={profile?.username || 'Student'} 
+           userAvatar={profile?.avatar_url}
+         />
       </div>
     </div>
   );
