@@ -54,6 +54,7 @@ export function RegisterForm() {
     setIsLoading(false);
     if (signUpError) { toast.error(signUpError.message); return; }
     toast.success('Account created! Redirecting...');
+    router.push('/profile');
     router.refresh();
   }
 
@@ -61,7 +62,7 @@ export function RegisterForm() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${process.env.NODE_ENV === 'production' ? 'https://optiqepx.vercel.app' : location.origin}/auth/callback`,
+        redirectTo: `${process.env.NODE_ENV === 'production' ? 'https://optiqepx.vercel.app' : location.origin}/auth/callback?next=/profile`,
       },
     });
     if (error) toast.error(error.message);

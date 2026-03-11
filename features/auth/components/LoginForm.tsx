@@ -44,6 +44,7 @@ export function LoginForm() {
     setIsLoading(false);
     if (error) { toast.error(error.message); return; }
     toast.success('Welcome back!');
+    router.push('/profile');
     router.refresh();
   }
 
@@ -51,7 +52,7 @@ export function LoginForm() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${process.env.NODE_ENV === 'production' ? 'https://optiqepx.vercel.app' : window.location.origin}/auth/callback`,
+        redirectTo: `${process.env.NODE_ENV === 'production' ? 'https://optiqepx.vercel.app' : window.location.origin}/auth/callback?next=/profile`,
       },
     });
     if (error) toast.error(error.message);
