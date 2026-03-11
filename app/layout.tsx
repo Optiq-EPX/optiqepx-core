@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk } from "next/font/google";
+import { Outfit, Space_Grotesk, Hind_Siliguri } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { StoreProvider } from "@/store/StoreProvider";
 import { MotionProvider } from "@/components/shared/MotionProvider";
@@ -7,6 +7,12 @@ import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { SuppressExtensionWarnings } from "@/components/shared/SuppressExtensionWarnings";
 import "./globals.css";
+
+const hindSiliguri = Hind_Siliguri({
+  variable: "--font-hind-siliguri-var",
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["bengali"],
+});
 
 const outfit = Outfit({
   variable: "--font-outfit-var",
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${outfit.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${outfit.variable} ${spaceGrotesk.variable} ${hindSiliguri.variable} antialiased`}
         suppressHydrationWarning
       >
         <SuppressExtensionWarnings />
