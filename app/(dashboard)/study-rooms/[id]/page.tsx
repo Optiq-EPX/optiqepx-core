@@ -12,14 +12,14 @@ export default async function StudyRoomPage({ params }: { params: Promise<{ id: 
   }
 
   const { data: profile } = await supabase
-    .from('users_profile')
+    .from('users')
     .select('*')
     .eq('id', user.id)
     .single();
 
   const { data: room } = await supabase
     .from('study_rooms')
-    .select('*, users_profile(username)')
+    .select('*, users(username)')
     .eq('id', id)
     .single();
 
@@ -36,7 +36,7 @@ export default async function StudyRoomPage({ params }: { params: Promise<{ id: 
       <StudyRoomActive 
         roomId={room.id} 
         topic={room.topic} 
-        hostName={room.users_profile?.username || 'Unknown'} 
+        hostName={room.users?.username || 'Unknown'} 
         userProfile={{ id: profile!.id, username: profile!.username, class: profile!.class, role: profile!.role }}
       />
     </div>

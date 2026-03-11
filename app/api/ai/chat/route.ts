@@ -1,8 +1,8 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(req: Request) {
   try {
@@ -13,40 +13,48 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { messages, classLevel } = await req.json();
+    const { messages, classLevel, mode = 'concise' } = await req.json();
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'Valid messages array required' }, { status: 400 });
     }
 
-    const systemInstruction = `You are a friendly, encouraging, and highly intelligent educational tutor. You are currently speaking with a student in Class/Grade ${classLevel}. You must tailor your explanations, vocabulary, and examples perfectly to a student of this level. Never give direct answers to homework; instead, guide them to figure it out using the Socratic method. Format your mathematical and scientific text clearly.`;
+    const instructionsMap = {
+      concise: "Provide quick, brief, and direct answers. Focus on efficiency.",
+      detailed: "Provide in-depth, comprehensive explanations. Break down complex concepts into manageable parts.",
+      examples: "Explain using step-by-step analogies, real-world examples, and clear logic.",
+      quiz: "Instead of answering, ask the student 1-2 challenging questions about the topic to test their knowledge. Provide feedback on their answers.",
+    };
 
-    const geminiContents = messages.map(m => ({
+    const modeInstructions = instructionsMap[mode as keyof typeof instructionsMap] || instructionsMap.concise;
+
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-1.5-flash',
+      systemInstruction: `You are Optiq AI, a friendly, encouraging, and highly intelligent educational tutor for Class ${classLevel}. 
+      ${modeInstructions}
+      Tailor your vocabulary perfectly to a student of this level. 
+      Never give direct answers to homework; instead, guide them using the Socratic method. 
+      Use markdown for formatting.`
+    });
+
+    const chat = model.startChat({
+      history: messages.slice(0, -1).map((m: any) => ({
         role: m.role === 'user' ? 'user' : 'model',
-        parts: [{ text: m.content }]
-    }));
-
-    let promptText = `${systemInstruction}\n\n`;
-    messages.forEach((m: any) => {
-        promptText += `${m.role === 'user' ? 'Student' : 'Tutor'}: ${m.content}\n`;
-    });
-    promptText += "Tutor: ";
-
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: promptText,
-      config: {
-        maxOutputTokens: 1024,
-        temperature: 0.7,
-      }
+        parts: [{ text: m.content }],
+      })),
     });
 
-    return NextResponse.json({ reply: response.text });
+    const lastMessage = messages[messages.length - 1].content;
+    const result = await chat.sendMessage(lastMessage);
+    const response = await result.response;
+    const text = response.text();
+
+    return NextResponse.json({ reply: text });
 
   } catch (error: any) {
     console.error('Chat AI Error:', error);
     return NextResponse.json(
-      { error: 'Failed to communicate with your AI Tutor.' }, 
+      { error: 'Failed to communicate with your AI Tutor. Please check your API key configuration.' }, 
       { status: 500 }
     );
   }

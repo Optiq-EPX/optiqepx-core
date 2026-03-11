@@ -12,7 +12,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   const { data: profile } = await supabase
-    .from('users_profile')
+    .from('users')
     .select('username, role, is_profile_completed, avatar_url, level, xp')
     .eq('id', user.id)
     .single();

@@ -18,7 +18,7 @@ export function useAuthSync() {
         if (session?.user) {
           
           const { data: profile } = await supabase
-            .from('users_profile')
+            .from('users')
             .select('*')
             .eq('id', session.user.id)
             .single();
@@ -44,7 +44,7 @@ export function useAuthSync() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
          const { data: profile } = await supabase
-            .from('users_profile')
+            .from('users')
             .select('*')
             .eq('id', session.user.id)
             .single();

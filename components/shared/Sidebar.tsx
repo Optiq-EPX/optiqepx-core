@@ -23,6 +23,8 @@ interface SidebarProps {
   className?: string;
   isLocked?: boolean;
   isCollapsed?: boolean;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 const getNavItems = (role: string) => {
@@ -36,7 +38,7 @@ const getNavItems = (role: string) => {
   return baseItems;
 };
 
-export function Sidebar({ role, profile, className, isLocked = false, isCollapsed = false }: SidebarProps) {
+export function Sidebar({ role, profile, className, isLocked = false, isCollapsed = false, isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const navItems = getNavItems(role);
   const username = profile?.username || 'User';
@@ -70,24 +72,40 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
   };
 
   return (
-    <motion.aside 
-      onMouseMove={handleMouseMove}
-      initial={false}
-      animate={{ 
-        width: isCollapsed ? 96 : 288,
-        padding: isCollapsed ? "8px" : "16px"
-      }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 400, 
-        damping: 30, 
-        mass: 0.5 
-      }}
-      className={cn(
-        "hidden lg:flex flex-col h-[calc(100vh-2rem)] w-72 rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-4 left-4 z-30 overflow-hidden group/sidebar outline-none",
-        className
-      )}
-    >
+    <>
+      {/* Mobile Backdrop */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.aside 
+        onMouseMove={handleMouseMove}
+        initial={false}
+        animate={{ 
+          width: isCollapsed ? 96 : 288,
+          padding: isCollapsed ? "8px" : "16px"
+        }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 400, 
+          damping: 30, 
+          mass: 0.5 
+        }}
+        className={cn(
+          "flex flex-col h-[calc(100vh-1.5rem)] lg:h-[calc(100vh-2rem)] rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-3 lg:top-4 left-3 lg:left-4 z-[101] lg:z-30 overflow-hidden group/sidebar outline-none",
+          !isOpen && "hidden lg:flex",
+          isOpen && "flex",
+          className
+        )}
+      >
       <div className="absolute -top-20 -left-20 w-60 h-60 bg-violet-600/[0.04] rounded-full blur-3xl pointer-events-none" />
       
       <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-indigo-600/[0.03] rounded-full blur-3xl pointer-events-none" />
@@ -315,5 +333,6 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
         </div>
       </div>
     </motion.aside>
+    </>
   );
 }

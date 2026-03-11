@@ -8,7 +8,7 @@ export default async function StudentDashboardPage() {
   if (!user) return null;
 
   const { data: profile } = await supabase
-    .from('users_profile')
+    .from('users')
     .select('*')
     .eq('id', user.id)
     .single();

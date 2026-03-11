@@ -8,7 +8,7 @@ export default async function ArenaPage() {
   if (!user) return null;
 
   const { data: profile } = await supabase
-    .from('users_profile')
+    .from('users')
     .select('class')
     .eq('id', user.id)
     .single();
@@ -17,7 +17,7 @@ export default async function ArenaPage() {
 
   const { data: activeBattles } = await supabase
     .from('battles')
-    .select('*, users_profile(username)')
+    .select('*, users(username)')
     .eq('status', 'waiting')
     .order('created_at', { ascending: false });
 
