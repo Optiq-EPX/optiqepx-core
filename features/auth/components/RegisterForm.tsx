@@ -61,7 +61,7 @@ export function RegisterForm() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${process.env.NODE_ENV === 'production' ? 'https://optiqepx.vercel.app' : location.origin}/auth/callback`,
       },
     });
     if (error) toast.error(error.message);
