@@ -7,7 +7,7 @@ export default async function ModeratorDashboardPage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   const { data: profile } = await supabase
-    .from('users_profile')
+    .from('users')
     .select('username, role')
     .eq('id', user?.id)
     .single();

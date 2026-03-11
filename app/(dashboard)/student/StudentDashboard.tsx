@@ -19,18 +19,38 @@ import {
   BookOpen
 } from 'lucide-react';
 import { fadeInUp, staggerContainer, cardHover } from '@/lib/animations';
+import { ProfileCompleteModal } from '@/components/shared/ProfileCompleteModal';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function StudentDashboardPage({ 
   profile 
 }: { 
   profile: any 
 }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get('welcome') === 'true') {
+      setShowWelcome(true);
+      window.history.replaceState({}, '', '/student');
+    }
+  }, [searchParams]);
+
   return (
+    <>
+    <ProfileCompleteModal 
+      isOpen={showWelcome} 
+      onClose={() => setShowWelcome(false)}
+      username={profile?.username}
+    />
     <motion.div 
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
-      className="space-y-8 pb-10 max-w-7xl mx-auto"
+      className="space-y-6 lg:space-y-8 pb-10 max-w-7xl mx-auto px-1 sm:px-0"
     >
       
       <motion.div 
@@ -47,23 +67,23 @@ export default function StudentDashboardPage({
               Online • Ready to learn
             </span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-space-grotesk font-black tracking-tighter text-foreground leading-[1.1]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-space-grotesk font-black tracking-tighter text-foreground leading-[1.1]">
             Hello, <span className="text-gradient drop-shadow-sm">{profile?.username || 'Student'}</span> 👋
           </h1>
-          <p className="text-lg font-outfit text-muted-foreground font-medium max-w-xl leading-relaxed">
+          <p className="text-base md:text-lg font-outfit text-muted-foreground font-medium max-w-xl leading-relaxed">
             You're on a <span className="font-bold text-orange-500 flex items-center inline-flex gap-1"><Flame className="w-4 h-4" /> 5-day streak</span>! Keep up the momentum. 
             Ready to jump into your next challenge?
           </p>
-          <div className="pt-4 flex flex-wrap gap-4">
-             <Button asChild className="h-14 px-8 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-black font-outfit text-sm shadow-lg shadow-violet-500/20 group transition-all">
+          <div className="pt-4 flex flex-wrap gap-3 sm:gap-4">
+             <Button asChild className="h-12 sm:h-14 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-black font-outfit text-xs sm:text-sm shadow-lg shadow-violet-500/20 group transition-all">
                 <Link href="/study-rooms" className="flex items-center gap-2">
-                  <Users className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-y-0.5 transition-transform" />
                   Join a Study Room
                 </Link>
              </Button>
-             <Button asChild variant="outline" className="h-14 px-8 rounded-2xl border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 font-black font-outfit text-sm shadow-sm hover:shadow-md transition-all">
+             <Button asChild variant="outline" className="h-12 sm:h-14 px-6 sm:px-8 rounded-2xl border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 font-black font-outfit text-xs sm:text-sm shadow-sm hover:shadow-md transition-all">
                 <Link href="/arena" className="flex items-center gap-2">
-                  <Sword className="w-5 h-5 text-rose-500" />
+                  <Sword className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500" />
                   Enter Arena
                 </Link>
              </Button>
@@ -269,15 +289,16 @@ export default function StudentDashboardPage({
       </div>
 
     </motion.div>
+    </>
   );
 }
 
 function BentoCard({ children, className }: { children: React.ReactNode, className?: string }) {
   return (
-    <motion.div variants={fadeInUp} whileHover="hover" initial="rest" animate="rest" className="h-[220px]">
+    <motion.div variants={fadeInUp} whileHover="hover" initial="rest" animate="rest" className="h-full w-full">
        <motion.div 
          variants={cardHover}
-         className={`h-full p-6 lg:p-8 rounded-[2rem] border backdrop-blur-xl shadow-sm relative overflow-hidden group ${className}`}
+         className={`h-full p-6 lg:p-8 rounded-[2rem] backdrop-blur-3xl shadow-lg relative overflow-hidden group flex flex-col justify-between bg-white/40 dark:bg-white/5 border border-white/40 dark:border-white/10 ${className}`}
        >
          {children}
        </motion.div>
@@ -341,5 +362,3 @@ function SparklesIcon(props: any) {
     </svg>
   )
 }
-
-

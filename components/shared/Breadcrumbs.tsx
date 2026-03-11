@@ -6,12 +6,15 @@ import { ChevronRight, LayoutDashboard, Layout, Edit3, User, Settings } from 'lu
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-export function Breadcrumbs() {
+export function Breadcrumbs({ iconOnly = false }: { iconOnly?: boolean }) {
   const pathname = usePathname();
   const paths = pathname.split('/').filter(p => p);
   
   return (
-    <nav className="flex items-center gap-1.5 h-12 px-2 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/[0.05] shadow-sm backdrop-blur-md">
+    <nav className={cn(
+      "flex items-center gap-1.5 h-12 px-2 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/[0.05] shadow-sm backdrop-blur-md",
+      iconOnly && "gap-1 px-1.5"
+    )}>
       <Link 
         href="/" 
         className="flex items-center justify-center w-8 h-8 rounded-xl bg-white/80 dark:bg-white/5 border border-black/5 dark:border-white/5 hover:bg-violet-50 dark:hover:bg-violet-500/10 text-muted-foreground/60 hover:text-violet-600 dark:hover:text-violet-400 shadow-sm transition-all group cursor-pointer"
@@ -28,16 +31,17 @@ export function Breadcrumbs() {
           .join(' ');
 
         return (
-          <div key={path} className="flex items-center gap-1.5 h-full">
-            <ChevronRight className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-600 opacity-40" />
+          <div key={path} className="flex items-center gap-1 sm:gap-1.5 h-full">
+            <ChevronRight className="w-3 h-3 md:w-3.5 md:h-3.5 text-zinc-400 dark:text-zinc-600 opacity-40 shrink-0" />
             
             <Link
               href={href}
               className={cn(
-                "px-3 py-1.5 rounded-xl transition-all duration-300 font-space-grotesk text-[10px] uppercase tracking-[0.15em] relative group cursor-pointer shadow-sm border bg-white/80 dark:bg-white/5 border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20",
+                "px-2 md:px-3 py-1.5 rounded-xl transition-all duration-300 font-space-grotesk text-[10px] uppercase tracking-[0.15em] relative group cursor-pointer shadow-sm border bg-white/80 dark:bg-white/5 border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20 flex items-center justify-center",
                 isLast 
                   ? "text-violet-600 dark:text-violet-300 font-black ring-1 ring-violet-500/20" 
-                  : "text-muted-foreground/60 hover:text-violet-600 dark:hover:text-violet-400 font-bold"
+                  : "text-muted-foreground/60 hover:text-violet-600 dark:hover:text-violet-400 font-bold",
+                iconOnly && "w-8 h-8 p-0"
               )}
             >
               <motion.div
@@ -49,7 +53,7 @@ export function Breadcrumbs() {
                 {label.toLowerCase() === 'edit' && <Edit3 className="w-3 h-3" />}
                 {label.toLowerCase() === 'profile' && <User className="w-3 h-3" />}
                 {index === 0 && label.toLowerCase() !== 'profile' && <Layout className="w-3 h-3" />}
-                <span>{label}</span>
+                {!iconOnly && <span>{label}</span>}
               </motion.div>
               
               {isLast && (

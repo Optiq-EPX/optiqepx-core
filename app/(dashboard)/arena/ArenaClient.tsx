@@ -124,13 +124,13 @@ export default function ArenaClient({
                     {battle.topic} Duel
                   </h3>
                   <p className="text-sm font-outfit text-muted-foreground mb-10 line-clamp-2 font-medium leading-relaxed">
-                    Challenge <span className="text-foreground font-black underline decoration-rose-500/30">{battle.users_profile?.username}</span> in a high-stakes knowledge battle!
+                    Challenge <span className="text-foreground font-black underline decoration-rose-500/30">{battle.users?.username}</span> in a high-stakes knowledge battle!
                   </p>
 
                   <div className="mt-auto space-y-6">
                     <div className="flex items-center gap-4 bg-black/[0.02] p-3 rounded-2xl border border-black/5">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-[10px] font-black text-white shadow-lg">
-                        {battle.users_profile?.username?.charAt(0).toUpperCase()}
+                        {battle.users?.username?.charAt(0).toUpperCase()}
                       </div>
                       <span className="text-xs font-bold font-outfit text-muted-foreground italic opacity-80">
                         "Dare to challenge?"

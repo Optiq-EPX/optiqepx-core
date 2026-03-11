@@ -1,12 +1,11 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(req: Request) {
   try {
-    
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -20,6 +19,8 @@ export async function POST(req: Request) {
     if (!topic || !classLevel) {
       return NextResponse.json({ error: 'Topic and classLevel are required' }, { status: 400 });
     }
+
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `
       You are an expert educational tutor. Generate a ${questionCount}-question multiple choice quiz on the topic of "${topic}" tailored for a student in Class/Grade ${classLevel}.
@@ -43,16 +44,9 @@ export async function POST(req: Request) {
       ]
     `;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        maxOutputTokens: 1024,
-        temperature: 0.7,
-      }
-    });
-
-    const outputText = response.text;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const outputText = response.text();
 
     const cleanedText = outputText?.replace(/```json\n/g, '').replace(/```\n?/g, '').trim();
 

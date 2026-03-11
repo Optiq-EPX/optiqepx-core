@@ -8,6 +8,12 @@ CREATE TABLE public.users_profile (
     email TEXT UNIQUE NOT NULL,
     role user_role DEFAULT 'student'::user_role NOT NULL,
     class TEXT CHECK (class IN ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'intermediate', 'university')),
+    phone TEXT,
+    address TEXT,
+    avatar_url TEXT,
+    xp INTEGER DEFAULT 0 NOT NULL,
+    level INTEGER DEFAULT 1 NOT NULL,
+    is_profile_completed BOOLEAN DEFAULT FALSE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
 );
@@ -82,7 +88,7 @@ ALTER TABLE public.study_room_participants ENABLE ROW LEVEL SECURITY;
 -- Users Profile: Users can read everyone, but only update themselves. Admin can do all.
 CREATE POLICY "Profiles are viewable by everyone" ON public.users_profile FOR SELECT USING (true);
 CREATE POLICY "Users can insert their own profile" ON public.users_profile FOR INSERT WITH CHECK (auth.uid() = id);
-CREATE POLICY "Users can update their own profile" ON public.users_profile FOR UPDATE USING (auth.uid() = id);
+CREATE POLICY "Users can update their own profile" ON public.users_profile FOR UPDATE USING (auth.uid() = id) WITH CHECK (auth.uid() = id);
 CREATE POLICY "Admins have full access to profiles" ON public.users_profile TO authenticated USING ( (SELECT role FROM public.users_profile WHERE id = auth.uid()) = 'admin' );
 
 -- Teams: Everyone can view teams. Users can create teams. Only members/creators can update.

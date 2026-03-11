@@ -7,7 +7,7 @@ export default async function AdminDashboardPage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   const { data: profile } = await supabase
-    .from('users_profile')
+    .from('users')
     .select('username, role')
     .eq('id', user?.id)
     .single();
@@ -16,7 +16,7 @@ export default async function AdminDashboardPage() {
     redirect('/login');
   }
 
-  const { count: userCount } = await supabase.from('users_profile').select('*', { count: 'exact', head: true });
+  const { count: userCount } = await supabase.from('users').select('*', { count: 'exact', head: true });
   const { count: roomCount } = await supabase.from('study_rooms').select('*', { count: 'exact', head: true });
   const { count: battleCount } = await supabase.from('battles').select('*', { count: 'exact', head: true });
 

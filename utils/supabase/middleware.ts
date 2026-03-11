@@ -52,7 +52,7 @@ export async function updateSession(request: NextRequest) {
         
         let role = 'student';
         if (isAuthRoute || pathname === '/' || pathname.startsWith('/admin') || pathname.startsWith('/moderator')) {
-            const { data: profile } = await supabase.from('users_profile').select('role').eq('id', user.id).single();
+            const { data: profile } = await supabase.from('users').select('role').eq('id', user.id).single();
             if (profile?.role) {
                 role = profile.role;
             }
