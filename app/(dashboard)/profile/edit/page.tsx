@@ -10,7 +10,6 @@ export default async function ProfileEditPage() {
     redirect('/login');
   }
 
-  // Fetch from users
   const { data: profile } = await supabase
     .from('users')
     .select('*')
@@ -19,7 +18,7 @@ export default async function ProfileEditPage() {
 
   const enrichedProfile = {
     ...profile,
-    id: user.id, // Absolute fallback for ID
+    id: user.id, 
     auth_username: user.user_metadata?.username || user.user_metadata?.full_name || user.email?.split('@')[0],
   };
 

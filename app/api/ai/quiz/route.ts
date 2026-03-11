@@ -1,13 +1,24 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { OpenRouter } from '@openrouter/sdk';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+const openrouter = new OpenRouter({
+  apiKey: process.env.OPEN_ROUTER_API || '',
+});
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.OPEN_ROUTER_API) {
+      return NextResponse.json(
+        { error: 'AI API Key is missing. Please check your configuration.' },
+        { status: 500 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -17,10 +28,11 @@ export async function POST(req: Request) {
     const { topic, classLevel, questionCount = 5 } = body;
 
     if (!topic || !classLevel) {
-      return NextResponse.json({ error: 'Topic and classLevel are required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Topic and classLevel are required' },
+        { status: 400 }
+      );
     }
-
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `
       You are an expert educational tutor. Generate a ${questionCount}-question multiple choice quiz on the topic of "${topic}" tailored for a student in Class/Grade ${classLevel}.
@@ -44,20 +56,74 @@ export async function POST(req: Request) {
       ]
     `;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const outputText = response.text();
+    // Fallback model chain
+    const models = [
+      'stepfun/step-3.5-flash:free',
+      'deepseek/deepseek-r1:free',
+      'google/gemma-3-12b-it:free',
+    ];
+    let lastError: any = null;
 
-    const cleanedText = outputText?.replace(/```json\n/g, '').replace(/```\n?/g, '').trim();
+    for (const modelName of models) {
+      try {
+        const stream = await openrouter.chat.send({
+          chatGenerationParams: {
+            model: modelName,
+            messages: [{ role: 'user' as const, content: prompt }],
+            stream: true
+          }
+        });
 
-    const quizData = JSON.parse(cleanedText || '[]');
-    
-    return NextResponse.json({ questions: quizData });
+        let outputText = "";
+        for await (const chunk of stream) {
+          const content = chunk.choices?.[0]?.delta?.content;
+          if (content) {
+            outputText += content;
+            process.stdout.write(content);
+          }
+          const reasoningTokens = chunk.usage?.completionTokensDetails?.reasoningTokens;
+          if (reasoningTokens) {
+            console.log(`\n[${modelName}] Reasoning tokens:`, reasoningTokens);
+          }
+        }
 
+        if (!outputText) {
+          throw new Error('Empty response from AI model');
+        }
+
+        const cleanedText = outputText
+          .replace(/```json\n/g, '')
+          .replace(/```\n?/g, '')
+          .trim();
+        const quizData = JSON.parse(cleanedText);
+
+        return NextResponse.json({ questions: quizData });
+      } catch (err: any) {
+        lastError = err;
+        console.warn(
+          `Quiz model ${modelName} failed (${err?.status || err?.message}), trying next fallback...`
+        );
+        continue;
+      }
+    }
+
+    // All models exhausted
+    return NextResponse.json(
+      {
+        error:
+          'All AI models are currently unavailable. Please try again in a moment.',
+        rateLimited: true,
+        retryAfter: 30,
+      },
+      { status: 429 }
+    );
   } catch (error: any) {
     console.error('Quiz AI Generation Error:', error);
     return NextResponse.json(
-      { error: 'Failed to generate quiz. Check the topic or try again.' }, 
+      {
+        error: 'Failed to generate quiz.',
+        details: error.message || 'Unknown error',
+      },
       { status: 500 }
     );
   }

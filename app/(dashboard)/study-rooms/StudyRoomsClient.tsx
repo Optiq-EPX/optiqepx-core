@@ -121,30 +121,36 @@ export default function StudyRoomsClient({
       
       <motion.div 
         variants={fadeInUp}
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 pb-8 border-b border-black/[0.05] dark:border-white/[0.05]"
       >
-        <div>
-          <h1 className="text-5xl font-space-grotesk font-black tracking-tighter text-gradient pb-2 bg-gradient-to-r from-blue-600 to-indigo-600">
-            Study Modules
-          </h1>
-          <p className="text-muted-foreground font-outfit mt-2 font-semibold flex items-center gap-3">
-            <span className="px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 text-xs font-black uppercase tracking-widest">
-              Class {userClass?.toUpperCase() || 'GENERAL'}
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
-            Learn together, grow faster
-          </p>
+        <div className="flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-blue-500/10 dark:bg-blue-500/5 border border-blue-500/20 flex items-center justify-center text-blue-500 shadow-inner bg-white/50 dark:bg-white/5">
+            <RadioReceiver className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-space-grotesk font-black tracking-tighter bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Study Modules
+            </h1>
+            <p className="text-muted-foreground font-outfit mt-1 font-semibold flex items-center gap-3">
+              <span className="px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 text-xs font-black uppercase tracking-widest text-[10px]">
+                Class {userClass?.toUpperCase() || 'GENERAL'}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
+              <span className="text-sm opacity-70">Collaborate, learn together, and grow faster with your peers</span>
+            </p>
+          </div>
         </div>
-        <div className="flex gap-4">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="outline" className="h-14 border-black/5 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 rounded-2xl px-8 font-black font-outfit uppercase tracking-widest text-xs transition-all flex items-center gap-3 shadow-sm">
-              <RadioReceiver className="w-5 h-5 text-blue-500 dark:text-blue-400" />
+
+        <div className="flex flex-wrap gap-3 w-full md:w-auto">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
+            <Button variant="outline" className="w-full h-12 border-black/5 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 rounded-xl px-6 font-black font-outfit uppercase tracking-widest text-[10px] transition-all flex items-center gap-2.5 shadow-sm">
+              <RadioReceiver className="w-4 h-4 text-blue-500 dark:text-blue-400" />
               My Sessions
             </Button>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="h-14 px-8 rounded-2xl font-black font-outfit uppercase tracking-widest text-xs bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-xl shadow-blue-500/20 gap-3">
-              <PlusCircle className="w-6 h-6" />
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
+            <Button className="w-full h-12 px-6 rounded-xl font-black font-outfit uppercase tracking-widest text-[10px] bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-lg shadow-blue-500/20 gap-2.5">
+              <PlusCircle className="w-4.5 h-4.5" />
               New Room
             </Button>
           </motion.div>

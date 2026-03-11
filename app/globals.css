@@ -139,6 +139,324 @@ body {
     @apply bg-background text-foreground;
   }
 
+  .chat-markdown {
+    @apply text-[15px] leading-[1.8] font-outfit text-foreground/90 relative;
+  }
+
+  /* Stabilizes the message bubble during streaming */
+  .stable-bubble {
+    @apply transition-all duration-300 ease-out;
+    contain: layout style;
+  }
+
+  @keyframes typewriter-fade {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer-fast {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .gemini-loader {
+    @apply w-12 h-4 rounded-full relative overflow-hidden bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10;
+  }
+
+  .gemini-loader::after {
+    content: "";
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(139, 92, 246, 0.05) 25%,
+      rgba(139, 92, 246, 0.15) 50%,
+      rgba(139, 92, 246, 0.05) 75%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-fast 1.5s infinite linear;
+  }
+
+  @keyframes pulse-cursor {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 8px 2px rgba(139, 92, 246, 0.6);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+      box-shadow: 0 0 2px 0px rgba(139, 92, 246, 0.2);
+    }
+  }
+
+  .typing-cursor::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    margin-left: 6px;
+    vertical-align: middle;
+    animation: pulse-cursor 1.2s infinite ease-in-out;
+  }
+
+  .chat-markdown h1 {
+    @apply text-xl font-bold font-space-grotesk mt-6 mb-3 pb-2 border-b border-white/10;
+  }
+  .chat-markdown h2 {
+    @apply text-lg font-bold font-space-grotesk mt-5 mb-2.5;
+  }
+  .chat-markdown h3 {
+    @apply text-base font-bold font-space-grotesk mt-4 mb-2;
+  }
+  .chat-markdown h4 {
+    @apply text-sm font-bold font-space-grotesk mt-3 mb-1.5;
+  }
+  .chat-markdown strong {
+    @apply font-bold text-foreground;
+  }
+  .chat-markdown p {
+    @apply mb-3 last:mb-0;
+  }
+  .chat-markdown ul {
+    @apply list-disc list-outside space-y-1 mb-3 ml-6 text-foreground/85 marker:text-violet-500;
+  }
+  .chat-markdown ol {
+    @apply list-decimal list-outside space-y-1 mb-3 ml-6 text-foreground/85 marker:text-violet-500 marker:font-bold;
+  }
+  .chat-markdown code {
+    @apply px-1.5 py-0.5 rounded-md bg-violet-500/10 text-violet-400 text-[13px] font-mono border border-violet-500/10;
+  }
+  .chat-markdown pre {
+    @apply p-0 my-0 bg-transparent border-0 overflow-hidden relative;
+  }
+  .chat-markdown pre code {
+    @apply block p-4 bg-transparent border-0 text-[13px] font-mono leading-relaxed overflow-x-auto;
+    color: #c0caf5;
+  }
+
+  .code-block-wrapper {
+    @apply my-5 rounded-xl overflow-hidden;
+    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: #151515;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .terminal-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+  .terminal-dot-red {
+    background: #ff5f56;
+  }
+  .terminal-dot-yellow {
+    background: #ffbd2e;
+  }
+  .terminal-dot-green {
+    background: #27c93f;
+  }
+
+  .terminal-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .terminal-lang {
+    font-size: 11px;
+    font-family: ui-monospace, monospace;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  .copy-code-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+  }
+
+  .copy-code-btn .btn-text {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .code-pre {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+
+  .code-pre code {
+    display: block;
+    padding: 16px !important;
+    background: transparent !important;
+    border: 0 !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+  }
+
+  /* Highlight.js — Vibrant Theme */
+  .chat-markdown .hljs {
+    color: #e1e4f0;
+  }
+  .chat-markdown .hljs-comment,
+  .chat-markdown .hljs-quote {
+    color: #6b7394;
+    font-style: italic;
+  }
+
+  /* Keywords & Logic */
+  .chat-markdown .hljs-keyword,
+  .chat-markdown .hljs-selector-tag,
+  .chat-markdown .hljs-storage-type,
+  .chat-markdown .hljs-doctag,
+  .chat-markdown .hljs-subst {
+    color: #c792ea;
+    font-weight: 700;
+  }
+
+  /* Strings & Symbols */
+  .chat-markdown .hljs-string,
+  .chat-markdown .hljs-regexp,
+  .chat-markdown .hljs-meta .hljs-string,
+  .chat-markdown .hljs-symbol,
+  .chat-markdown .hljs-bullet,
+  .chat-markdown .hljs-addition {
+    color: #a5e075;
+  }
+
+  /* Functions & Classes */
+  .chat-markdown .hljs-title,
+  .chat-markdown .hljs-title.function_,
+  .chat-markdown .hljs-function_ .hljs-title,
+  .chat-markdown .hljs-title.class_,
+  .chat-markdown .hljs-class .hljs-title,
+  .chat-markdown .hljs-section {
+    color: #82aaff;
+    font-weight: 700;
+  }
+
+  /* Variables & Properties */
+  .chat-markdown .hljs-variable,
+  .chat-markdown .hljs-template-variable,
+  .chat-markdown .hljs-variable.language_,
+  .chat-markdown .hljs-property {
+    color: #80e5ff;
+  }
+
+  /* Data Types & Numbers */
+  .chat-markdown .hljs-type,
+  .chat-markdown .hljs-built_in,
+  .chat-markdown .hljs-number,
+  .chat-markdown .hljs-literal {
+    color: #ffb86c;
+  }
+
+  /* Attributes & Keys */
+  .chat-markdown .hljs-attr,
+  .chat-markdown .hljs-attribute {
+    color: #82aaff;
+  }
+
+  /* Params & Links */
+  .chat-markdown .hljs-params,
+  .chat-markdown .hljs-link {
+    color: #f0c674;
+  }
+
+  /* Operators */
+  .chat-markdown .hljs-operator,
+  .chat-markdown .hljs-punctuation {
+    color: #56d6f5;
+  }
+
+  /* Meta & Tags */
+  .chat-markdown .hljs-meta,
+  .chat-markdown .hljs-meta .hljs-keyword,
+  .chat-markdown .hljs-tag,
+  .chat-markdown .hljs-name,
+  .chat-markdown .hljs-deletion {
+    color: #ff6b8a;
+  }
+
+  .chat-markdown .hljs-emphasis {
+    font-style: italic;
+  }
+  .chat-markdown .hljs-strong {
+    font-weight: bold;
+  }
+  .chat-markdown .hljs-link {
+    text-decoration: underline;
+  }
+
+  .chat-markdown blockquote {
+    @apply pl-4 py-1 border-l-[3px] border-violet-500/50 bg-violet-500/5 rounded-r-xl italic text-foreground/70 my-3;
+  }
+  .chat-markdown a {
+    @apply text-violet-500 hover:text-violet-400 underline underline-offset-2 decoration-violet-500/30;
+  }
+  .chat-markdown hr {
+    @apply my-6 border-t border-white/10;
+  }
+  .chat-markdown .table-wrapper {
+    @apply w-full overflow-x-auto my-4 rounded-xl border border-white/10 bg-white/5;
+  }
+  .chat-markdown table {
+    @apply min-w-[600px] w-max text-sm text-left;
+  }
+  .chat-markdown th {
+    @apply px-5 py-3 border-b border-white/10 font-bold uppercase tracking-wider text-[11px] text-muted-foreground whitespace-nowrap;
+  }
+  .chat-markdown td {
+    @apply px-5 py-3 border-b border-white/5;
+  }
+  .chat-markdown img {
+    @apply max-w-full rounded-xl my-4 border border-white/10;
+  }
+  .chat-markdown input[type="checkbox"] {
+    @apply mt-1 border-white/20 bg-black/20 rounded-sm text-violet-500 focus:ring-violet-500/50 mr-2 align-top;
+  }
+
   .glass-card {
     @apply bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-white/15 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-2xl;
   }
@@ -157,23 +475,6 @@ body {
 
   .glow-hover {
     @apply transition-[box-shadow,transform] duration-500 hover:shadow-[0_0_40px_rgba(139,92,246,0.12)] dark:hover:shadow-[0_0_40px_rgba(139,92,246,0.2)];
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-b from-violet-600/80 to-indigo-600/80 dark:from-violet-400/80 dark:to-indigo-400/80 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gradient-to-b from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400;
   }
 }
 
@@ -208,4 +509,57 @@ body {
     animation-play-state: paused !important;
     animation: none !important;
   }
+}
+
+/* Consistently visible custom scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed transparent;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8b5cf6;
+}
+
+/* Specific visible horizontal scrollbars for tables and code blocks */
+.chat-markdown .table-wrapper::-webkit-scrollbar,
+.chat-markdown pre code::-webkit-scrollbar,
+.code-pre code::-webkit-scrollbar {
+  height: 4px !important;
+  display: block !important;
+  -webkit-appearance: none !important;
+}
+
+.chat-markdown .table-wrapper::-webkit-scrollbar-track,
+.chat-markdown pre code::-webkit-scrollbar-track,
+.code-pre code::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-radius: 9999px !important;
+}
+
+.chat-markdown .table-wrapper::-webkit-scrollbar-thumb,
+.chat-markdown pre code::-webkit-scrollbar-thumb,
+.code-pre code::-webkit-scrollbar-thumb {
+  background: #7c3aed !important;
+  border-radius: 9999px !important;
+}
+
+.chat-markdown .table-wrapper::-webkit-scrollbar-thumb:hover,
+.chat-markdown pre code::-webkit-scrollbar-thumb:hover,
+.code-pre code::-webkit-scrollbar-thumb:hover {
+  background: #8b5cf6 !important;
 }

@@ -2,7 +2,7 @@ import { Navbar, Hero, HeroMockup, Features, Goals, Pricing, FAQ, CTA, Footer } 
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background relative selection:bg-violet-500/30 selection:text-primary">
+    <div className="min-h-screen bg-background relative selection:bg-violet-500/30 selection:text-primary" suppressHydrationWarning>
       
       <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:100px_100px]" />

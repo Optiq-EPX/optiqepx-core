@@ -61,7 +61,7 @@ export function DashboardShell({
 
   return (
     <div 
-      className="min-h-screen bg-zinc-50 dark:bg-black flex p-3 lg:p-4 gap-4 selection:bg-violet-100 selection:text-violet-900 font-outfit relative overflow-x-hidden"
+      className="min-h-screen bg-zinc-50 dark:bg-black flex p-3 lg:p-4 gap-4 selection:bg-violet-100 selection:text-violet-900 font-outfit relative"
     >
       
       <Sidebar 
