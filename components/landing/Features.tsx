@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import {
   Shield, Swords, Radio, Brain, LayoutDashboard, Trophy,
@@ -10,6 +11,7 @@ import {
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 import { SectionHeader } from '@/components/shared/SectionHeader';
+import { useState, useEffect } from 'react';
 
 const features = [
   {
@@ -98,7 +100,7 @@ const features = [
   },
 ];
 
-function FeatureCard({ feature }: { feature: typeof features[0] }) {
+function FeatureCard({ feature, isMobile }: { feature: typeof features[0], isMobile: boolean }) {
   const mouseX = useMotionValue(400);
   const mouseY = useMotionValue(0);
   const rafRef = React.useRef<number | null>(null);
@@ -107,7 +109,7 @@ function FeatureCard({ feature }: { feature: typeof features[0] }) {
   const springY = useSpring(mouseY, { damping: 35, stiffness: 500 });
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    if (rafRef.current) return;
+    if (isMobile || rafRef.current) return;
     rafRef.current = requestAnimationFrame(() => {
       const { left, top } = currentTarget.getBoundingClientRect();
       mouseX.set(clientX - left);
@@ -141,30 +143,45 @@ function FeatureCard({ feature }: { feature: typeof features[0] }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "group relative p-[1px] overflow-hidden rounded-[2rem] bg-black/10 dark:bg-white/[0.08] transition-all duration-500 cursor-pointer [--glow-opacity:0.1] dark:[--glow-opacity:0.2] [--border-opacity:0.8] dark:[--border-opacity:1]",
+        "group relative p-[1px] overflow-hidden rounded-[2rem] bg-black/10 dark:bg-white/[0.08] transition-all duration-500 cursor-pointer [--glow-opacity:0.1] dark:[--glow-opacity:0.2] [--border-opacity:0.8] dark:[--border-opacity:1] transform-gpu will-change-transform",
         feature.span || ""
       )}
     >
-      <motion.div
-        className="pointer-events-none absolute -inset-px transition duration-300 z-10"
-        style={{ background: borderBackground }}
-      />
-
-      <div className="relative h-full w-full rounded-[calc(2rem-1px)] bg-white dark:bg-[#070b18] backdrop-blur-2xl p-7 flex flex-col z-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000015_1px,transparent_1px),linear-gradient(to_bottom,#00000015_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(circle_at_center,#000_25%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-        
+      {!isMobile && (
         <motion.div
-          className="pointer-events-none absolute inset-0 transition duration-300"
-          style={{ background: spotlightBackground }}
+          className="pointer-events-none absolute -inset-px transition duration-300 z-10"
+          style={{ background: borderBackground }}
         />
+      )}
 
-        <div className="absolute top-0 left-0 w-full h-[400%] bg-gradient-to-b from-transparent via-black/[0.01] dark:via-white/[0.03] to-transparent -translate-y-full group-hover:animate-scan pointer-events-none" />
+      <div className={cn(
+        "relative h-full w-full rounded-[calc(2rem-1px)] bg-white dark:bg-[#070b18] p-7 flex flex-col z-20 overflow-hidden [--grid-opacity:0.15] dark:[--grid-opacity:0.1] transform-gpu will-change-transform",
+        !isMobile && "backdrop-blur-2xl"
+      )}>
+        <div 
+          className={cn(
+            "absolute inset-0 bg-[size:20px_20px] [mask-image:radial-gradient(circle_at_center,black_20%,transparent_60%)] transition-opacity duration-700",
+            isMobile ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          )}
+          style={{
+            backgroundImage: `linear-gradient(to right, ${feature.glowColor.replace('1)', '0.15)')} 1px, transparent 1px), linear-gradient(to bottom, ${feature.glowColor.replace('1)', '0.15)')} 1px, transparent 1px)`
+          } as any}
+        />
+        
+        {!isMobile && (
+          <motion.div
+            className="pointer-events-none absolute inset-0 transition duration-300"
+            style={{ background: spotlightBackground }}
+          />
+        )}
+
+        {!isMobile && <div className="absolute top-0 left-0 w-full h-[400%] bg-gradient-to-b from-transparent via-black/[0.01] dark:via-white/[0.03] to-transparent -translate-y-full group-hover:animate-scan pointer-events-none" />}
 
         <div className="relative z-30 flex flex-col h-full">
           <div className="flex justify-between items-start mb-8">
             <div className="relative">
                <div className={cn(
-                 "absolute -inset-2 bg-gradient-to-br rounded-xl blur-lg opacity-0 group-hover:opacity-20 dark:group-hover:opacity-40 transition-opacity duration-500",
+                 "absolute -inset-2 bg-gradient-to-br rounded-xl blur-lg",
                  feature.color
                )} />
                <div className={cn(
@@ -229,16 +246,33 @@ function FeatureCard({ feature }: { feature: typeof features[0] }) {
 }
 
 export function Features() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <section id="features" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#020617]">
+    <section id="features" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#020617] contain-paint">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/10 dark:via-violet-500/20 to-transparent" />
-      <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(circle_at_center,#000_30%,transparent_90%)] opacity-30 dark:opacity-50" />
+      {!isMobile && (
+        <>
+          <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none" />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(circle_at_center,#000_30%,transparent_90%)] opacity-30 dark:opacity-50" />
+        </>
+      )}
       
       <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] pointer-events-none -z-10">
-        <div className="absolute top-0 left-[10%] w-32 h-32 bg-violet-500/10 blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-[10%] w-32 h-32 bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        {!isMobile && (
+          <>
+            <div className="absolute top-0 left-[10%] w-32 h-32 bg-violet-500/10 blur-3xl animate-pulse" />
+            <div className="absolute bottom-0 right-[10%] w-32 h-32 bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          </>
+        )}
       </div>
       
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -261,41 +295,56 @@ export function Features() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {features.map((feature, idx) => (
-              <FeatureCard key={feature.title} feature={feature} />
+              <FeatureCard key={feature.title} feature={feature} isMobile={isMobile} />
             ))}
           </motion.div>
 
           <motion.div 
             variants={fadeInUp}
-            className="mt-16 relative"
+            className="mt-12 relative group/cta overflow-hidden rounded-[2rem] bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/[0.08] transform-gpu will-change-transform"
           >
-            <div className="relative p-7 sm:p-10 rounded-[2.5rem] bg-[#f8fafc] dark:bg-[#070b18] border border-black/12 dark:border-white/10 overflow-hidden shadow-2xl shadow-black/5 dark:shadow-none">
-              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-violet-600/10 dark:bg-violet-600/20 blur-[120px] rounded-full" />
-              <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-600/10 dark:bg-indigo-600/20 blur-[120px] rounded-full" />
+            {!isMobile && (
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 via-transparent to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            )}
+
+            <div className="absolute top-[1px] inset-x-8 h-[2px] bg-gradient-to-r from-transparent via-violet-500 to-transparent blur-[3px] opacity-20 dark:opacity-30 z-50 pointer-events-none" />
+            <div className="absolute top-0 inset-x-12 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent z-50 pointer-events-none" />
+            
+            <div className="relative p-7 sm:p-10 rounded-[calc(2rem-1px)] bg-white dark:bg-[#020617] transform-gpu">
+              <div className="absolute inset-0  pointer-events-none" />
+
+              {!isMobile && (
+                <>
+                  <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-violet-600/5 dark:bg-violet-600/10 blur-[120px] rounded-full pointer-events-none transition-all duration-1000 group-hover:bg-violet-600/15" />
+                  <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-indigo-600/5 dark:bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none transition-all duration-1000 group-hover:bg-indigo-600/15" />
+                  
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_100%_50%_at_center,black,transparent)] opacity-40 dark:opacity-50 pointer-events-none transition-opacity group-hover:opacity-60" />
+                </>
+              )}
               
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_80%_70%_at_center,white_20%,transparent_85%)] pointer-events-none" />
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] dark:opacity-[0.03] pointer-events-none" />
-              
-              <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 text-center lg:text-left">
-                <div className="max-w-xl">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-space-grotesk font-black text-slate-900 dark:text-white mb-3 tracking-tighter leading-tight">
-                    Ready to transform your <span className="text-violet-500">learning experience?</span>
+              <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div className="max-w-lg text-center lg:text-left">
+                  <h3 className="text-2xl sm:text-3xl font-space-grotesk font-black text-slate-900 dark:text-white mb-3 tracking-tight leading-[1.1]">
+                    Ready to transform your <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500">learning experience?</span>
                   </h3>
-                  <p className="text-slate-500 dark:text-zinc-400 font-outfit text-sm sm:text-base leading-relaxed font-medium">
-                    Join thousands of scholars who are already mastering their subjects with OptiqEPX. Start your journey for free today.
+                  <p className="text-slate-500 dark:text-zinc-400 font-outfit text-sm sm:text-base leading-relaxed font-medium max-w-md mx-auto lg:mx-0">
+                    Join thousands of scholars mastering their subjects with Optiq AI. Start your journey today.
                   </p>
                 </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="relative flex items-center gap-3 px-7 h-12 bg-violet-600 hover:bg-violet-500 text-white rounded-xl font-space-grotesk font-black text-[12px] uppercase tracking-[0.2em] transition-all group/btn overflow-hidden whitespace-nowrap shadow-xl shadow-violet-500/20"
-                >
-                  <span>Get Started Free</span>
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center transition-all group-hover/btn:translate-x-1 group-hover/btn:bg-white/20">
-                    <Layers className="w-4 h-4" />
-                  </div>
-                </motion.button>
+                <div className="relative shrink-0">
+                  <div className="absolute -inset-4 bg-violet-500/20 blur-2xl opacity-0 group-hover/cta:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <Link href="/register">
+                    <motion.button
+                      whileHover={{ scale: 1.02, y: -1 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="relative flex cursor-pointer items-center gap-2 px-6 h-10 bg-violet-600 text-white rounded-lg font-outfit font-semibold text-sm transition-all group/btn overflow-hidden whitespace-nowrap shadow-lg shadow-violet-500/20"
+                    >
+                      <span className="relative z-10">Get started free</span>
+                      <ArrowUpRight className="w-4 h-4 relative z-10 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    </motion.button>
+                  </Link>
+                </div>
               </div>
             </div>
           </motion.div>

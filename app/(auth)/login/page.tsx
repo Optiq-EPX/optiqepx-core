@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { LoginForm } from '@/features/auth/components/LoginForm';
@@ -13,8 +14,17 @@ const features = [
 ];
 
 export default function LoginPage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <div className="h-screen flex bg-background dark:bg-[#09090b] overflow-hidden">
+    <div className="min-h-screen flex bg-background dark:bg-[#09090b] overflow-x-hidden">
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -52,7 +62,7 @@ export default function LoginPage() {
             <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
             Back to home
           </Link>
-          <Logo className="[&_span]:text-white [&_p]:text-white/50" />
+          <Logo white />
         </div>
 
         <div className="relative z-10 space-y-6">
@@ -126,14 +136,18 @@ export default function LoginPage() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 relative bg-background overflow-hidden"
+        className="flex-1 flex flex-col items-center justify-center px-6 lg:px-12 relative bg-background py-12 overflow-hidden transform-gpu"
       >
-        <div className="absolute top-0 right-0 w-[280px] h-[280px] bg-violet-500/5 dark:bg-violet-500/10 rounded-full blur-[90px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[220px] h-[220px] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[70px] pointer-events-none" />
+        {!isMobile && (
+          <>
+            <div className="absolute top-0 right-0 w-[280px] h-[280px] bg-violet-500/5 dark:bg-violet-500/10 rounded-full blur-[90px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[220px] h-[220px] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[70px] pointer-events-none" />
+          </>
+        )}
 
-        <div className="w-full max-w-[340px] relative z-10">
+        <div className="w-full max-w-[340px] relative z-10 lg:px-0">
           <div className="lg:hidden mb-8 flex justify-center">
-            <Link href="/"><Logo /></Link>
+            <Link href="/"><Logo white /></Link>
           </div>
 
           <div className="mb-7">
@@ -176,6 +190,21 @@ export default function LoginPage() {
               Sign up free
             </Link>
           </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ delay: 0.7 }}
+            className="lg:hidden mt-10 flex justify-center"
+          >
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.02] dark:bg-white/5 backdrop-blur-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all text-xs font-outfit font-semibold group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
+              Back to home
+            </Link>
+          </motion.div>
 
         </div>
       </motion.div>

@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CircleCheckBig, Check, X, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { SectionHeader } from '@/components/shared/SectionHeader';
+import { cn } from '@/lib/utils';
 
 const plans = [
   {
@@ -98,13 +99,25 @@ const comparisonRows = [
 
 export function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
-    <section id="pricing" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#03040B]">
+    <section id="pricing" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#03040B] contain-paint">
       
 
-      <div className="absolute top-0 left-[-10%] w-[500px] h-[500px] bg-violet-600/10 dark:bg-violet-600/20 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 dark:bg-purple-600/20 blur-[150px] rounded-full pointer-events-none transform -skew-y-12" />
+      {!isMobile && (
+        <>
+          <div className="absolute top-0 left-[-10%] w-[500px] h-[500px] bg-violet-600/10 dark:bg-violet-600/20 blur-[150px] rounded-full pointer-events-none" />
+          <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 dark:bg-purple-600/20 blur-[150px] rounded-full pointer-events-none transform -skew-y-12" />
+        </>
+      )}
 
       <div className="container mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -172,11 +185,15 @@ export function Pricing() {
             <motion.div
               key={plan.name}
               variants={fadeInUp}
-              className={`relative flex flex-col p-8 lg:p-10 rounded-[2rem] transition-all duration-300 bg-white dark:bg-[#0B0C12] shadow-xl ${
-                plan.highlighted
+              className={cn(
+                "relative flex flex-col p-8 lg:p-10 rounded-[2rem] transition-all duration-300 bg-white dark:bg-[#0B0C12] shadow-xl",
+                plan.highlighted && !isMobile
                   ? 'border border-violet-500/50 shadow-[0_0_30px_rgba(124,58,237,0.15)] dark:shadow-[0_0_40px_rgba(124,58,237,0.2)] transform md:-translate-y-4'
+                  : plan.highlighted && isMobile
+                  ? 'border border-violet-500/50 shadow-lg'
                   : 'border border-slate-300 dark:border-white/10'
-              }`}
+              )}
+              style={{ willChange: plan.highlighted && !isMobile ? 'transform opacity' : 'auto' }}
             >
               {plan.highlighted && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-full text-[11px] font-bold text-white uppercase tracking-wider shadow-lg border border-white/20 z-20">
@@ -265,7 +282,10 @@ export function Pricing() {
             className="!mb-12 sm:!mb-16"
           />
 
-          <motion.div variants={fadeInUp} className="overflow-x-auto pb-12 mt-8">
+          <motion.div 
+            variants={fadeInUp} 
+            className="overflow-x-auto pb-12 mt-8"
+          >
             <div className="min-w-[800px] bg-white dark:bg-[#0B0C12] rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden">
               <table className="w-full text-left border-collapse">
                 <thead>

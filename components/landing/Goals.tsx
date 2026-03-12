@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { Target, Handshake, Lightbulb, TrendingUp, ShieldCheck, Rocket } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
@@ -70,7 +70,19 @@ const goals = [
   },
 ];
 
-function GoalCard({ goal, isHovered, index, setHoveredIndex }: { goal: typeof goals[0], isHovered: boolean, index: number, setHoveredIndex: (idx: number | null) => void }) {
+function GoalCard({ 
+  goal, 
+  isHovered, 
+  index, 
+  setHoveredIndex, 
+  isMobile 
+}: { 
+  goal: typeof goals[0], 
+  isHovered: boolean, 
+  index: number, 
+  setHoveredIndex: (idx: number | null) => void,
+  isMobile: boolean
+}) {
   const isLarge = goal.size === 'large';
   const isWide = goal.size === 'wide';
 
@@ -78,9 +90,9 @@ function GoalCard({ goal, isHovered, index, setHoveredIndex }: { goal: typeof go
     <motion.div
       variants={fadeInUp}
       className={cn("relative h-full w-full", goal.className)}
-      onMouseEnter={() => setHoveredIndex(index)}
+      onMouseEnter={() => !isMobile && setHoveredIndex(index)}
     >
-      {isHovered && (
+      {isHovered && !isMobile && (
         <motion.span
           className="absolute -inset-3 block rounded-[2rem] -z-10 bg-slate-300/60 dark:bg-white/[0.08]"
           layoutId="goalHoverBackground"
@@ -98,16 +110,17 @@ function GoalCard({ goal, isHovered, index, setHoveredIndex }: { goal: typeof go
 
       <article
         className={cn(
-          "group relative flex h-full w-full overflow-hidden rounded-3xl border border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] backdrop-blur-3xl transition-all duration-500 shadow-sm",
+          "group relative flex h-full w-full overflow-hidden rounded-3xl border border-slate-200/60 dark:border-white/[0.05] bg-white/40 dark:bg-[#0e1016] transition-all duration-500 shadow-sm",
+          !isMobile && "backdrop-blur-3xl",
           isWide ? "flex-col sm:flex-row items-center sm:text-left text-center px-8 py-8" : "flex-col items-center text-center px-8 py-10",
           isLarge && "justify-center"
         )}
       >
-        {isLarge && (
+        {isLarge && !isMobile && (
           <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808014_1px,transparent_1px),linear-gradient(to_bottom,#80808014_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_top_right,#000_20%,transparent_70%)] pointer-events-none transition-opacity duration-700 group-hover:opacity-50 opacity-20" />
         )}
 
-        <div className="absolute inset-0 z-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.08] dark:via-white/[0.04] to-transparent skew-x-12 group-hover:animate-shimmer pointer-events-none" />
+        {!isMobile && <div className="absolute inset-0 z-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.08] dark:via-white/[0.04] to-transparent skew-x-12 group-hover:animate-shimmer pointer-events-none" />}
 
         <div
           className="absolute inset-x-0 top-0 h-[2px] rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-700 z-10"
@@ -156,10 +169,17 @@ function GoalCard({ goal, isHovered, index, setHoveredIndex }: { goal: typeof go
 
 export function Goals() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
-    <section id="goals" className="py-24 sm:py-32 relative overflow-hidden">
-      
+    <section id="goals" className="py-24 sm:py-32 relative overflow-hidden contain-paint">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-violet-500/[0.03] via-transparent to-transparent dark:from-violet-500/[0.02]" />
 
@@ -193,6 +213,7 @@ export function Goals() {
                     index={index}
                     isHovered={hoveredIndex === index}
                     setHoveredIndex={setHoveredIndex}
+                    isMobile={isMobile}
                   />
                 ))}
               </motion.div>

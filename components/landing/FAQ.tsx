@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import {
   Accordion,
@@ -49,17 +49,30 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const midPoint = Math.ceil(faqs.length / 2);
   const leftColumnFaqs = faqs.slice(0, midPoint);
   const rightColumnFaqs = faqs.slice(midPoint);
 
   return (
-    <section id="faq" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#0e1016]">
+    <section id="faq" className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-[#0e1016] contain-paint">
       
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/10 dark:via-violet-500/20 to-transparent" />
-      <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
-      <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 dark:opacity-50" />
+      {!isMobile && (
+        <>
+          <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-violet-500/[0.02] dark:bg-violet-500/[0.05] blur-[140px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
+          <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/[0.02] dark:bg-indigo-500/[0.05] blur-[140px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 dark:opacity-50" />
+        </>
+      )}
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -75,18 +88,32 @@ export function FAQ() {
             description="Find answers to common questions about OptiqEPX and how to get started."
           />
 
-          <motion.div variants={fadeInUp} className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-12 items-start">
+          <motion.div 
+            variants={fadeInUp} 
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-12 items-start"
+          >
             <Accordion type="single" collapsible className="w-full space-y-4">
               {leftColumnFaqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
                   value={`item-left-${index}`}
-                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-violet-500/20 bg-white dark:bg-[#08090d] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a] data-[state=open]:border-violet-500/40 hover:border-violet-500/30 dark:hover:border-violet-500/40"
+                  className={cn(
+                    "group relative overflow-hidden transition-[background-color] duration-300 shadow-sm border !border-b",
+                    isMobile 
+                      ? "rounded-2xl border-slate-200 dark:border-white/10 px-4 bg-white dark:bg-[#08090d]" 
+                      : "rounded-[2rem] border-slate-200/60 dark:border-violet-500/20 px-6 py-2 bg-white dark:bg-[#08090d] hover:border-violet-500/30 dark:hover:border-violet-500/40 transition-all",
+                    "data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a]",
+                    !isMobile && "data-[state=open]:border-violet-500/40"
+                  )}
                 >
-                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
+                  {!isMobile && (
+                    <>
+                      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
+                    </>
+                  )}
 
-                  <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2">
+                  <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2 transform-gpu">
                     <span className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-white/5 group-data-[state=open]:bg-violet-500/10 group-data-[state=open]:border-violet-500/20 transition-colors duration-300">
                         <MessageCircleQuestion className="w-4 h-4 text-slate-500 dark:text-slate-400 group-data-[state=open]:text-violet-600 dark:group-data-[state=open]:text-violet-400" />
@@ -94,7 +121,7 @@ export function FAQ() {
                       {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 dark:text-slate-400 font-outfit leading-relaxed text-[0.95rem] pb-6 pl-11 pr-4">
+                  <AccordionContent className="text-slate-600 dark:text-slate-400 font-outfit leading-relaxed text-[0.95rem] pb-6 pl-11 pr-4 transform-gpu">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -106,12 +133,26 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-right-${index}`}
-                  className="group relative overflow-hidden rounded-[2rem] border !border-b border-slate-200/60 dark:border-violet-500/20 bg-white dark:bg-[#08090d] px-6 py-2 shadow-sm transition-[border-color,box-shadow] duration-300 data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a] data-[state=open]:border-violet-500/40 hover:border-violet-500/30 dark:hover:border-violet-500/40"
+                  className={cn(
+                    "group relative overflow-hidden transition-[background-color] duration-300 shadow-sm border !border-b",
+                    isMobile 
+                      ? "rounded-2xl border-slate-200 dark:border-white/10 px-4 bg-white dark:bg-[#08090d]" 
+                      : "rounded-[2rem] border-slate-200/60 dark:border-violet-500/20 px-6 py-2 bg-white dark:bg-[#08090d] hover:border-violet-500/30 dark:hover:border-violet-500/40 transition-all",
+                    "data-[state=open]:shadow-md dark:data-[state=open]:bg-[#05060a]",
+                    !isMobile && "data-[state=open]:border-violet-500/40"
+                  )}
                 >
-                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
+                  {!isMobile && (
+                    <>
+                      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-y-0 -left-px w-px bg-gradient-to-b from-transparent via-violet-500/50 to-transparent opacity-0 group-data-[state=open]:opacity-50 transition-opacity duration-300" />
+                    </>
+                  )}
 
-                  <AccordionTrigger className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2">
+                  <AccordionTrigger 
+                    className="text-left font-space-grotesk font-bold text-base sm:text-lg py-5 hover:no-underline hover:text-violet-600 dark:hover:text-violet-400 transition-colors [&[data-state=open]]:text-violet-600 dark:[&[data-state=open]]:text-violet-400 text-slate-900 dark:text-slate-100 pr-2 transform-gpu" 
+                    style={{ willChange: 'transform' }}
+                  >
                     <span className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-white/5 group-data-[state=open]:bg-violet-500/10 group-data-[state=open]:border-violet-500/20 transition-colors duration-300">
                         <MessageCircleQuestion className="w-4 h-4 text-slate-500 dark:text-slate-400 group-data-[state=open]:text-violet-600 dark:group-data-[state=open]:text-violet-400" />
@@ -119,7 +160,7 @@ export function FAQ() {
                       {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 dark:text-slate-400 font-outfit leading-relaxed text-[0.95rem] pb-6 pl-11 pr-4">
+                  <AccordionContent className="text-slate-600 dark:text-slate-400 font-outfit leading-relaxed text-[0.95rem] pb-6 pl-11 pr-4 transform-gpu">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
