@@ -109,7 +109,7 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Logo textOnly className="scale-90 sm:scale-100" />
+            <Logo className="scale-90 sm:scale-100" />
           </motion.div>
         </Link>
 

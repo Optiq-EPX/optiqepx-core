@@ -428,7 +428,6 @@ export function AiChat({ classLevel, username: propUsername, userAvatar: propUse
         <div ref={bottomRef} />
       </div>
 
-      {/* Spacer pushes input to bottom when content is short */}
       <div className="flex-1" />
       
       <div className="sticky bottom-0 z-50 px-2 sm:px-4 pt-2 pb-4 bg-gradient-to-t from-dashboard from-70% to-transparent">

@@ -49,6 +49,10 @@ const galada = Galada({
 export const metadata: Metadata = {
   title: "OptiqEPX | AI-Powered Student Learning & Growth Platform",
   description: "Compete in study battles, collaborate in live rooms, and grow with a personal AI tutor. The next-generation platform for students.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
