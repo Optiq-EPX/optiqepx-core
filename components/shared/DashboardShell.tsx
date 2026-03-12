@@ -186,14 +186,14 @@ export function DashboardShell({
           </div>
         </motion.header>
 
-        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0">
-           <AnimatePresence mode="popLayout" initial={false}>
+        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0 overflow-hidden">
+           <AnimatePresence mode="wait" initial={false}>
              <motion.div
                key={pathname} 
                initial={{ opacity: 0, scale: 0.99, y: 10 }}
                animate={{ opacity: 1, scale: 1, y: 0 }}
                exit={{ opacity: 0, scale: 0.99, y: -10 }}
-               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                className="will-change-transform flex flex-col min-h-full"
              >
                {children}

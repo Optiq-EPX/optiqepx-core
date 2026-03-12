@@ -9,8 +9,9 @@ export function MotionProvider({ children }: { children: ReactNode }) {
       reducedMotion="user"
       transition={{
         type: "spring",
-        stiffness: 260,
-        damping: 20,
+        stiffness: 500,
+        damping: 40,
+        mass: 1,
       }}
     >
       {children}
