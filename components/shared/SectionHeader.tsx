@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { fadeInUp } from '@/lib/animations';
 import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
 interface SectionHeaderProps {
   badge: string;
@@ -16,34 +17,15 @@ interface SectionHeaderProps {
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const badgeVariants = {
-  hidden: { opacity: 0, y: 12, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.8, ease }
-  }
-};
-
-const titleVariants = {
-  hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.8, ease, delay: 0.1 }
-  }
-};
-
-const descVariants = {
-  hidden: { opacity: 0, y: 12, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.8, ease, delay: 0.2 }
-  }
+const useMobileDetection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  return isMobile;
 };
 
 export function SectionHeader({
@@ -54,13 +36,47 @@ export function SectionHeader({
   description,
   className
 }: SectionHeaderProps) {
+  const isMobile = useMobileDetection();
+
+  const badgeVariants = {
+    hidden: { opacity: 0, y: 12, filter: isMobile ? 'none' : 'blur(4px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 16, filter: isMobile ? 'none' : 'blur(8px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease, delay: 0.1 }
+    }
+  };
+
+  const descVariants = {
+    hidden: { opacity: 0, y: 12, filter: isMobile ? 'none' : 'blur(4px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease, delay: 0.2 }
+    }
+  };
   return (
     <motion.div 
       variants={fadeInUp} 
       className={cn("text-center max-w-3xl mx-auto mb-16 sm:mb-20 flex flex-col items-center", className)}
     >
       <motion.div variants={badgeVariants} className="mb-6 transform-gpu">
-        <span className="relative inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full text-[11px] font-medium font-outfit uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300 bg-slate-100/50 dark:bg-white/[0.02] border border-slate-200/50 dark:border-white/[0.08] backdrop-blur-md shadow-sm">
+        <span className={cn(
+          "relative inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full text-[11px] font-medium font-outfit uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300 bg-slate-100/50 dark:bg-white/[0.02] border border-slate-200/50 dark:border-white/[0.08] shadow-sm",
+          !isMobile && "backdrop-blur-md"
+        )}>
           <span className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/70 dark:via-white/20 to-transparent" />
           <span className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/30 dark:via-violet-400/20 to-transparent" />
           

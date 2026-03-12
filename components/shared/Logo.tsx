@@ -9,9 +9,10 @@ interface LogoProps {
   iconOnly?: boolean;
   animated?: boolean;
   textOnly?: boolean;
+  white?: boolean;
 }
 
-export function Logo({ className, iconOnly = false, animated = true, textOnly = false }: LogoProps) {
+export function Logo({ className, iconOnly = false, animated = true, textOnly = false, white = false }: LogoProps) {
   const gradId = "optiq-logo-gradient";
   
   return (
@@ -53,7 +54,7 @@ export function Logo({ className, iconOnly = false, animated = true, textOnly = 
                   y="22" 
                   className="font-space-grotesk font-black opacity-10 dark:opacity-20" 
                   style={{ fontSize: "24px", letterSpacing: "-0.04em" }} 
-                  fill={`url(#${gradId})`}
+                  fill={white ? "#fff" : `url(#${gradId})`}
                 >
                   Optiq
                 </text>
@@ -62,8 +63,8 @@ export function Logo({ className, iconOnly = false, animated = true, textOnly = 
                   y="22"
                   className="font-space-grotesk font-black"
                   style={{ fontSize: "24px", letterSpacing: "-0.04em" }}
-                  fill={`url(#${gradId})`}
-                  stroke={`url(#${gradId})`}
+                  fill={white ? "#fff" : `url(#${gradId})`}
+                  stroke={white ? "#fff" : `url(#${gradId})`}
                   strokeWidth="0.5"
                   strokeDasharray="200"
                   animate={{ 
@@ -87,7 +88,7 @@ export function Logo({ className, iconOnly = false, animated = true, textOnly = 
                 y="22" 
                 className="font-space-grotesk font-black" 
                 style={{ fontSize: "24px", letterSpacing: "-0.04em" }} 
-                fill={`url(#${gradId})`}
+                fill={white ? "#fff" : `url(#${gradId})`}
               >
                 Optiq
               </text>
@@ -96,7 +97,7 @@ export function Logo({ className, iconOnly = false, animated = true, textOnly = 
             <text
               x="62"
               y="22"
-              className="font-space-grotesk font-black fill-slate-900 dark:fill-white"
+              className={cn("font-space-grotesk font-black", white ? "fill-white" : "fill-slate-900 dark:fill-white")}
               style={{ fontSize: "24px", letterSpacing: "-0.04em" }}
             >
               EPX

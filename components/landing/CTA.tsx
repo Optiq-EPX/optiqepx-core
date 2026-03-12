@@ -1,23 +1,36 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Users, MessageSquare, Rocket } from 'lucide-react';
 import { LandingButton } from '@/components/shared/LandingButton';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 export function CTA() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <section className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-background">
+    <section className="py-24 sm:py-32 relative overflow-hidden bg-white dark:bg-background contain-paint">
       
       <div className="absolute inset-0 -z-10 opacity-30 dark:opacity-100">
-        <motion.div 
-          animate={{ x: [-20, 20, -20], y: [-20, 20, -20], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-br from-violet-600/10 via-indigo-600/10 to-cyan-500/5 dark:from-violet-600/20 dark:via-indigo-600/15 dark:to-cyan-500/10 rounded-full blur-[120px]" 
-          style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }}
-        />
+        {!isMobile && (
+          <motion.div 
+            animate={{ x: [-20, 20, -20], y: [-20, 20, -20], scale: [1, 1.1, 1] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-br from-violet-600/10 via-indigo-600/10 to-cyan-500/5 dark:from-violet-600/20 dark:via-indigo-600/15 dark:to-cyan-500/10 rounded-full blur-[120px]" 
+            style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }}
+          />
+        )}
       </div>
 
       <div className="container mx-auto max-w-[1040px] px-4 sm:px-6 lg:px-8 relative z-10">
@@ -85,7 +98,10 @@ export function CTA() {
               </div>
 
 
-              <div className="mt-8 mb-2 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-md">
+              <div className={cn(
+                "mt-8 mb-2 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_20px_rgba(0,0,0,0.4)]",
+                !isMobile && "backdrop-blur-md"
+              )}>
                 <span className="w-2.5 h-2.5 rounded-full bg-[#00F260] shadow-[0_0_10px_rgba(0,242,96,0.4)] dark:shadow-[0_0_10px_rgba(0,242,96,0.8)] animate-pulse"></span>
                 <span className="text-[12px] font-bold text-slate-700 dark:text-slate-300 font-outfit uppercase tracking-[0.25em]">Global Community</span>
               </div>

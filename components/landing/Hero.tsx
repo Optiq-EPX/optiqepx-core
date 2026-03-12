@@ -13,7 +13,7 @@ export function Hero() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -25,7 +25,7 @@ export function Hero() {
         <div
           className="absolute inset-0 opacity-[0.035] dark:opacity-[0.05] z-[1]"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundImage: isMobile ? 'none' : `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
             willChange: 'auto',
           }}
         />
@@ -33,13 +33,13 @@ export function Hero() {
         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="heroGrid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" strokeWidth="1" strokeOpacity="0.4" />
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#7c3aed" strokeWidth="1" strokeOpacity={isMobile ? "0.3" : "0.6"} />
             </pattern>
             
             <linearGradient id="gridFadeVertical" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="white" stopOpacity="1" />
-              <stop offset="40%" stopColor="white" stopOpacity="0.6" />
-              <stop offset="70%" stopColor="white" stopOpacity="0.1" />
+              <stop offset="50%" stopColor="white" stopOpacity="0.8" />
+              <stop offset="85%" stopColor="white" stopOpacity="0.3" />
               <stop offset="100%" stopColor="white" stopOpacity="0" />
             </linearGradient>
             
@@ -50,7 +50,7 @@ export function Hero() {
             </radialGradient>
             <mask id="gridMask">
               <rect width="100%" height="100%" fill="url(#gridFadeVertical)" />
-              <rect width="100%" height="100%" fill="url(#gridFadeRadial)" style={{ mixBlendMode: 'multiply' }} />
+              {!isMobile && <rect width="100%" height="100%" fill="url(#gridFadeRadial)" style={{ mixBlendMode: 'multiply' }} />}
             </mask>
           </defs>
           <rect width="100%" height="100%" fill="url(#heroGrid)" mask="url(#gridMask)" />
@@ -243,7 +243,7 @@ export function HeroMockup() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -263,7 +263,7 @@ export function HeroMockup() {
   }, []);
 
   return (
-    <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-24 bg-white dark:bg-background overflow-visible">
+    <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-24 bg-white dark:bg-background overflow-visible contain-paint">
       <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -279,12 +279,14 @@ export function HeroMockup() {
                 !isMobile && "drop-shadow-2xl"
               )}
               style={{
-                background: 'linear-gradient(135deg, rgba(124,58,237,0.9) 0%, rgba(139,92,246,0.5) 40%, rgba(99,102,241,0.9) 70%, rgba(167,139,250,0.7) 100%)',
+                background: isMobile 
+                  ? 'rgba(124,58,237,0.5)' 
+                  : 'linear-gradient(135deg, rgba(124,58,237,0.9) 0%, rgba(139,92,246,0.5) 40%, rgba(99,102,241,0.9) 70%, rgba(167,139,250,0.7) 100%)',
                 boxShadow: isMobile 
-                  ? '0 10px 30px -10px rgba(124,58,237,0.3)' 
+                  ? '0 4px 12px rgba(0,0,0,0.1)' 
                   : '0 0 60px 16px rgba(124,58,237,0.45), 0 0 120px 40px rgba(99,102,241,0.2)',
-                transform: `scale(${scale}) translate3d(0,0,0)`,
-                willChange: isMobile ? 'auto' : 'transform',
+                transform: `scale(${scale}) translateZ(0)`,
+                willChange: 'transform',
               }}
             >
               

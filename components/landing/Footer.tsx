@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { Twitter, Github, MessageSquare, Linkedin, ArrowRight, Mail } from 'lucide-react';
@@ -40,22 +41,35 @@ const socials = [
 ];
 
 export function Footer() {
-  return (
-    <footer className="relative pt-16 pb-6 overflow-hidden bg-white dark:bg-[#070b14]">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 dark:via-violet-500/60 to-transparent" />
-      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-violet-500/20 dark:via-violet-500/40 to-transparent blur-sm" />
+  const [isMobile, setIsMobile] = useState(false);
 
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-500/20 dark:bg-violet-500/10 blur-[110px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
-      <div className="absolute bottom-0 left-[-10%] w-[500px] h-[500px] bg-indigo-500/20 dark:bg-indigo-500/10 blur-[110px] rounded-full pointer-events-none hidden md:block" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <footer className="relative pt-16 pb-6 overflow-hidden bg-white dark:bg-[#070b14] transform-gpu">
+      <div className="absolute top-[1px] inset-x-8 h-[2px] bg-gradient-to-r from-transparent via-violet-500 to-transparent blur-[3px] opacity-40 dark:opacity-60 z-50 pointer-events-none" />
+      <div className="absolute top-0 inset-x-12 h-px bg-gradient-to-r from-transparent via-violet-400/70 to-transparent z-50 pointer-events-none" />
+
+      {!isMobile && (
+        <>
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-500/20 dark:bg-violet-500/10 blur-[110px] rounded-full pointer-events-none" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
+          <div className="absolute bottom-0 left-[-10%] w-[500px] h-[500px] bg-indigo-500/20 dark:bg-indigo-500/10 blur-[110px] rounded-full pointer-events-none" style={{ willChange: 'transform', backfaceVisibility: 'hidden', contain: 'layout style paint' }} />
+        </>
+      )}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: isMobile ? "-20px" : "-50px" }}
           variants={staggerContainer}
-          className="relative z-10"
+          className="relative z-10 transform-gpu will-change-transform"
         >
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-12">
@@ -136,7 +150,7 @@ export function Footer() {
 
           <div className="w-full h-px bg-slate-200 dark:bg-white/10 mb-6" />
           
-          <motion.div variants={fadeInUp} className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <motion.div variants={fadeInUp} className="flex flex-col md:flex-row items-center justify-between gap-4 transform-gpu">
             <p className="text-xs text-slate-500 dark:text-slate-400 font-outfit font-medium text-center md:text-left">
               &copy; {new Date().getFullYear()} OptiqEPX Inc. All rights reserved.
             </p>

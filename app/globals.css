@@ -734,3 +734,23 @@ main,
 .font-galada {
   font-family: var(--font-galada-var), cursive;
 }
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; transform: translateY(-4px); }
+  to { height: var(--radix-accordion-content-height); opacity: 1; transform: translateY(0); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; transform: translateY(0); }
+  to { height: 0; opacity: 0; transform: translateY(-4px); }
+}
+
+@media (max-width: 1024px) {
+  [data-state=open] > .overflow-hidden {
+    animation: accordion-down 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: height, opacity, transform;
+  }
+  [data-state=closed] > .overflow-hidden {
+    animation: accordion-up 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: height, opacity, transform;
+  }
+}
