@@ -24,7 +24,8 @@ export function useAuthSync() {
             .single();
 
           if (profile) {
-            dispatch(setUser(profile as UserProfile));
+            const avatarUrl = profile.avatar_url || session.user.user_metadata?.avatar_url || session.user.user_metadata?.picture;
+            dispatch(setUser({ ...profile, avatar_url: avatarUrl } as UserProfile));
           } else {
             dispatch(setUser(null));
           }
@@ -48,7 +49,8 @@ export function useAuthSync() {
             .select('*')
             .eq('id', session.user.id)
             .single();
-         dispatch(setUser(profile as UserProfile));
+         const avatarUrl = profile?.avatar_url || session.user.user_metadata?.avatar_url || session.user.user_metadata?.picture;
+         dispatch(setUser({ ...profile, avatar_url: avatarUrl } as UserProfile));
       } else {
         dispatch(setUser(null));
       }

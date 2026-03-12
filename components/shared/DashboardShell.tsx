@@ -181,7 +181,7 @@ export function DashboardShell({
           </div>
         </motion.header>
 
-        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-6 lg:mb-8">
+        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0">
            <AnimatePresence mode="wait">
              <motion.div
                key={role} 

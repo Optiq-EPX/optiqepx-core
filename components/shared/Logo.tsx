@@ -1,6 +1,5 @@
 'use client';
 
-import { useId } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Brain } from 'lucide-react';
@@ -13,7 +12,7 @@ interface LogoProps {
 }
 
 export function Logo({ className, iconOnly = false, animated = true, textOnly = false }: LogoProps) {
-  const gradId = useId();
+  const gradId = "optiq-logo-gradient";
   
   return (
     <div className={cn("flex items-center gap-2.5 group select-none relative", className)}>

@@ -8,6 +8,7 @@ export interface UserProfile {
   email: string;
   role: UserRole;
   class: ClassLevel;
+  avatar_url?: string;
   created_at: string;
   updated_at: string;
 }

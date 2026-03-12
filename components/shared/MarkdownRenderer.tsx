@@ -59,13 +59,7 @@ export function MarkdownRenderer({ content, className = '', isGenerating = false
   const [displayedContent, setDisplayedContent] = useState(content);
 
   useEffect(() => {
-    const handleCopyClick = async (e: MouseEvent) => {
-      const btn = (e.target as HTMLElement).closest('.copy-code-btn') as HTMLButtonElement;
-      if (!btn) return;
-
-      const code = decodeURIComponent(btn.getAttribute('data-code') || '');
-      await navigator.clipboard.writeText(code);
-
+    const updateButtonState = (btn: HTMLButtonElement) => {
       const icon = btn.querySelector('.copy-icon');
       const text = btn.querySelector('.btn-text');
       if (icon && text) {
@@ -74,15 +68,42 @@ export function MarkdownRenderer({ content, className = '', isGenerating = false
         
         text.textContent = 'Copied';
         btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/20');
-        btn.classList.remove('text-white/50', 'bg-white/[0.05]', 'border-white/5');
         icon.innerHTML = '<path d="M20 6L9 17l-5-5"/>';
         
         setTimeout(() => {
           text.textContent = originalText;
           btn.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/20');
-          btn.classList.add('text-white/50', 'bg-white/[0.05]', 'border-white/5');
           icon.innerHTML = originalIcon;
         }, 2000);
+      }
+    };
+
+    const handleCopyClick = async (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      // Handle Code Copy
+      const codeBtn = target.closest('.copy-code-btn') as HTMLButtonElement;
+      if (codeBtn) {
+        const code = decodeURIComponent(codeBtn.getAttribute('data-code') || '');
+        await navigator.clipboard.writeText(code);
+        updateButtonState(codeBtn);
+        return;
+      }
+
+      // Handle Table Copy
+      const tableBtn = target.closest('.copy-table-btn') as HTMLButtonElement;
+      if (tableBtn) {
+        const container = tableBtn.closest('.table-container');
+        const table = container?.querySelector('table');
+        if (table) {
+          const rows = Array.from(table.rows);
+          const text = rows.map(row => 
+            Array.from(row.cells).map(cell => cell.innerText.trim()).join('\t')
+          ).join('\n');
+          await navigator.clipboard.writeText(text);
+          updateButtonState(tableBtn);
+        }
+        return;
       }
     };
 
@@ -97,15 +118,23 @@ export function MarkdownRenderer({ content, className = '', isGenerating = false
     }
 
     if (content.length > displayedContent.length) {
+      const diff = content.length - displayedContent.length;
+      
+      // Calculate organic speed and step size
+      // If we're far behind, jump more characters to catch up, but keep it smooth
+      const step = diff > 100 ? 15 : diff > 30 ? 6 : diff > 10 ? 2 : 1;
+      const delay = diff > 200 ? 5 : diff > 50 ? 10 : 20;
+
       const timeout = setTimeout(() => {
-        const nextLength = Math.min(content.length, displayedContent.length + 12);
-        setDisplayedContent(content.slice(0, nextLength));
-      }, 10);
+        setDisplayedContent(content.slice(0, displayedContent.length + step));
+      }, delay);
+      
       return () => clearTimeout(timeout);
     } else if (content.length < displayedContent.length) {
+      // If content was reset or shortened (e.g. regeneration)
       setDisplayedContent(content);
     }
-  }, [content, isGenerating, displayedContent]);
+  }, [content, isGenerating, displayedContent.length]);
 
   const html = useMemo(() => {
     if (!displayedContent && !isGenerating) return '';
@@ -113,8 +142,21 @@ export function MarkdownRenderer({ content, className = '', isGenerating = false
     const rawHtml = markedInstance.parse(displayedContent || '') as string;
     
     const wrappedHtml = rawHtml
-      .replace(/<table([^>]*)>/g, '<div class="table-wrapper"><table$1>')
-      .replace(/<\/table>/g, '</table></div>');
+      .replace(/<table([^>]*)>/g, `
+        <div class="table-container my-4 sm:my-8 rounded-xl border border-white/10 bg-zinc-900/20 overflow-hidden shadow-2xl shadow-black/20 isolate" style="max-width: 100%; min-width: 0;">
+          <div class="flex items-center justify-between px-3 py-1.5 sm:px-4 sm:py-2 border-b border-white/5 bg-white/[0.02] backdrop-blur-md">
+            <div class="flex items-center gap-2">
+              <div class="w-1.5 h-1.5 rounded-full bg-violet-500/50"></div>
+              <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-[0.2em]">Platform Data Table</span>
+            </div>
+            <button class="copy-table-btn flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/[0.05] border border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.1] hover:border-white/20 transition-all cursor-pointer" title="Copy table to clipboard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="copy-icon"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <span class="btn-text text-[9px] font-black uppercase tracking-wider">Copy</span>
+            </button>
+          </div>
+          <div class="table-wrapper" style="width: 100%; max-width: 100%; overflow-x: auto; display: block;"><table$1>
+      `)
+      .replace(/<\/table>/g, '</table></div></div>');
     
     const clean = DOMPurify.sanitize(wrappedHtml, {
       ALLOWED_TAGS: [
@@ -140,7 +182,13 @@ export function MarkdownRenderer({ content, className = '', isGenerating = false
 
   return (
     <div
-      className={`chat-markdown ${isGenerating ? 'typing-cursor' : ''} ${className}`}
+      className={`chat-markdown ${className}`}
+      style={{
+        maxWidth: '100%',
+        minWidth: 0,
+        overflowX: 'hidden',
+        boxSizing: 'border-box'
+      }}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

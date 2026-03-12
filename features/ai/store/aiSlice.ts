@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface Message {
   role: 'user' | 'assistant';
   content: string;
+  reasoning_details?: any;
 }
 
 interface AiState {
