@@ -6,7 +6,7 @@ import { Menu, Bell, PanelLeft, PanelRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useRef } from 'react';
 
 import { Logo } from '@/components/shared/Logo';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
@@ -25,6 +25,7 @@ export function DashboardShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const contentRef = useRef<HTMLDivElement>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -49,6 +50,13 @@ export function DashboardShell({
   useEffect(() => {
     setImgError(false);
   }, [profile?.avatar_url]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (contentRef.current) {
+      contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [pathname]);
 
   useEffect(() => {
     setMounted(true);
@@ -186,7 +194,10 @@ export function DashboardShell({
           </div>
         </motion.header>
 
-        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0 overflow-hidden">
+        <main 
+          ref={contentRef}
+          className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0 overflow-hidden"
+        >
            <AnimatePresence mode="wait" initial={false}>
              <motion.div
                key={pathname} 
