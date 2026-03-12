@@ -7,17 +7,26 @@ import { Zap, Swords, Users, Brain, Trophy, Star, TrendingUp, Rocket, PlayCircle
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { Logo } from '@/components/shared/Logo';
 import { LandingButton } from '@/components/shared/LandingButton';
+import { cn } from '@/lib/utils';
 
 export function Hero() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center overflow-hidden bg-white dark:bg-background">
-
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-
         <div
-          className="absolute inset-0 opacity-[0.035] dark:opacity-[0.06] z-[1]"
+          className="absolute inset-0 opacity-[0.035] dark:opacity-[0.05] z-[1]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            willChange: 'auto',
           }}
         />
 
@@ -47,13 +56,15 @@ export function Hero() {
           <rect width="100%" height="100%" fill="url(#heroGrid)" mask="url(#gridMask)" />
         </svg>
 
-        <motion.div
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -15, 0],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        {!isMobile && (
+          <>
+            <motion.div
+              animate={{
+                x: [0, 30, 0],
+                y: [0, -15, 0],
+                scale: [1, 1.05, 1],
+              }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           style={{
             position: 'absolute',
             top: '-10%',
@@ -67,26 +78,44 @@ export function Hero() {
             contain: 'layout style paint',
           }}
         />
-        <motion.div
-          animate={{
-            x: [0, -20, 0],
-            y: [0, 20, 0],
-            scale: [1, 1.08, 1],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          style={{
-            position: 'absolute',
-            top: '0%',
-            right: '-8%',
-            width: '45%',
-            height: '65%',
-            background: 'radial-gradient(ellipse at top right, rgba(124,58,237,0.28) 0%, rgba(99,102,241,0.1) 40%, transparent 60%)',
-            filter: 'blur(80px)',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            contain: 'layout style paint',
-          }}
-        />
+            <motion.div
+              animate={{
+                x: [0, -20, 0],
+                y: [0, 20, 0],
+                scale: [1, 1.08, 1],
+              }}
+              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+              style={{
+                position: 'absolute',
+                top: '0%',
+                right: '-8%',
+                width: '45%',
+                height: '65%',
+                background: 'radial-gradient(ellipse at top right, rgba(124,58,237,0.28) 0%, rgba(99,102,241,0.1) 40%, transparent 60%)',
+                filter: 'blur(80px)',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                contain: 'layout style paint',
+              }}
+            />
+          </>
+        )}
+
+        {isMobile && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '10%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '100%',
+              height: '80%',
+              background: 'radial-gradient(circle at center top, rgba(124,58,237,0.12) 0%, transparent 70%)',
+              filter: 'blur(60px)',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
 
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-violet-400/30 to-transparent" />
       </div>
@@ -101,7 +130,10 @@ export function Hero() {
 
           <motion.div
             variants={fadeInUp}
-            className="inline-flex items-center gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 rounded-2xl bg-white/80 dark:bg-violet-950/20 border border-violet-300 dark:border-violet-500/30 mb-10 backdrop-blur-md shadow-[0_2px_20px_rgba(124,58,237,0.08)]"
+            className={cn(
+              "inline-flex items-center gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 rounded-2xl bg-white/80 dark:bg-violet-950/20 border border-violet-300 dark:border-violet-500/30 mb-10 shadow-[0_2px_20px_rgba(124,58,237,0.08)]",
+              isMobile ? "backdrop-blur-sm" : "backdrop-blur-md"
+            )}
           >
             <div className="flex -space-x-2 shrink-0">
               {[1, 2, 3].map((i) => (
@@ -208,6 +240,14 @@ export function Hero() {
 export function HeroMockup() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -234,11 +274,17 @@ export function HeroMockup() {
           
           <div ref={containerRef} className="w-full relative mx-auto" style={{ height: `${690 * scale}px` }}>
             <div
-              className="absolute top-0 left-0 origin-top-left rounded-[22px] p-[1.5px] w-[1000px] h-[690px] drop-shadow-2xl"
+              className={cn(
+                "absolute top-0 left-0 origin-top-left rounded-[22px] p-[1.5px] w-[1000px] h-[690px]",
+                !isMobile && "drop-shadow-2xl"
+              )}
               style={{
                 background: 'linear-gradient(135deg, rgba(124,58,237,0.9) 0%, rgba(139,92,246,0.5) 40%, rgba(99,102,241,0.9) 70%, rgba(167,139,250,0.7) 100%)',
-                boxShadow: '0 0 60px 16px rgba(124,58,237,0.45), 0 0 120px 40px rgba(99,102,241,0.2)',
-                transform: `scale(${scale})`,
+                boxShadow: isMobile 
+                  ? '0 10px 30px -10px rgba(124,58,237,0.3)' 
+                  : '0 0 60px 16px rgba(124,58,237,0.45), 0 0 120px 40px rgba(99,102,241,0.2)',
+                transform: `scale(${scale}) translate3d(0,0,0)`,
+                willChange: isMobile ? 'auto' : 'transform',
               }}
             >
               

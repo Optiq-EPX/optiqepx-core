@@ -21,20 +21,24 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   }, []);
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.9 }}
       onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
-      className={cn("relative h-full w-full rounded-2xl transition-all duration-300", className)}
+      className={cn(
+        "relative h-10 w-10 flex items-center justify-center rounded-xl transition-all duration-300 cursor-pointer overflow-hidden",
+        "bg-zinc-100 dark:bg-white/10 border border-zinc-200 dark:border-white/10 shadow-sm",
+        className
+      )}
     >
       <AnimatePresence mode="wait" initial={false}>
         {mounted && resolvedTheme === "dark" ? (
           <motion.div
             key="dark"
-            initial={{ y: -20, opacity: 0, rotate: -90 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: 20, opacity: 0, rotate: 90 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             className="absolute"
           >
             <Moon className="h-5 w-5" />
@@ -42,10 +46,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         ) : mounted ? (
           <motion.div
             key="light"
-            initial={{ y: -20, opacity: 0, rotate: 90 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: 20, opacity: 0, rotate: -90 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             className="absolute"
           >
             <Sun className="h-5 w-5" />
@@ -53,6 +57,6 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         ) : null}
       </AnimatePresence>
       <span className="sr-only">Toggle theme</span>
-    </Button>
+    </motion.button>
   );
 }
