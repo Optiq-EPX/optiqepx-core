@@ -1,208 +1,176 @@
 ---
 name: nextjs-best-practices
-description: "Next.js App Router principles. Server Components, data fetching, routing patterns."
-risk: unknown
-source: community
-date_added: "2026-02-27"
+description: "Next.js App Router best practices — file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling. Use when writing, reviewing, or debugging Next.js App Router code."
 ---
 
 # Next.js Best Practices
 
-> Principles for Next.js App Router development.
+Apply these rules when writing or reviewing Next.js code.
 
----
+> **Note:** Next.js 16 renamed `middleware.ts` to `proxy.ts`. Verify `proxy.ts` support in your version; `middleware.ts` remains the stable API.
 
-## 1. Server vs Client Components
+<references>
 
-### Decision Tree
+## File Conventions
 
-```
-Does it need...?
-│
-├── useState, useEffect, event handlers
-│   └── Client Component ('use client')
-│
-├── Direct data fetching, no interactivity
-│   └── Server Component (default)
-│
-└── Both? 
-    └── Split: Server parent + Client child
-```
+See [file-conventions.md](references/file-conventions.md) for:
 
-### By Default
+- Project structure and special files
+- Route segments (dynamic, catch-all, groups)
+- Parallel and intercepting routes
+- Middleware rename in v16 (middleware → proxy)
 
-| Type | Use |
-|------|-----|
-| **Server** | Data fetching, layout, static content |
-| **Client** | Forms, buttons, interactive UI |
+## RSC Boundaries
 
----
+Detect invalid React Server Component patterns.
 
-## 2. Data Fetching Patterns
+See [rsc-boundaries.md](references/rsc-boundaries.md) for:
 
-### Fetch Strategy
+- Async client component detection (invalid)
+- Non-serializable props detection
+- Server Action exceptions
 
-| Pattern | Use |
-|---------|-----|
-| **Default** | Static (cached at build) |
-| **Revalidate** | ISR (time-based refresh) |
-| **No-store** | Dynamic (every request) |
+## Async Patterns
 
-### Data Flow
+Next.js 16.1.6+ async API changes.
 
-| Source | Pattern |
-|--------|---------|
-| Database | Server Component fetch |
-| API | fetch with caching |
-| User input | Client state + server action |
+See [async-patterns.md](references/async-patterns.md) for:
 
----
+- Async `params` and `searchParams`
+- Async `cookies()` and `headers()`
+- Migration codemod
 
-## 3. Routing Principles
+## Runtime Selection
 
-### File Conventions
+See [runtime-selection.md](references/runtime-selection.md) for:
 
-| File | Purpose |
-|------|---------|
-| `page.tsx` | Route UI |
-| `layout.tsx` | Shared layout |
-| `loading.tsx` | Loading state |
-| `error.tsx` | Error boundary |
-| `not-found.tsx` | 404 page |
+- Default to Node.js runtime
+- When Edge runtime is appropriate
 
-### Route Organization
+## Directives
 
-| Pattern | Use |
-|---------|-----|
-| Route groups `(name)` | Organize without URL |
-| Parallel routes `@slot` | Multiple same-level pages |
-| Intercepting `(.)` | Modal overlays |
+See [directives.md](references/directives.md) for:
 
----
+- `'use client'`, `'use server'` (React)
+- `'use cache'` (Next.js)
 
-## 4. API Routes
+## Functions
 
-### Route Handlers
+See [functions.md](references/functions.md) for:
 
-| Method | Use |
-|--------|-----|
-| GET | Read data |
-| POST | Create data |
-| PUT/PATCH | Update data |
-| DELETE | Remove data |
+- Navigation hooks: `useRouter`, `usePathname`, `useSearchParams`, `useParams`
+- Server functions: `cookies`, `headers`, `draftMode`, `after`
+- Generate functions: `generateStaticParams`, `generateMetadata`
 
-### Best Practices
+## Error Handling
 
-- Validate input with Zod
-- Return proper status codes
-- Handle errors gracefully
-- Use Edge runtime when possible
+See [error-handling.md](references/error-handling.md) for:
 
----
+- `error.tsx`, `global-error.tsx`, `not-found.tsx`
+- `redirect`, `permanentRedirect`, `notFound`
+- `forbidden`, `unauthorized` (auth errors)
+- `unstable_rethrow` for catch blocks
 
-## 5. Performance Principles
+## Data Patterns
 
-### Image Optimization
+See [data-patterns.md](references/data-patterns.md) for:
 
-- Use next/image component
-- Set priority for above-fold
-- Provide blur placeholder
-- Use responsive sizes
+- Server Components vs Server Actions vs Route Handlers
+- Avoiding data waterfalls (`Promise.all`, Suspense, preload)
+- Client component data fetching
 
-### Bundle Optimization
+## Route Handlers
 
-- Dynamic imports for heavy components
-- Route-based code splitting (automatic)
-- Analyze with bundle analyzer
+See [route-handlers.md](references/route-handlers.md) for:
 
----
+- `route.ts` basics
+- GET handler conflicts with `page.tsx`
+- Environment behavior (no React DOM)
+- When to use vs Server Actions
 
-## 6. Metadata
+## Metadata & OG Images
 
-### Static vs Dynamic
+See [metadata.md](references/metadata.md) for:
 
-| Type | Use |
-|------|-----|
-| Static export | Fixed metadata |
-| generateMetadata | Dynamic per-route |
+- Static and dynamic metadata
+- `generateMetadata` function
+- OG image generation with `next/og`
+- File-based metadata conventions
 
-### Essential Tags
+## Image Optimization
 
-- title (50-60 chars)
-- description (150-160 chars)
-- Open Graph images
-- Canonical URL
+See [image.md](references/image.md) for:
 
----
+- Always use `next/image` over `<img>`
+- Remote images configuration
+- Responsive `sizes` attribute
+- Blur placeholders
+- Priority loading for LCP
 
-## 7. Caching Strategy
+## Font Optimization
 
-### Cache Layers
+See [font.md](references/font.md) for:
 
-| Layer | Control |
-|-------|---------|
-| Request | fetch options |
-| Data | revalidate/tags |
-| Full route | route config |
+- `next/font` setup
+- Google Fonts, local fonts
+- Tailwind CSS integration
+- Preloading subsets
 
-### Revalidation
+## Bundling
 
-| Method | Use |
-|--------|-----|
-| Time-based | `revalidate: 60` |
-| On-demand | `revalidatePath/Tag` |
-| No cache | `no-store` |
+See [bundling.md](references/bundling.md) for:
 
----
+- Server-incompatible packages
+- CSS imports (not link tags)
+- Polyfills (already included)
+- ESM/CommonJS issues
+- Bundle analysis
 
-## 8. Server Actions
+## Scripts
 
-### Use Cases
+See [scripts.md](references/scripts.md) for:
 
-- Form submissions
-- Data mutations
-- Revalidation triggers
+- `next/script` vs native script tags
+- Inline scripts need `id`
+- Loading strategies
+- Google Analytics with `@next/third-parties`
 
-### Best Practices
+## Hydration Errors
 
-- Mark with 'use server'
-- Validate all inputs
-- Return typed responses
-- Handle errors
+See [hydration-error.md](references/hydration-error.md) for:
 
----
+- Common causes (browser APIs, dates, invalid HTML)
+- Debugging with error overlay
+- Fixes for each cause
 
-## 9. Anti-Patterns
+## Suspense Boundaries
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| 'use client' everywhere | Server by default |
-| Fetch in client components | Fetch in server |
-| Skip loading states | Use loading.tsx |
-| Ignore error boundaries | Use error.tsx |
-| Large client bundles | Dynamic imports |
+See [suspense-boundaries.md](references/suspense-boundaries.md) for:
 
----
+- CSR bailout with `useSearchParams` and `usePathname`
+- Which hooks require Suspense boundaries
 
-## 10. Project Structure
+## Parallel & Intercepting Routes
 
-```
-app/
-├── (marketing)/     # Route group
-│   └── page.tsx
-├── (dashboard)/
-│   ├── layout.tsx   # Dashboard layout
-│   └── page.tsx
-├── api/
-│   └── [resource]/
-│       └── route.ts
-└── components/
-    └── ui/
-```
+See [parallel-routes.md](references/parallel-routes.md) for:
 
----
+- Modal patterns with `@slot` and `(.)` interceptors
+- `default.tsx` for fallbacks
+- Closing modals correctly with `router.back()`
 
-> **Remember:** Server Components are the default for a reason. Start there, add client only when needed.
+## Self-Hosting
 
-## When to Use
-This skill is applicable to execute the workflow or actions described in the overview.
+See [self-hosting.md](references/self-hosting.md) for:
+
+- `output: 'standalone'` for Docker
+- Cache handlers for multi-instance ISR
+- What works vs needs extra setup
+
+## Debug Tricks
+
+See [debug-tricks.md](references/debug-tricks.md) for:
+
+- MCP endpoint for AI-assisted debugging
+- Rebuild specific routes with `--debug-build-paths`
+
+</references>

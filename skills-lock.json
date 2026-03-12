@@ -10,6 +10,11 @@
       "source": "yoanbernabeu/grepai-skills",
       "sourceType": "github",
       "computedHash": "f82982a52e8e417f8e39dc7bc576e58fe9cde944fca1b6241b6c51ca1596ec04"
+    },
+    "nextjs-best-practices": {
+      "source": "jgamaraalv/ts-dev-kit",
+      "sourceType": "github",
+      "computedHash": "302bdd8b9b38d4d74546d5b77602379d4c0ed875ff6f7b9208f3620198fcbd4f"
     }
   }
 }

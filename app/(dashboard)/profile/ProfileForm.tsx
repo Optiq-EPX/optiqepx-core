@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import NextImage from 'next/image';
 import { Loader2, User, GraduationCap, CheckCircle2, Phone, MapPin, Search, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -308,9 +309,18 @@ export function ProfileForm({
         <div className="text-center mb-10">
           <motion.div 
             variants={fadeInUp}
-            className="w-20 h-20 rounded-[2rem] bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mx-auto mb-6 shadow-inner"
+            className="w-20 h-20 rounded-[2rem] bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mx-auto mb-6 shadow-inner overflow-hidden relative"
           >
-            <User className="w-10 h-10 text-violet-600" />
+            {initialData?.avatar_url ? (
+              <NextImage 
+                src={initialData.avatar_url} 
+                alt={initialData.username || 'User'} 
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <User className="w-10 h-10 text-violet-600" />
+            )}
           </motion.div>
           <motion.h1 
             variants={fadeInUp}
@@ -461,7 +471,7 @@ export function ProfileForm({
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-black font-space-grotesk uppercase tracking-widest text-sm shadow-xl shadow-violet-500/20 border-0 transition-all disabled:opacity-60 flex items-center justify-center gap-3 cursor-pointer"
+                    className="w-full h-14 rounded-2xl bg-white text-black font-black font-space-grotesk uppercase tracking-widest text-sm shadow-xl shadow-violet-500/20 border-0 transition-all disabled:opacity-60 flex items-center justify-center gap-3 cursor-pointer"
                   >
                     {isLoading ? (
                       <>

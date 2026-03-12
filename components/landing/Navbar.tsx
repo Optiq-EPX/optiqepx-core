@@ -109,7 +109,7 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Logo textOnly className="scale-90 sm:scale-100" />
+            <Logo className="scale-90 sm:scale-100" />
           </motion.div>
         </Link>
 
@@ -149,7 +149,7 @@ export function Navbar() {
             <Link href="/login">Log In</Link>
           </Button>
           <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
-            <Button size="sm" asChild className="font-outfit font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-lg shadow-violet-500/25 border-0 rounded-xl px-6 py-5">
+            <Button size="sm" asChild className="font-outfit font-bold bg-[#7623ee] hover:bg-[#7623ee] text-white shadow-lg shadow-violet-500/25 border-0 rounded-xl px-6 py-5">
               <Link href="/register">Get Started</Link>
             </Button>
           </motion.div>

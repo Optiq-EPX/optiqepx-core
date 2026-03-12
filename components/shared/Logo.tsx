@@ -1,9 +1,8 @@
 'use client';
 
-import { useId } from 'react';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
-import { Brain } from 'lucide-react';
 
 interface LogoProps {
   className?: string;
@@ -13,15 +12,23 @@ interface LogoProps {
 }
 
 export function Logo({ className, iconOnly = false, animated = true, textOnly = false }: LogoProps) {
-  const gradId = useId();
+  const gradId = "optiq-logo-gradient";
   
   return (
     <div className={cn("flex items-center gap-2.5 group select-none relative", className)}>
       {!textOnly && (
         <div className="relative flex items-center justify-center">
-          <div className="absolute -inset-2 bg-violet-500/20 dark:bg-violet-500/40 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/20 relative z-10">
-            <Brain className="w-5 h-5" />
+          {/* Subtle Glow behind clean icon */}
+          <div className="absolute -inset-4 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          
+          <div className="relative z-10 w-10 h-10 flex items-center justify-center">
+            <Image 
+              src="/logo.png" 
+              alt="Optiq EPX Logo Icon" 
+              width={40} 
+              height={40} 
+              className="object-contain group-hover:scale-105 transition-transform duration-500"
+            />
           </div>
         </div>
       )}
@@ -30,20 +37,27 @@ export function Logo({ className, iconOnly = false, animated = true, textOnly = 
         <div className="flex items-center gap-1 relative z-10">
            <svg 
             className="h-[28px] overflow-visible" 
-            width="110"
-            viewBox="0 0 110 28" 
+            width="114"
+            viewBox="0 0 114 28" 
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="100%" stopColor="#6366f1" />
+                <stop offset="0%" stopColor="#3b82f6" /> {/* Blue 500 */}
+                <stop offset="50%" stopColor="#6366f1" /> {/* Indigo 500 */}
+                <stop offset="100%" stopColor="#8b5cf6" /> {/* Violet 500 */}
               </linearGradient>
             </defs>
 
             {animated ? (
               <>
-                <text x="0" y="22" className="font-space-grotesk font-black opacity-20 dark:opacity-30" style={{ fontSize: "24px", letterSpacing: "-0.04em" }} fill={`url(#${gradId})`}>
+                <text 
+                  x="0" 
+                  y="22" 
+                  className="font-space-grotesk font-black opacity-10 dark:opacity-20" 
+                  style={{ fontSize: "24px", letterSpacing: "-0.04em" }} 
+                  fill={`url(#${gradId})`}
+                >
                   Optiq
                 </text>
                 <motion.text
@@ -61,7 +75,7 @@ export function Logo({ className, iconOnly = false, animated = true, textOnly = 
                     strokeOpacity: [1, 1, 0, 0, 1]
                   }}
                   transition={{ 
-                    duration: 5, 
+                    duration: 4, 
                     repeat: Infinity, 
                     times: [0, 0.4, 0.5, 0.9, 1],
                     ease: "easeInOut" 

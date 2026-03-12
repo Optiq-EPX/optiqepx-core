@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -45,15 +46,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -87,7 +80,6 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
       </AnimatePresence>
 
       <motion.aside 
-        onMouseMove={handleMouseMove}
         initial={false}
         animate={{ 
           width: isCollapsed ? 96 : 288,
@@ -116,8 +108,8 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
         "px-4 mb-2 mt-2 relative z-10 transition-all duration-500",
         isCollapsed ? "px-1 flex justify-center" : "px-3"
       )}>
-        <Link href="/">
-          <Logo iconOnly={isCollapsed} animated={false} />
+        <Link href="/" prefetch={true}>
+          <Logo iconOnly={isCollapsed} />
         </Link>
       </div>
 
@@ -138,6 +130,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
             <Link 
               key={item.href} 
               href={isDisabled ? '#' : item.href} 
+              prefetch={true}
               className={cn(
                 "block relative transition-all duration-300 group/nav-item",
                 isDisabled && "cursor-not-allowed pointer-events-none",
@@ -194,7 +187,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
                       <motion.span
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.03 }}
+                        transition={{ delay: index * 0.01 }}
                         className={cn(
                           "text-[14.5px] transition-all duration-300 whitespace-nowrap",
                           isActive 
@@ -301,9 +294,11 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
           
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-semibold text-[13px] shrink-0 overflow-hidden transform group-hover:scale-105 transition-all duration-500 relative z-10 shadow-md shadow-violet-500/15 border border-white/10">
             {profile?.avatar_url && !imgError ? (
-              <img 
+              <Image 
                 src={profile.avatar_url} 
                 alt={username} 
+                width={40}
+                height={40}
                 className="w-full h-full object-cover" 
                 referrerPolicy="no-referrer"
                 onError={() => setImgError(true)}

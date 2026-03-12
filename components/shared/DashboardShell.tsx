@@ -5,7 +5,8 @@ import { Sidebar } from '@/components/shared/Sidebar';
 import { Menu, Bell, PanelLeft, PanelRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useState, Suspense } from 'react';
 
 import { Logo } from '@/components/shared/Logo';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
@@ -128,8 +129,10 @@ export function DashboardShell({
 
             <div className="hidden sm:block lg:hidden h-6 w-px bg-black/10 dark:bg-white/10 mx-1" />
             <div className="max-w-[150px] sm:max-w-none truncate">
-              <Breadcrumbs iconOnly={isMobile} />
-            </div>
+               <Suspense fallback={<div className="h-10 sm:h-12 w-32 sm:w-48 bg-black/5 dark:bg-white/5 rounded-2xl animate-pulse border border-black/5 dark:border-white/5" />}>
+                 <Breadcrumbs iconOnly={isMobile} />
+               </Suspense>
+             </div>
           </div>
 
           <div className="flex items-center gap-2 lg:gap-4">
@@ -166,9 +169,11 @@ export function DashboardShell({
                 </div>
                 <div className="w-9 h-9 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-500 shadow-md shadow-violet-500/20 flex items-center justify-center text-white font-black text-xs lg:text-sm border-2 border-white/20 transform-gpu group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 overflow-hidden shrink-0">
                   {profile?.avatar_url && !imgError ? (
-                    <img 
+                    <Image 
                       src={profile.avatar_url} 
-                      alt={profile.username} 
+                      alt={profile.username || 'User'} 
+                      width={48}
+                      height={48}
                       className="w-full h-full object-cover" 
                       referrerPolicy="no-referrer"
                       onError={() => setImgError(true)}
@@ -181,14 +186,14 @@ export function DashboardShell({
           </div>
         </motion.header>
 
-        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-6 lg:mb-8">
-           <AnimatePresence mode="wait">
+        <main className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0">
+           <AnimatePresence mode="popLayout" initial={false}>
              <motion.div
-               key={role} 
-               initial={{ opacity: 0, scale: 0.98, y: 15 }}
+               key={pathname} 
+               initial={{ opacity: 0, scale: 0.99, y: 10 }}
                animate={{ opacity: 1, scale: 1, y: 0 }}
-               exit={{ opacity: 0, scale: 0.98, y: -15 }}
-               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+               exit={{ opacity: 0, scale: 0.99, y: -10 }}
+               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
                className="will-change-transform flex flex-col min-h-full"
              >
                {children}
