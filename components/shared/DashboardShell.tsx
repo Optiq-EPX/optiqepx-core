@@ -110,7 +110,7 @@ export function DashboardShell({
             damping: 35, 
             mass: 0.8 
           }}
-          className="flex items-center justify-between px-3 lg:px-10 mb-6 bg-dashboard/80 backdrop-blur-3xl rounded-3xl border border-dashboard-border shadow-sm group fixed top-3 lg:top-4 right-3 lg:right-4 z-40"
+          className="flex items-center justify-between px-3 lg:px-10 mb-6 bg-dashboard/80 backdrop-blur-xl rounded-3xl border border-dashboard-border shadow-sm group fixed top-3 lg:top-4 right-3 lg:right-4 z-40 transform-gpu"
         >
           <div className="flex items-center gap-2 lg:gap-6">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden lg:block">
@@ -196,7 +196,7 @@ export function DashboardShell({
 
         <main 
           ref={contentRef}
-          className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0 overflow-hidden"
+          className="flex-1 rounded-3xl bg-dashboard border border-dashboard-border backdrop-blur-xl p-3 sm:p-4 lg:p-6 shadow-sm relative z-10 w-full mb-0 overflow-hidden transform-gpu"
         >
            <AnimatePresence mode="wait" initial={false}>
              <motion.div

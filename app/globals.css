@@ -644,8 +644,11 @@ body {
   }
 }
 
-/* Consistently visible custom scrollbars */
-* {
+/* Consistently visible custom scrollbars - restricted to body and major containers for performance */
+body, 
+main,
+.overflow-y-auto,
+.overflow-x-auto {
   scrollbar-width: thin;
   scrollbar-color: #7c3aed transparent;
 }

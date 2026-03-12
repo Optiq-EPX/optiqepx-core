@@ -105,7 +105,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
           mass: 0.5 
         }}
         className={cn(
-          "flex flex-col h-[calc(100vh-1.5rem)] lg:h-[calc(100vh-2rem)] rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-3 lg:top-4 left-3 lg:left-4 z-[101] lg:z-30 group/sidebar outline-none",
+          "flex flex-col h-[calc(100vh-1.5rem)] lg:h-[calc(100vh-2rem)] rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-3 lg:top-4 left-3 lg:left-4 z-[101] lg:z-30 group/sidebar outline-none transform-gpu will-change-transform",
           isUserMenuOpen ? "overflow-visible" : "overflow-hidden",
           !isOpen && "hidden lg:flex",
           isOpen && "flex",
