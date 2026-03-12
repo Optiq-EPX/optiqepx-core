@@ -30,7 +30,7 @@ export default function RegisterPage() {
 
         <div className="w-full max-w-[360px] relative z-10 m-auto py-12 px-8 lg:px-0 flex-shrink-0">
           <div className="lg:hidden mb-7 flex justify-center">
-            <Link href="/"><Logo textOnly /></Link>
+            <Link href="/"><Logo /></Link>
           </div>
 
           <div className="mb-6">
@@ -112,7 +112,7 @@ export default function RegisterPage() {
             <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
             Back to home
           </Link>
-          <Logo textOnly className="[&_span]:text-white [&_p]:text-white/50" />
+          <Logo className="[&_span]:text-white [&_p]:text-white/50" />
         </div>
 
         <div className="relative z-10 space-y-6">

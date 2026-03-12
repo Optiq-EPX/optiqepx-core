@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, 
@@ -29,23 +29,36 @@ interface SidebarProps {
 }
 
 const getNavItems = (role: string) => {
-  const baseItems = [
+  return [
     { label: 'Dashboard', href: `/${role}`, icon: LayoutDashboard },
     { label: 'Battle Arena', href: '/arena', icon: Swords },
     { label: 'Study Rooms', href: '/study-rooms', icon: Users },
     { label: 'AI Assistant', href: '/assistant', icon: Brain },
     { label: 'Profile', href: '/profile', icon: User },
   ];
-  return baseItems;
 };
 
 export function Sidebar({ role, profile, className, isLocked = false, isCollapsed = false, isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const navItems = getNavItems(role);
+  const router = useRouter();
+  
+  // Memoize nav items to prevent unnecessary re-renders
+  const navItems = useMemo(() => getNavItems(role), [role]);
+  
   const username = profile?.username || 'User';
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Pre-warm the routes for faster initial navigation
+  useEffect(() => {
+    // Only prefetch in production/client for real speed gains
+    navItems.forEach((item) => {
+      router.prefetch(item.href);
+    });
+    // Also prefetch important sub-routes
+    router.prefetch('/profile/edit');
+  }, [navItems, router]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -92,7 +105,8 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
           mass: 0.5 
         }}
         className={cn(
-          "flex flex-col h-[calc(100vh-1.5rem)] lg:h-[calc(100vh-2rem)] rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-3 lg:top-4 left-3 lg:left-4 z-[101] lg:z-30 overflow-hidden group/sidebar outline-none",
+          "flex flex-col h-[calc(100vh-1.5rem)] lg:h-[calc(100vh-2rem)] rounded-3xl bg-dashboard backdrop-blur-3xl border border-dashboard-border fixed top-3 lg:top-4 left-3 lg:left-4 z-[101] lg:z-30 group/sidebar outline-none",
+          isUserMenuOpen ? "overflow-visible" : "overflow-hidden",
           !isOpen && "hidden lg:flex",
           isOpen && "flex",
           className
@@ -122,7 +136,7 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
         "flex-1 space-y-1 relative z-10 mt-4",
         isCollapsed ? "px-2" : "px-3"
       )}>
-        {navItems.map((item, index) => {
+        {navItems.map((item: any, index: number) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
           const isDisabled = isLocked && item.href !== '/profile';
 
@@ -142,9 +156,9 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
                 {isActive && (
                   <motion.div
                     layoutId="sidebar-active-bg"
-                    className="absolute inset-0 rounded-2xl border-l-[4px] border-[#7c3aed] bg-gradient-to-r from-[#7c3aed]/20 to-transparent"
+                    className="absolute inset-0 rounded-2xl border-l-[4px] border-[#7c3aed] bg-gradient-to-r from-[#7c3aed]/20 to-transparent shadow-sm"
                     initial={false}
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 450, damping: 35, mass: 1 }}
                   />
                 )}
 
@@ -242,8 +256,8 @@ export function Sidebar({ role, profile, className, isLocked = false, isCollapse
               }}
               style={{ transformOrigin: "bottom center", perspective: "1000px" }}
               className={cn(
-                "absolute bottom-full left-0 right-0 mb-3 bg-[#0a0a12]/98 backdrop-blur-3xl rounded-[1.75rem] border border-white/[0.08] shadow-[0_15px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(124,58,237,0.03)] p-1.5 z-50 overflow-hidden",
-                isCollapsed && "w-56 left-0"
+                "absolute bottom-full left-0 mb-3 bg-[#0a0a12]/98 backdrop-blur-3xl rounded-[1.75rem] border border-white/[0.08] shadow-[0_15px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(124,58,237,0.03)] p-1.5 z-50 overflow-hidden",
+                isCollapsed ? "w-64" : "right-0"
               )}
             >
               <div className="absolute inset-0 bg-gradient-to-b from-violet-500/[0.03] to-transparent pointer-events-none" />
