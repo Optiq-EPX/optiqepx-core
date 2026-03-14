@@ -17,9 +17,10 @@ export default async function ArenaPage() {
 
   const { data: activeBattles } = await supabase
     .from('battles')
-    .select('*, users(username)')
-    .eq('status', 'waiting')
-    .order('created_at', { ascending: false });
+    .select('*, users:owner_id(username, avatar_url)')
+    .in('status', ['draft', 'waiting', 'active', 'finished'])
+    .order('created_at', { ascending: false })
+    .limit(50);
 
-  return <ArenaClient userClass={userClass} activeBattles={activeBattles} />;
+  return <ArenaClient userClass={userClass} activeBattles={activeBattles} currentUser={user} />;
 }
